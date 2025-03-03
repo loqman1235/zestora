@@ -7,6 +7,7 @@
 @theme {
   --font-satoshi: var(--font-satoshi);
   --font-integral: var(--font-integral);
+  --font-playfair: var(--font-playfair);
 }
 
 :root {
@@ -125,5 +126,14 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(to right, #0a0a0a, #585858);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }

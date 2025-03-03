@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Playfair_Display } from "next/font/google";
 import "../globals.css";
 import { Navbar } from "@/components/global/navbar";
 import { siteConfig } from "@/config/site";
@@ -44,6 +45,13 @@ const integralCF = localFont({
   variable: "--font-integral",
 });
 
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-playfair",
+});
+
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
@@ -57,7 +65,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${satoshi.variable} ${integralCF.variable} font-satoshi antialiased`}
+        className={`${satoshi.variable} ${integralCF.variable} ${playfairDisplay.variable} font-satoshi antialiased`}
       >
         <Navbar />
         <main>{children}</main>
