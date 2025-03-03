@@ -31,7 +31,7 @@ export const Hero = () => {
             height={80}
           />
           <Image
-            // className="grayscale"
+            className="grayscale"
             src="/images/hero-img2.png"
             alt="hero"
             width={340}
