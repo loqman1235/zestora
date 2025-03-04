@@ -4,6 +4,12 @@ import Link from "next/link";
 import { ShoppingCart, UserCircle } from "lucide-react";
 import { SearchBar } from "./search-bar";
 import { MobileNavigation } from "./mobile-navigation";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 
 export const Navbar = () => {
   return (
@@ -31,12 +37,30 @@ export const Navbar = () => {
           <SearchBar />
 
           <div className="flex items-center gap-5">
-            <Link href="/cart">
-              <ShoppingCart />
-            </Link>
-            <Link href="/login">
-              <UserCircle />
-            </Link>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  {" "}
+                  <Link href="/cart">
+                    <ShoppingCart />
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Cart</p>
+                </TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger>
+                  <Link href="/login">
+                    <UserCircle />
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Account</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </div>
       </div>
