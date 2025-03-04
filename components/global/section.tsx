@@ -13,7 +13,9 @@ interface SectionProps {
 export const Section = ({ title, products, href }: SectionProps) => {
   return (
     <section className="flex min-h-screen w-full flex-col items-center gap-10 py-10">
-      <h2 className="font-playfair text-3xl font-bold">{title}</h2>
+      <h2 className="font-playfair text-3xl font-bold tracking-tight uppercase">
+        {title}
+      </h2>
 
       <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-4">
         {products.map((product) => (

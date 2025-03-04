@@ -13,7 +13,7 @@ export const SearchBar = () => {
           type="submit"
           className="absolute top-1/2 left-3 -translate-y-1/2 cursor-pointer"
         >
-          <SearchIcon className="text-muted-foreground size-4" />
+          <SearchIcon className="text-muted-foreground hover:text-primary size-4" />
         </button>
       </div>
     </form>

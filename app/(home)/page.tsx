@@ -2,6 +2,7 @@ import { Section } from "@/components/global/section";
 import { Hero } from "./_components/hero";
 import { newArrivals, topSelling } from "@/mocks/products";
 import { Separator } from "@/components/ui/separator";
+import { BrowseSection } from "./_components/browse-section";
 
 const HomePage = () => {
   return (
@@ -19,6 +20,7 @@ const HomePage = () => {
           products={topSelling}
           href="/top-selling"
         />
+        <BrowseSection />
       </div>
     </>
   );

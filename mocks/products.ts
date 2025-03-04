@@ -1,4 +1,4 @@
-import { Product } from "@/types";
+import { Category, Product } from "@/types";
 
 export const newArrivals: Product[] = [
   {
@@ -59,5 +59,38 @@ export const topSelling: Product[] = [
     name: "Faded skinny jeans",
     price: 210,
     ratings: [5, 4, 4, 3, 5],
+  },
+];
+
+export const categories: Category[] = [
+  {
+    id: "1",
+    name: "Casual",
+    image: "/images/products/categories/1.png",
+  },
+  {
+    id: "2",
+    name: "Formal",
+    image: "/images/products/categories/2.png",
+  },
+  {
+    id: "3",
+    name: "Party",
+    image: "/images/products/categories/3.png",
+  },
+  {
+    id: "4",
+    name: "Gym",
+    image: "/images/products/categories/4.png",
+  },
+  {
+    id: "5",
+    name: "Gothic",
+    image: "/images/products/categories/5.png",
+  },
+  {
+    id: "6",
+    name: "Vintage",
+    image: "/images/products/categories/6.png",
   },
 ];
