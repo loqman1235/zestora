@@ -9,7 +9,7 @@ export const Hero = () => {
       <div className="mx-auto flex h-[calc(100%-100px)] max-w-7xl items-center justify-center px-5 md:justify-between md:px-20">
         {/* Hero text */}
         <div className="flex w-full flex-col items-center gap-4 text-center md:w-1/2 md:items-start md:text-left">
-          <h1 className="font-playfair text-gradient text-4xl font-black uppercase md:text-6xl">
+          <h1 className="font-playfair text-4xl font-black tracking-tight uppercase md:text-6xl">
             Find clothes that fit your style
           </h1>
           <p className="text-muted-foreground">
@@ -31,7 +31,7 @@ export const Hero = () => {
             height={80}
           />
           <Image
-            className="grayscale"
+            // className="grayscale"
             src="/images/hero-img2.png"
             alt="hero"
             width={340}

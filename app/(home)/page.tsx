@@ -1,13 +1,25 @@
 import { Section } from "@/components/global/section";
 import { Hero } from "./_components/hero";
-import { newArrivals } from "@/mocks/products";
+import { newArrivals, topSelling } from "@/mocks/products";
+import { Separator } from "@/components/ui/separator";
 
 const HomePage = () => {
   return (
     <>
       <Hero />
-
-      <Section title="New Arrivals" products={newArrivals} />
+      <div className="mx-auto max-w-7xl px-5 md:px-20">
+        <Section
+          title="New Arrivals"
+          products={newArrivals}
+          href="/new-arrivals"
+        />
+        <Separator />
+        <Section
+          title="Top Selling"
+          products={topSelling}
+          href="/top-selling"
+        />
+      </div>
     </>
   );
 };
