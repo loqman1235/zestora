@@ -24,7 +24,7 @@ export const Hero = () => {
 
         <div className="relative hidden md:block">
           <Image
-            className="absolute top-20 right-0"
+            className="absolute top-20 right-0 animate-pulse"
             src="/images/star.svg"
             alt="star"
             width={80}
@@ -38,7 +38,7 @@ export const Hero = () => {
             height={340}
           />
           <Image
-            className="absolute bottom-20 -left-20"
+            className="absolute bottom-20 -left-20 animate-pulse"
             src="/images/star.svg"
             alt="star"
             width={50}

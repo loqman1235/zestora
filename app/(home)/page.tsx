@@ -3,6 +3,7 @@ import { Hero } from "./_components/hero";
 import { newArrivals, topSelling } from "@/mocks/products";
 import { Separator } from "@/components/ui/separator";
 import { BrowseSection } from "./_components/browse-section";
+import { Testimonies } from "./_components/testimonies";
 
 const HomePage = () => {
   return (
@@ -22,6 +23,7 @@ const HomePage = () => {
         />
         <BrowseSection />
       </div>
+      <Testimonies />
     </>
   );
 };
