@@ -31,7 +31,9 @@ export const MobileNavigation = () => {
         <div className="flex flex-col gap-4 p-4">
           {mainNavigation.map((item) => (
             <SheetClose asChild key={item.href}>
-              <Link href={item.href}>{item.name}</Link>
+              <Link href={item.href} className="hover:underline">
+                {item.name}
+              </Link>
             </SheetClose>
           ))}
         </div>

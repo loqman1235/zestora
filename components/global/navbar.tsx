@@ -18,7 +18,9 @@ export const Navbar = () => {
             <ul className="flex items-center gap-5">
               {mainNavigation.map(({ href, name }) => (
                 <li key={href}>
-                  <Link href={href}>{name}</Link>
+                  <Link href={href} className="hover:underline">
+                    {name}
+                  </Link>
                 </li>
               ))}
             </ul>
