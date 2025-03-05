@@ -53,6 +53,17 @@ const playfairDisplay = Playfair_Display({
   variable: "--font-playfair",
 });
 
+const cabinetGrotesk = localFont({
+  src: [
+    {
+      path: "../assets/fonts/cabinet-grotesk/CabinetGrotesk-Variable.ttf",
+      weight: "100 200 300 400 500 600 700 800 900",
+    },
+  ],
+  display: "swap",
+  variable: "--font-cabinet-grotesk",
+});
+
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
@@ -66,7 +77,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${satoshi.variable} ${integralCF.variable} ${playfairDisplay.variable} font-satoshi antialiased`}
+        className={`${satoshi.variable} ${integralCF.variable} ${playfairDisplay.variable} ${cabinetGrotesk.variable} font-satoshi antialiased`}
       >
         <Navbar />
         <main>{children}</main>

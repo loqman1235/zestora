@@ -29,7 +29,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           {product.name}
         </h4>
         <StarRating ratings={product.ratings} />
-        <h3 className="text-lg font-bold tracking-tight md:text-xl">
+        <h3 className="text-lg font-bold tracking-tighter md:text-xl">
           {formatPrice(product.price)}
         </h3>
       </div>

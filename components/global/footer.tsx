@@ -14,7 +14,7 @@ export const Footer = () => {
         {/* NEWSLETTER */}
         <div className="relative w-full">
           <div className="bg-foreground text-background absolute top-[-100px] left-1/2 flex min-h-[180px] w-full -translate-x-1/2 flex-col items-center justify-between gap-10 rounded-xl px-10 py-5 md:flex-row">
-            <h1 className="font-playfair w-fit text-center text-2xl font-black tracking-tight uppercase md:w-[70%] md:text-left md:text-4xl">
+            <h1 className="font-playfair w-fit text-center text-2xl font-black tracking-wide uppercase md:w-[70%] md:text-left md:text-4xl">
               Stay upto date about
               <br /> our latest offers
             </h1>
@@ -31,7 +31,7 @@ export const Footer = () => {
           </div>
         </div>
         {/* TODO: ADD FOOTER COLUMNS HERE */}
-        <div className="grid grid-cols-1 gap-5 pt-[100px] pb-5 md:grid-cols-6">
+        <div className="grid grid-cols-1 gap-10 pt-[140px] pb-5 md:grid-cols-6 md:pt-[100px]">
           <div className="flex flex-col gap-4 text-center md:col-span-2 md:items-start md:text-left">
             <Brand />
             <p className="text-muted-foreground text-sm">
