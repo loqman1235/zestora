@@ -15,7 +15,7 @@ import { IoStar } from "react-icons/io5";
 
 export const Testimonies = () => {
   return (
-    <div className="mx-auto mb-20 flex max-w-7xl flex-col gap-10 overflow-x-hidden px-5 py-10 md:px-20">
+    <div className="mx-auto mb-20 flex max-w-7xl flex-col gap-10 overflow-x-hidden px-5 pt-10 pb-20 md:px-20">
       {/* HEADER */}
       <div>
         <h2 className="font-playfair text-2xl font-bold tracking-tight uppercase md:text-3xl">
