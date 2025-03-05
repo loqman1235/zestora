@@ -23,8 +23,8 @@ const brands = [
     image: "/images/brands/calvin-logo.svg",
   },
   {
-    name: "nike",
-    image: "/images/brands/nike-logo.svg",
+    name: "dior",
+    image: "/images/brands/dior-logo.svg",
   },
 ];
 
