@@ -24,10 +24,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           fill
         />
       </Link>
-      <div className="flex flex-col gap-2">
-        <h4 className="text-lg font-bold capitalize">{product.name}</h4>
+      <div className="flex flex-col gap-1">
+        <h4 className="text-base font-bold capitalize md:text-lg">
+          {product.name}
+        </h4>
         <StarRating ratings={product.ratings} />
-        <h3 className="text-xl font-bold tracking-tight">
+        <h3 className="text-lg font-bold tracking-tight md:text-xl">
           {formatPrice(product.price)}
         </h3>
       </div>

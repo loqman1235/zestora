@@ -15,10 +15,10 @@ import { IoStar } from "react-icons/io5";
 
 export const Testimonies = () => {
   return (
-    <div className="mx-auto flex max-w-7xl flex-col gap-10 overflow-x-hidden px-5 py-10 md:px-20">
+    <div className="mx-auto mb-20 flex max-w-7xl flex-col gap-10 overflow-x-hidden px-5 py-10 md:px-20">
       {/* HEADER */}
       <div>
-        <h2 className="font-playfair text-3xl font-bold tracking-tight uppercase">
+        <h2 className="font-playfair text-2xl font-bold tracking-tight uppercase md:text-3xl">
           Testimonies
         </h2>
 
@@ -46,7 +46,10 @@ export const Testimonies = () => {
                 <CardContent className="flex flex-col gap-2">
                   <div className="flex items-center gap-1">
                     {Array.from({ length: 5 }).map((_, index) => (
-                      <IoStar key={index} className="size-5 text-[#FFC633]" />
+                      <IoStar
+                        key={index}
+                        className="size-4 text-[#FFC633] md:size-5"
+                      />
                     ))}
                   </div>
                   <div className="flex items-center gap-2">

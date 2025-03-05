@@ -13,7 +13,7 @@ interface SectionProps {
 export const Section = ({ title, products, href }: SectionProps) => {
   return (
     <section className="flex min-h-screen w-full flex-col items-center gap-10 py-10">
-      <h2 className="font-playfair text-3xl font-bold tracking-tight uppercase">
+      <h2 className="font-playfair text-2xl font-bold tracking-tight uppercase md:text-3xl">
         {title}
       </h2>
 

@@ -15,7 +15,7 @@ export const StarRating = ({ ratings }: StarRatingProps) => {
           <IoStar
             key={index}
             className={cn(
-              "text-muted-foreground size-5",
+              "text-muted-foreground size-4 md:size-5",
               index < Math.floor(avrgRating) && "text-[#FFC633]",
             )}
           />
