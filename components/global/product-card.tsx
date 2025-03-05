@@ -10,6 +10,9 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
+  const hasDiscount =
+    product.discountPrice && product.discountPrice < product.price;
+
   return (
     <div className="group/card flex flex-col gap-2">
       {/* Product image */}
@@ -29,9 +32,26 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           {product.name}
         </h4>
         <StarRating ratings={product.ratings} />
-        <h3 className="text-lg font-bold tracking-tighter md:text-xl">
-          {formatPrice(product.price)}
-        </h3>
+        <div className="flex items-center gap-2">
+          {hasDiscount && (
+            <span className="text-muted-foreground line-through">
+              {formatPrice(product.price)}
+            </span>
+          )}
+          <h3 className="text-primary text-lg font-bold tracking-tighter md:text-xl">
+            {formatPrice(hasDiscount ? product.discountPrice! : product.price!)}
+          </h3>
+          {hasDiscount && (
+            <span className="bg-primary text-primary-foreground rounded-md px-2 py-1 text-xs font-bold">
+              -
+              {Math.round(
+                ((product.price - product.discountPrice!) / product.price) *
+                  100,
+              )}
+              %
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );

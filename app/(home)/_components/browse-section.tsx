@@ -5,7 +5,7 @@ import Link from "next/link";
 export const BrowseSection = () => {
   return (
     <div className="bg-muted flex flex-col items-center justify-center gap-10 rounded-2xl p-10">
-      <h2 className="font-playfair text-2xl font-bold tracking-tight uppercase md:text-3xl">
+      <h2 className="font-playfair text-2xl font-bold tracking-wide uppercase md:text-3xl">
         Browse by dress style
       </h2>
 

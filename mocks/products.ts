@@ -6,6 +6,7 @@ export const newArrivals: Product[] = [
     image: "/images/products/newArrivals/1.png",
     name: "T-shirt with tape details",
     price: 120,
+    discountPrice: 100,
     ratings: [5, 4, 4, 3, 5],
   },
   {
@@ -27,6 +28,7 @@ export const newArrivals: Product[] = [
     image: "/images/products/newArrivals/4.png",
     name: "Sleeve stripped T-shirt",
     price: 130,
+    discountPrice: 120,
     ratings: [5, 4, 4, 3, 5],
   },
 ];
@@ -44,6 +46,7 @@ export const topSelling: Product[] = [
     image: "/images/products/topSelling/6.png",
     name: "Courage Grapihc T-shirt",
     price: 145,
+    discountPrice: 125,
     ratings: [5, 4, 4, 3, 5],
   },
   {
