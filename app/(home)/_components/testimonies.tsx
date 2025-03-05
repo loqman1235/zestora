@@ -19,7 +19,7 @@ export const Testimonies = () => {
       {/* HEADER */}
       <div>
         <h2 className="font-playfair text-2xl font-bold tracking-wide uppercase md:text-3xl">
-          Testimonies
+          Customer Reviews
         </h2>
 
         {/* buttons here */}
