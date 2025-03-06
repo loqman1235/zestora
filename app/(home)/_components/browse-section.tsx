@@ -14,16 +14,16 @@ export const BrowseSection = () => {
           <Link
             key={cat.id}
             href={`/${cat.name}`}
-            className="bg-background relative h-[289px] w-full overflow-hidden rounded-xl"
+            className="bg-background group/card relative h-[289px] w-full overflow-hidden rounded-xl"
           >
             <Image
-              className="absolute right-0"
+              className="absolute right-0 grayscale transition-all duration-300 group-hover/card:grayscale-0"
               src={cat.image}
               alt={cat.name}
               width={220}
               height={220}
             />
-            <h3 className="absolute top-5 left-5 text-2xl font-bold">
+            <h3 className="font-playfair absolute top-5 left-5 text-xl font-bold tracking-wide uppercase">
               {cat.name}
             </h3>
           </Link>
