@@ -33,16 +33,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </h4>
         <StarRating ratings={product.ratings} />
         <div className="flex items-center gap-2">
+          <h3 className="text-primary text-lg font-bold tracking-tighter md:text-xl">
+            {formatPrice(hasDiscount ? product.discountPrice! : product.price!)}
+          </h3>
           {hasDiscount && (
             <span className="text-muted-foreground line-through">
               {formatPrice(product.price)}
             </span>
           )}
-          <h3 className="text-primary text-lg font-bold tracking-tighter md:text-xl">
-            {formatPrice(hasDiscount ? product.discountPrice! : product.price!)}
-          </h3>
+
           {hasDiscount && (
-            <span className="bg-primary text-primary-foreground rounded-md px-2 py-1 text-xs font-bold">
+            <span className="bg-destructive/10 text-destructive rounded-full px-2 py-1 text-xs font-bold">
               -
               {Math.round(
                 ((product.price - product.discountPrice!) / product.price) *
