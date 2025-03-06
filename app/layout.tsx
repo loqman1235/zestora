@@ -4,25 +4,25 @@ import { Playfair_Display } from "next/font/google";
 import { Navbar } from "@/components/global/navbar";
 import { Footer } from "@/components/global/footer";
 import { siteConfig } from "@/config/site";
-import "../globals.css";
+import "./globals.css";
 
 const satoshi = localFont({
   src: [
     {
-      path: "../assets/fonts/satoshi/bold.ttf",
+      path: "./assets/fonts/satoshi/bold.ttf",
       weight: "700",
     },
 
     {
-      path: "../assets/fonts/satoshi/regular.ttf",
+      path: "./assets/fonts/satoshi/regular.ttf",
       weight: "400",
     },
     {
-      path: "../assets/fonts/satoshi/medium.ttf",
+      path: "./assets/fonts/satoshi/medium.ttf",
       weight: "500",
     },
     {
-      path: "../assets/fonts/satoshi/light.ttf",
+      path: "./assets/fonts/satoshi/light.ttf",
       weight: "300",
     },
   ],
@@ -33,12 +33,12 @@ const satoshi = localFont({
 const integralCF = localFont({
   src: [
     {
-      path: "../assets/fonts/integral-cf/bold.otf",
+      path: "./assets/fonts/integral-cf/bold.otf",
       weight: "700",
     },
 
     {
-      path: "../assets/fonts/integral-cf/regular.otf",
+      path: "./assets/fonts/integral-cf/regular.otf",
       weight: "400",
     },
   ],
@@ -56,7 +56,7 @@ const playfairDisplay = Playfair_Display({
 const cabinetGrotesk = localFont({
   src: [
     {
-      path: "../assets/fonts/cabinet-grotesk/CabinetGrotesk-Variable.ttf",
+      path: "./assets/fonts/cabinet-grotesk/CabinetGrotesk-Variable.ttf",
       weight: "100 200 300 400 500 600 700 800 900",
     },
   ],
