@@ -9,7 +9,7 @@ import { FooterCCLogos } from "./footer-cc-logos";
 
 export const Footer = () => {
   return (
-    <footer className="bg-muted">
+    <footer className="bg-muted mt-40">
       <div className="relative mx-auto h-full max-w-7xl px-5 md:px-20">
         {/* NEWSLETTER */}
         <div className="relative w-full">

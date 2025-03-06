@@ -18,3 +18,10 @@ export const calcAverageRating = (ratings: number[]) => {
   const average = sum / ratings.length;
   return average;
 };
+
+export const slugToTitle = (slug: string) => {
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
