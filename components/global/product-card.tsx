@@ -17,7 +17,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     <div className="group/card flex flex-col gap-2">
       {/* Product image */}
       <Link
-        href={`/shop/${product.slug}`}
+        href={`/shop/${product.category.slug}/${product.category.subCategories[0].slug}/${product.slug}`}
         className="bg-muted relative aspect-square w-full overflow-hidden rounded-md"
       >
         <Image
@@ -29,7 +29,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       </Link>
       <div className="flex flex-col gap-1">
         <Link
-          href={`/shop/${product.slug}`}
+          href={`/shop/${product.category.slug}/${product.category.subCategories[0].slug}/${product.slug}`}
           className="text-base font-bold capitalize hover:underline md:text-lg"
         >
           {product.name}

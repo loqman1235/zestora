@@ -1,4 +1,4 @@
 const ProductDetailsPage = () => {
-  return <div>ProductDetailsPage</div>;
+  return <div>Product Details Page</div>;
 };
 export default ProductDetailsPage;

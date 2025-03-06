@@ -1,4 +1,4 @@
-import { Category, Product } from "@/types";
+import { Product } from "@/types";
 
 export const newArrivals: Product[] = [
   {
@@ -9,6 +9,18 @@ export const newArrivals: Product[] = [
     price: 120,
     discountPrice: 100,
     ratings: [5, 4, 4, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "1",
+          name: "Shirts",
+          slug: "shirts",
+        },
+      ],
+    },
   },
   {
     id: "",
@@ -17,6 +29,18 @@ export const newArrivals: Product[] = [
     slug: "skinny-fit-jeans",
     price: 240,
     ratings: [5, 4, 1, 1, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "2",
+          name: "Jeans",
+          slug: "jeans",
+        },
+      ],
+    },
   },
   {
     id: "",
@@ -25,6 +49,18 @@ export const newArrivals: Product[] = [
     slug: "checkerd-shirt",
     price: 180,
     ratings: [5, 5, 1, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "1",
+          name: "Shirts",
+          slug: "shirts",
+        },
+      ],
+    },
   },
   {
     id: "",
@@ -34,6 +70,18 @@ export const newArrivals: Product[] = [
     price: 130,
     discountPrice: 120,
     ratings: [5, 4, 4, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "1",
+          name: "Shirts",
+          slug: "shirts",
+        },
+      ],
+    },
   },
 ];
 
@@ -45,6 +93,18 @@ export const topSelling: Product[] = [
     slug: "vertical-stripped-shirt",
     price: 212,
     ratings: [5, 4, 4, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "1",
+          name: "Shirts",
+          slug: "shirts",
+        },
+      ],
+    },
   },
   {
     id: "",
@@ -54,6 +114,18 @@ export const topSelling: Product[] = [
     price: 145,
     discountPrice: 125,
     ratings: [5, 4, 4, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "1",
+          name: "Shirts",
+          slug: "shirts",
+        },
+      ],
+    },
   },
   {
     id: "",
@@ -62,6 +134,18 @@ export const topSelling: Product[] = [
     slug: "loose-fit-bermuda-shorts",
     price: 75,
     ratings: [5, 4, 4, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "2",
+          name: "Jeans",
+          slug: "jeans",
+        },
+      ],
+    },
   },
   {
     id: "",
@@ -70,10 +154,22 @@ export const topSelling: Product[] = [
     slug: "faded-skinny-jeans",
     price: 210,
     ratings: [5, 4, 4, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "2",
+          name: "Jeans",
+          slug: "jeans",
+        },
+      ],
+    },
   },
 ];
 
-export const categories: Category[] = [
+export const categories = [
   {
     id: "1",
     name: "Casual",
@@ -104,4 +200,4 @@ export const categories: Category[] = [
     name: "Vintage",
     image: "/images/products/categories/6.png",
   },
-];
+] as const;
