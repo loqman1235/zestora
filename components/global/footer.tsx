@@ -197,8 +197,14 @@ export const Footer = () => {
         <Separator />
         <div className="flex flex-col items-center justify-between gap-5 py-5 md:flex-row">
           <p className="text-muted-foreground text-sm">
-            {siteConfig.name} &copy; {new Date().getFullYear()}. All rights
-            reserved
+            {siteConfig.name} &copy; {new Date().getFullYear()}. By{" "}
+            <a
+              className="hover:underline"
+              target="_blank"
+              href="https://github.com/loqman1235"
+            >
+              Loqmane Djefafla
+            </a>
           </p>
 
           <FooterCCLogos />

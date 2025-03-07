@@ -5,6 +5,8 @@ import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { ProductPreview } from "./_components/product-preview";
+import { similarProducts } from "@/mocks/products";
+import { ProductCard } from "@/components/global/product-card";
 
 const ProductDetailsPage = async ({
   params,
@@ -43,9 +45,17 @@ const ProductDetailsPage = async ({
                 Enamel Long Sleeved Shirt
               </h1>
               <StarRating ratings={[5, 4, 4, 3, 5]} />
-              <h3 className="text-primary text-lg font-bold tracking-tighter md:text-2xl">
-                {formatPrice(260)}
-              </h3>
+              <div className="flex items-center gap-2">
+                <h3 className="text-primary text-lg font-bold tracking-tighter md:text-2xl">
+                  {formatPrice(260)}
+                </h3>
+                <span className="text-muted-foreground text-lg line-through md:text-2xl">
+                  {formatPrice(300)}
+                </span>
+                <span className="bg-destructive/10 text-destructive rounded-full px-2 py-1 text-xs font-bold">
+                  -{Math.round(((300 - 260) / 300) * 100)}%
+                </span>
+              </div>
             </div>
             <p className="text-muted-foreground mt-3">
               This graphic t-shirt which is perfect for any occasion. Crafted
@@ -100,6 +110,18 @@ const ProductDetailsPage = async ({
       </div>
 
       {/* TODO: ADD REVIEWS SECTION */}
+
+      {/* SIMILAR PRODUCTS */}
+      <div className="my-10 flex flex-col gap-5 md:my-20">
+        <h2 className="font-playfair text-center text-2xl font-bold tracking-wide uppercase md:text-3xl">
+          You may also like
+        </h2>
+        <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
+          {similarProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

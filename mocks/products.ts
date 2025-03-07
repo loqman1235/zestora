@@ -201,3 +201,86 @@ export const categories = [
     image: "/images/products/categories/6.png",
   },
 ] as const;
+
+export const similarProducts: Product[] = [
+  {
+    id: "1",
+    image: "/images/products/similar/1.png",
+    name: "Polo with contrast trims",
+    slug: "polo-with-contrast-trims",
+    price: 75,
+    ratings: [5, 4, 4, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "2",
+          name: "Shirts",
+          slug: "shirts",
+        },
+      ],
+    },
+  },
+  {
+    id: "2",
+    image: "/images/products/similar/2.png",
+    name: "Gradient graphic t-shirt",
+    slug: "gradient-graphic-t-shirt",
+    price: 210,
+    ratings: [5, 4, 4, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "2",
+          name: "Shirts",
+          slug: "shirts",
+        },
+      ],
+    },
+  },
+  {
+    id: "3",
+    image: "/images/products/similar/3.png",
+    name: "Polo with tipping details",
+    slug: "polo-with-tipping-details",
+    price: 75,
+    ratings: [5, 4, 4, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "2",
+          name: "Shirts",
+          slug: "shirts",
+        },
+      ],
+    },
+  },
+  {
+    id: "4",
+    image: "/images/products/similar/4.png",
+    name: "Black stripped T-shirt",
+    slug: "black-stripped-t-shirt",
+    price: 210,
+    ratings: [5, 4, 4, 3, 5],
+    category: {
+      id: "1",
+      name: "Men",
+      slug: "men",
+      subCategories: [
+        {
+          id: "2",
+          name: "Shirts",
+          slug: "shirts",
+        },
+      ],
+    },
+  },
+];
