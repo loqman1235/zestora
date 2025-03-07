@@ -36,11 +36,11 @@ export const CartItem = () => {
         <div className="mt-auto flex w-full items-center justify-between">
           <h3 className="text-xl font-bold tracking-tighter">$100</h3>
           <div className="bg-muted flex w-[120px] items-center justify-evenly gap-2 rounded-full p-1">
-            <button className="cursor-pointer">
+            <button className="cursor-pointer" aria-label="Minus item">
               <MinusIcon className="size-4" />
             </button>
             <span>1</span>
-            <button className="cursor-pointer">
+            <button className="cursor-pointer" aria-label="Plus item">
               <PlusIcon className="size-4" />
             </button>
           </div>

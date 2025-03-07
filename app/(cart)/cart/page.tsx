@@ -74,12 +74,20 @@ const CartPage = () => {
                 className="flex-1 rounded-full px-4"
                 placeholder="Enter your coupon code"
               />
-              <Button className="rounded-full" size="lg">
+              <Button
+                className="rounded-full"
+                size="lg"
+                aria-label="Apply coupon button"
+              >
                 Apply
               </Button>
             </div>
 
-            <Button className="w-full rounded-full" size="lg">
+            <Button
+              className="w-full rounded-full"
+              size="lg"
+              aria-label="Checkout button"
+            >
               Go to checkout <ArrowRight />
             </Button>
           </div>
