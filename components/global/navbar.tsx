@@ -13,7 +13,7 @@ import {
 
 export const Navbar = () => {
   return (
-    <header className="bg-background sticky top-0 z-50 h-16">
+    <header className="bg-background/80 sticky top-0 z-50 h-16 backdrop-blur-md">
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-5 md:px-20">
         <div className="flex items-center gap-10">
           <div className="flex items-center gap-5">

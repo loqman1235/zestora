@@ -36,6 +36,7 @@ export const BrandsBar = () => {
         gradient={false}
         autoFill
         className="overflow-y-hidden"
+        pauseOnHover
       >
         <div className="flex h-full items-center justify-center">
           {brands.map(({ name, image }) => (
