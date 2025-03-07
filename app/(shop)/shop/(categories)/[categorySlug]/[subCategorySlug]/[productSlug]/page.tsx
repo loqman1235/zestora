@@ -40,14 +40,14 @@ const ProductDetailsPage = async ({
         {/* PRODUCT DETAILS */}
         <div>
           <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 md:gap-3">
               <h1 className="font-playfair text-2xl font-bold tracking-wide uppercase md:text-3xl">
                 Enamel Long Sleeved Shirt
               </h1>
-              <StarRating ratings={[5, 4, 4, 3, 5]} />
+              <StarRating ratings={[5, 4, 5, 1, 1]} />
               <div className="flex items-center gap-2">
                 <h3 className="text-primary text-lg font-bold tracking-tighter md:text-2xl">
-                  {formatPrice(260)}
+                  {formatPrice(260.99)}
                 </h3>
                 <span className="text-muted-foreground text-lg line-through md:text-2xl">
                   {formatPrice(300)}

@@ -209,7 +209,7 @@ export const similarProducts: Product[] = [
     name: "Polo with contrast trims",
     slug: "polo-with-contrast-trims",
     price: 75,
-    ratings: [5, 4, 4, 3, 5],
+    ratings: [5, 1, 1, 3, 5],
     category: {
       id: "1",
       name: "Men",
@@ -229,7 +229,7 @@ export const similarProducts: Product[] = [
     name: "Gradient graphic t-shirt",
     slug: "gradient-graphic-t-shirt",
     price: 210,
-    ratings: [5, 4, 4, 3, 5],
+    ratings: [3, 4, 4, 3, 5],
     category: {
       id: "1",
       name: "Men",
@@ -249,7 +249,7 @@ export const similarProducts: Product[] = [
     name: "Polo with tipping details",
     slug: "polo-with-tipping-details",
     price: 75,
-    ratings: [5, 4, 4, 3, 5],
+    ratings: [3, 2, 4, 1, 5],
     category: {
       id: "1",
       name: "Men",
@@ -269,6 +269,7 @@ export const similarProducts: Product[] = [
     name: "Black stripped T-shirt",
     slug: "black-stripped-t-shirt",
     price: 210,
+    discountPrice: 75,
     ratings: [5, 4, 4, 3, 5],
     category: {
       id: "1",
