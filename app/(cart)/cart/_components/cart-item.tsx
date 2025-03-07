@@ -26,8 +26,11 @@ export const CartItem = () => {
               Color: <span className="text-muted-foreground">Black</span>
             </p>
           </div>
-          <button className="cursor-pointer">
-            <Trash2Icon className="text-destructive size-6" />
+          <button
+            className="bg-destructive/10 hover:bg-destructive/20 cursor-pointer rounded-full p-2 transition"
+            aria-label="Delete"
+          >
+            <Trash2Icon className="text-destructive size-4" />
           </button>
         </div>
         <div className="mt-auto flex w-full items-center justify-between">
