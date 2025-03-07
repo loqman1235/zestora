@@ -18,7 +18,7 @@ export const Testimonies = () => {
     <div className="mx-auto mb-20 flex max-w-7xl flex-col gap-10 overflow-x-hidden px-5 pt-10 md:px-20">
       {/* HEADER */}
       <div>
-        <h2 className="font-playfair text-2xl font-bold tracking-wide uppercase md:text-3xl">
+        <h2 className="font-playfair text-center text-2xl font-bold tracking-wide uppercase md:text-3xl">
           Customer Reviews
         </h2>
 
