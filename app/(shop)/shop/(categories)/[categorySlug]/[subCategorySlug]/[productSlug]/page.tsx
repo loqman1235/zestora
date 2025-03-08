@@ -1,12 +1,13 @@
 import { Separator } from "@/components/ui/separator";
-import { BreadCrumb } from "./_components/BreadCrumb";
+// import { BreadCrumb } from "./_components/BreadCrumb";
 import { StarRating } from "@/components/global/star-rating";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, slugToTitle } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { MinusIcon, PlusIcon } from "lucide-react";
 import { ProductPreview } from "./_components/product-preview";
 import { similarProducts } from "@/mocks/products";
 import { ProductCard } from "@/components/global/product-card";
+import { CustomBreadcrump } from "@/components/global/custom-breadcrump";
 
 const ProductDetailsPage = async ({
   params,
@@ -23,9 +24,12 @@ const ProductDetailsPage = async ({
     <div className="mx-auto max-w-7xl px-5 md:px-20">
       <Separator />
 
-      <BreadCrumb
-        categorySlug={categorySlug}
-        subCategorySlug={subCategorySlug}
+      <CustomBreadcrump
+        paths={[
+          { label: "Home", href: "/" },
+          { label: slugToTitle(categorySlug), href: `/shop/${categorySlug}` },
+          { label: slugToTitle(subCategorySlug) },
+        ]}
       />
 
       <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
