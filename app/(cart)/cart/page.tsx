@@ -1,35 +1,17 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
 import { CartItem } from "./_components/cart-item";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { CustomBreadcrump } from "@/components/global/custom-breadcrump";
 
 const CartPage = () => {
   return (
     <div className="mx-auto max-w-7xl px-5 md:px-20">
       <Separator />
-      <Breadcrumb className="py-5">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link href="/">Home</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Cart</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <CustomBreadcrump
+        paths={[{ label: "Home", href: "/" }, { label: "Cart" }]}
+      />
 
       <div className="flex flex-col gap-5">
         <h2 className="font-playfair text-2xl font-bold tracking-wide uppercase md:text-3xl">
