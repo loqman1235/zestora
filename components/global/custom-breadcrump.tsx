@@ -7,6 +7,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import Link from "next/link";
+import { Fragment } from "react";
 
 interface CustomBreadcrumpProps {
   paths: { label: string; href?: string }[];
@@ -17,16 +18,18 @@ export const CustomBreadcrump = ({ paths }: CustomBreadcrumpProps) => {
     <Breadcrumb className="py-5">
       <BreadcrumbList>
         {paths.map((path, index) => (
-          <BreadcrumbItem key={index}>
-            {path.href ? (
-              <BreadcrumbLink asChild>
-                <Link href={path.href}>{path.label}</Link>
-              </BreadcrumbLink>
-            ) : (
-              <BreadcrumbPage>{path.label}</BreadcrumbPage>
-            )}
+          <Fragment key={index}>
+            <BreadcrumbItem key={index}>
+              {path.href ? (
+                <BreadcrumbLink asChild>
+                  <Link href={path.href}>{path.label}</Link>
+                </BreadcrumbLink>
+              ) : (
+                <BreadcrumbPage>{path.label}</BreadcrumbPage>
+              )}
+            </BreadcrumbItem>
             {index < paths.length - 1 && <BreadcrumbSeparator />}
-          </BreadcrumbItem>
+          </Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
