@@ -5,7 +5,20 @@ import { SlidersVertical } from "lucide-react";
 
 const allProducts = [...newArrivals, ...topSelling];
 
-export const FilteredProducts = () => {
+interface FilteredProductsProps {
+  filters: {
+    categories?: string[];
+    genders?: string[];
+    sizes?: string[];
+    colors?: string[];
+    minPrice?: number;
+    maxPrice?: number;
+  };
+}
+
+export const FilteredProducts = ({ filters }: FilteredProductsProps) => {
+  console.log("filters", filters);
+
   return (
     <div className="flex-1 space-y-5">
       <div className="flex items-center justify-between">

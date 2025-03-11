@@ -21,6 +21,8 @@ export const newArrivals: Product[] = [
         },
       ],
     },
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["black", "blue"],
   },
   {
     id: "",
@@ -41,6 +43,8 @@ export const newArrivals: Product[] = [
         },
       ],
     },
+    sizes: ["28", "30", "32", "34"],
+    colors: ["blue", "black"],
   },
   {
     id: "",
@@ -61,6 +65,8 @@ export const newArrivals: Product[] = [
         },
       ],
     },
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["white", "black"],
   },
   {
     id: "",
@@ -82,6 +88,8 @@ export const newArrivals: Product[] = [
         },
       ],
     },
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["red", "blue"],
   },
 ];
 
@@ -105,6 +113,8 @@ export const topSelling: Product[] = [
         },
       ],
     },
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["red", "blue"],
   },
   {
     id: "",
@@ -126,6 +136,8 @@ export const topSelling: Product[] = [
         },
       ],
     },
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["red", "blue"],
   },
   {
     id: "",
@@ -146,6 +158,8 @@ export const topSelling: Product[] = [
         },
       ],
     },
+    sizes: ["28", "30", "32", "34"],
+    colors: ["blue", "black"],
   },
   {
     id: "",
@@ -166,6 +180,8 @@ export const topSelling: Product[] = [
         },
       ],
     },
+    sizes: ["28", "30", "32", "34"],
+    colors: ["blue", "black"],
   },
 ];
 
@@ -222,6 +238,8 @@ export const similarProducts: Product[] = [
         },
       ],
     },
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["red", "blue"],
   },
   {
     id: "2",
@@ -242,6 +260,8 @@ export const similarProducts: Product[] = [
         },
       ],
     },
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["red", "blue"],
   },
   {
     id: "3",
@@ -262,6 +282,8 @@ export const similarProducts: Product[] = [
         },
       ],
     },
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["red", "blue"],
   },
   {
     id: "4",
@@ -283,5 +305,7 @@ export const similarProducts: Product[] = [
         },
       ],
     },
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["red", "blue"],
   },
 ];

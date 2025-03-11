@@ -9,4 +9,6 @@ export interface Product {
   discountPrice?: number;
   ratings: number[];
   category: Category;
+  sizes?: string[];
+  colors?: string[];
 }
