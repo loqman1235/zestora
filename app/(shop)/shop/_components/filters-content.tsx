@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -11,27 +12,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
-import { CheckIcon } from "lucide-react";
+import { categories, colors, genders, sizes } from "@/mocks/filters";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-
-const categories = ["Shirts", "Jeans", "Jackets", "Shoes", "Accessories"];
-const genders = ["Men", "Women"];
-const colors = [
-  "red",
-  "blue",
-  "green",
-  "black",
-  "white",
-  "gray",
-  "yellow",
-  "orange",
-  "purple",
-  "pink",
-  "brown",
-  "beige",
-];
-const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
+import { CheckIcon } from "lucide-react";
 
 export const FiltersContent = () => {
   const router = useRouter();
