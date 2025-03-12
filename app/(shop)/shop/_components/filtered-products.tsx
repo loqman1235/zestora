@@ -1,7 +1,16 @@
 import { ProductCard } from "@/components/global/product-card";
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { newArrivals, topSelling } from "@/mocks/products";
 import { SlidersVertical } from "lucide-react";
+import { FiltersContent } from "./filters-content";
 
 const allProducts = [...newArrivals, ...topSelling];
 
@@ -24,12 +33,31 @@ export const FilteredProducts = ({ filters }: FilteredProductsProps) => {
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold">All Products</h2>
 
-        <Button
-          variant="secondary"
-          className="flex size-8 cursor-pointer items-center justify-center rounded-full md:hidden"
-        >
-          <SlidersVertical className="size-4" />
-        </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="secondary"
+              className="flex size-8 cursor-pointer items-center justify-center rounded-full md:hidden"
+            >
+              <SlidersVertical className="size-4" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent
+            side="left"
+            title="filters"
+            className="w-full overflow-y-auto"
+          >
+            <SheetHeader>
+              <SheetTitle className="text-lg">Filters</SheetTitle>
+
+              <SheetClose />
+            </SheetHeader>
+
+            <div className="p-4">
+              <FiltersContent />
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
       <div className="grid grid-cols-2 gap-5 md:grid-cols-3">
         {allProducts.map((product) => (
