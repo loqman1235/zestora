@@ -11,7 +11,7 @@ import {
   TooltipTrigger,
 } from "../ui/tooltip";
 import { auth } from "@/auth";
-import { LogoutBtn } from "./logout-btn";
+import { UserAvatar } from "./user-avatar";
 
 export const Navbar = async () => {
   const session = await auth();
@@ -53,21 +53,21 @@ export const Navbar = async () => {
                 </TooltipContent>
               </Tooltip>
 
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  {session?.user ? (
-                    <LogoutBtn />
-                  ) : (
+              {!session?.user && (
+                <Tooltip>
+                  <TooltipTrigger>
                     <Link href="/sign-in">
                       <UserCircle />
                     </Link>
-                  )}
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{session?.user ? "Logout" : "Account"}</p>
-                </TooltipContent>
-              </Tooltip>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Account</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
             </TooltipProvider>
+
+            {session?.user && <UserAvatar user={session.user} />}
           </div>
         </div>
       </div>
