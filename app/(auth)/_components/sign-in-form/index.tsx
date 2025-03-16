@@ -84,12 +84,12 @@ export const SignInForm = () => {
           )}
         </Button>
         <div className="flex items-center justify-center space-x-4">
-          <div className="h-px grow bg-border" />
+          <div className="bg-border h-px grow" />
           <span className="text-bord text-sm font-medium">or</span>
-          <div className="h-px grow bg-border" />
+          <div className="bg-border h-px grow" />
         </div>
         <GoogleButton />
-        <p className="text-center text-sm text-muted-foreground">
+        <p className="text-muted-foreground text-center text-sm">
           Don&apos;t have an account?{" "}
           <Link
             href="/sign-up"

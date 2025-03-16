@@ -25,6 +25,9 @@ model Account {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
@@ -36,6 +39,9 @@ model Session {
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@map("sessions")
 }
 
@@ -46,8 +52,12 @@ model User {
   emailVerified DateTime? @map("email_verified")
   password      String?
   image         String?
+  role          UserRole  @default(CUSTOMER)
   accounts      Account[]
   sessions      Session[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("users")
 }
@@ -57,6 +67,9 @@ model VerificationToken {
   email   String
   token   String
   expires DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([email, token])
   @@map("verification_tokens")
@@ -68,6 +81,96 @@ model VerificationCode {
   code    String   @unique
   expires DateTime
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([email, code], name: "email_code")
   @@map("verification_codes")
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  name        String         @unique
+  slug        String         @unique
+  description String?
+  price       Float
+  images      ProductImage[]
+  inventory   Int
+  isActive    Boolean
+  isFeatured  Boolean
+  categoryId  String
+  category    Category       @relation(fields: [categoryId], references: [id])
+  brandId     String
+  brand       Brand          @relation(fields: [brandId], references: [id])
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@map("products")
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("product_images")
+}
+
+model Category {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  slug        String     @unique
+  parentId    String?
+  parent      Category?  @relation("CategoryToSubcategory", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryToSubcategory")
+  isActive    Boolean    @default(true)
+  products    Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("categories")
+}
+
+model Brand {
+  id       String    @id @default(cuid())
+  name     String    @unique
+  slug     String    @unique
+  logo     String?
+  website  String?
+  image    String?
+  isActive Boolean   @default(true)
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("brands")
+}
+
+model StoreSettings {
+  id              String  @id @default(cuid())
+  storeName       String
+  storeEmail      String
+  storePhone      String?
+  storeAddress    String?
+  storeLogo       String?
+  currencyCode    String  @default("USD")
+  metaTitle       String?
+  metaDescription String?
+  socialMedia     Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("store_settings")
+}
+
+enum UserRole {
+  ADMIN
+  CUSTOMER
 }
