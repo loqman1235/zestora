@@ -1,6 +1,6 @@
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center">
+    <div className="mt-10 flex flex-col items-center justify-center">
       {children}
     </div>
   );

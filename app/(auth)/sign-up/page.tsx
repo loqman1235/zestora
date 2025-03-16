@@ -11,7 +11,9 @@ const SignUpPage = () => {
   return (
     <Card className="min-w-[400px]">
       <CardHeader>
-        <CardTitle>Sign Up</CardTitle>
+        <CardTitle className="font-playfair text-xl font-bold">
+          Sign Up
+        </CardTitle>
         <CardDescription>Create an account</CardDescription>
       </CardHeader>
       <CardContent>

@@ -11,7 +11,9 @@ const SignInPage = () => {
   return (
     <Card className="min-w-[400px]">
       <CardHeader>
-        <CardTitle>Sign In</CardTitle>
+        <CardTitle className="font-playfair text-xl font-bold">
+          Sign In
+        </CardTitle>
         <CardDescription>Sign in to your account</CardDescription>
       </CardHeader>
       <CardContent>

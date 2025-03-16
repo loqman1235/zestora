@@ -10,8 +10,11 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import { auth } from "@/auth";
+import { LogoutBtn } from "./logout-btn";
 
-export const Navbar = () => {
+export const Navbar = async () => {
+  const session = await auth();
   return (
     <header className="bg-background/80 sticky top-0 z-50 h-16 backdrop-blur-md">
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-5 md:px-20">
@@ -51,13 +54,17 @@ export const Navbar = () => {
               </Tooltip>
 
               <Tooltip>
-                <TooltipTrigger>
-                  <Link href="/login">
-                    <UserCircle />
-                  </Link>
+                <TooltipTrigger asChild>
+                  {session?.user ? (
+                    <LogoutBtn />
+                  ) : (
+                    <Link href="/sign-in">
+                      <UserCircle />
+                    </Link>
+                  )}
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>Account</p>
+                  <p>{session?.user ? "Logout" : "Account"}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
