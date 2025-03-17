@@ -1,25 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaClient } from "@prisma/client";
-
 import { UserRole } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // Clear existing data
   await prisma.$transaction([
     prisma.user.deleteMany(),
     prisma.verificationToken.deleteMany(),
     prisma.verificationCode.deleteMany(),
-    prisma.product.deleteMany(),
     prisma.productImage.deleteMany(),
+    prisma.productVariant.deleteMany(),
+    prisma.product.deleteMany(),
     prisma.category.deleteMany(),
     prisma.brand.deleteMany(),
     prisma.storeSettings.deleteMany(),
   ]);
 
-  //   Create store settings
   await prisma.storeSettings.create({
     data: {
       storeName: "Zestora",
@@ -39,171 +37,145 @@ async function main() {
     },
   });
 
-  //   Create users
   const adminPassword = await bcrypt.hash("admin123", 10);
   const userPassword = await bcrypt.hash("password123", 10);
 
-  const admin = await prisma.user.create({
-    data: {
-      name: "Admin",
-      email: "axeldjefafla@.gmail.com",
-      password: adminPassword,
-      role: UserRole.ADMIN,
-    },
+  await prisma.user.createMany({
+    data: [
+      {
+        name: "Admin",
+        email: "axeldjefafla@gmail.com",
+        password: adminPassword,
+        emailVerified: new Date(),
+        role: UserRole.ADMIN,
+      },
+      {
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        password: userPassword,
+        emailVerified: new Date(),
+        role: UserRole.CUSTOMER,
+      },
+      {
+        name: "Jane Doe",
+        email: "janedoe@gmail.com",
+        password: userPassword,
+        emailVerified: new Date(),
+        role: UserRole.CUSTOMER,
+      },
+    ],
   });
 
-  const customer1 = await prisma.user.create({
-    data: {
-      name: "John Doe",
-      email: "johndoe@.gmail.com",
-      password: userPassword,
-      role: UserRole.CUSTOMER,
-    },
-  });
+  const [brandNike, brandGucci] = await prisma.$transaction([
+    prisma.brand.create({
+      data: {
+        name: "Nike",
+        slug: "nike",
+        image: "/images/brands/nike-logo.svg",
+        isActive: true,
+      },
+    }),
+    prisma.brand.create({
+      data: {
+        name: "Gucci",
+        slug: "gucci",
+        image: "/images/brands/gucci-logo.svg",
+        isActive: true,
+      },
+    }),
+  ]);
 
-  const customer2 = await prisma.user.create({
-    data: {
-      name: "Jane Doe",
-      email: "janedoe@.gmail.com",
-      password: userPassword,
-      role: UserRole.CUSTOMER,
-    },
-  });
+  const [menCategory, womenCategory] = await prisma.$transaction([
+    prisma.category.create({
+      data: { name: "Men", slug: "men", description: "Men's fashion" },
+    }),
+    prisma.category.create({
+      data: { name: "Women", slug: "women", description: "Women's fashion" },
+    }),
+  ]);
 
-  //   Create brands
+  await prisma.$transaction(async (tx) => {
+    const nikeShoes = await tx.product.create({
+      data: {
+        name: "Nike Air Force 1",
+        slug: "nike-air-force-1",
+        description: "Classic low-top sneakers with premium leather.",
+        price: 120.0,
+        inventory: 100,
+        categoryId: menCategory.id,
+        brandId: brandNike.id,
+      },
+    });
 
-  const brand1 = await prisma.brand.create({
-    data: {
-      name: "Dior",
-      slug: "dior",
-      image: "/images/brands/dior-logo.svg",
-      isActive: true,
-    },
-  });
+    await tx.productImage.createMany({
+      data: [
+        { url: "/images/products/nike-af1-white.jpg", productId: nikeShoes.id },
+        { url: "/images/products/nike-af1-black.jpg", productId: nikeShoes.id },
+      ],
+    });
 
-  const brand2 = await prisma.brand.create({
-    data: {
-      name: "Calvin Klein",
-      slug: "calvin-klein",
-      image: "/images/brands/calvin-logo.svg",
-      isActive: true,
-    },
-  });
+    await tx.productVariant.createMany({
+      data: [
+        {
+          productId: nikeShoes.id,
+          size: "US 9",
+          color: "White",
+          price: 120.0,
+          inventory: 20,
+        },
+        {
+          productId: nikeShoes.id,
+          size: "US 10",
+          color: "Black",
+          price: 120.0,
+          inventory: 30,
+        },
+      ],
+    });
 
-  const brand3 = await prisma.brand.create({
-    data: {
-      name: "Gucci",
-      slug: "gucci",
-      image: "/images/brands/gucci-logo.svg",
-      isActive: true,
-    },
-  });
+    const gucciBag = await tx.product.create({
+      data: {
+        name: "Gucci Leather Handbag",
+        slug: "gucci-leather-handbag",
+        description: "Luxury handbag made with premium leather.",
+        price: 2500.0,
+        inventory: 15,
+        categoryId: womenCategory.id,
+        brandId: brandGucci.id,
+      },
+    });
 
-  const brand4 = await prisma.brand.create({
-    data: {
-      name: "Nike",
-      slug: "nike",
-      image: "/images/brands/nike-logo.svg",
-      isActive: true,
-    },
-  });
+    await tx.productImage.createMany({
+      data: [
+        {
+          url: "/images/products/gucci-handbag-front.jpg",
+          productId: gucciBag.id,
+        },
+        {
+          url: "/images/products/gucci-handbag-side.jpg",
+          productId: gucciBag.id,
+        },
+      ],
+    });
 
-  const brand5 = await prisma.brand.create({
-    data: {
-      name: "Prada",
-      slug: "prada",
-      image: "/images/brands/prada-logo.svg",
-      isActive: true,
-    },
-  });
-
-  const brand6 = await prisma.brand.create({
-    data: {
-      name: "Ralph Lauren",
-      slug: "ralph-lauren",
-      image: "/images/brands/ralph-logo.svg",
-      isActive: true,
-    },
-  });
-
-  const brand7 = await prisma.brand.create({
-    data: {
-      name: "Versace",
-      slug: "versace",
-      image: "/images/brands/vercace-logo.svg",
-      isActive: true,
-    },
-  });
-
-  const brand8 = await prisma.brand.create({
-    data: {
-      name: "Zara",
-      slug: "zara",
-      image: "/images/brands/zara-logo.svg",
-      isActive: true,
-    },
-  });
-
-  //   Create categories
-  const menCategory = await prisma.category.create({
-    data: {
-      name: "Men",
-      slug: "men",
-      description: "Men\'s clothing and accessories",
-    },
-  });
-
-  const womenCategory = await prisma.category.create({
-    data: {
-      name: "Women",
-      slug: "women",
-      description: "Women\'s clothing and accessories",
-    },
-  });
-
-  const kidsCategory = await prisma.category.create({
-    data: {
-      name: "Kids",
-      slug: "kids",
-      description: "Children\'s clothing and accessories",
-    },
-  });
-
-  //   Create Subcategories
-  const menTops = await prisma.category.create({
-    data: {
-      name: "Men\'s Tops",
-      slug: "men-tops",
-      description: "T-shirts, shirts, and sweaters for men",
-      parentId: menCategory.id,
-    },
-  });
-
-  const menBottoms = await prisma.category.create({
-    data: {
-      name: "Men\'s Bottoms",
-      slug: "men-bottoms",
-      description: "Pants, shorts, and jeans for men",
-      parentId: menCategory.id,
-    },
-  });
-
-  const womenDresses = await prisma.category.create({
-    data: {
-      name: "Women's Dresses",
-      slug: "womens-dresses",
-      description: "Casual and formal dresses for women",
-      parentId: womenCategory.id,
-    },
-  });
-
-  const womenTops = await prisma.category.create({
-    data: {
-      name: "Women's Tops",
-      slug: "womens-tops",
-      description: "Blouses, t-shirts, and sweaters for women",
-      parentId: womenCategory.id,
-    },
+    await tx.productVariant.createMany({
+      data: [
+        {
+          productId: gucciBag.id,
+          size: "Standard",
+          color: "Black",
+          price: 2500.0,
+          inventory: 10,
+        },
+        {
+          productId: gucciBag.id,
+          size: "Standard",
+          color: "Brown",
+          price: 2500.0,
+          inventory: 5,
+        },
+      ],
+    });
   });
 }
 
