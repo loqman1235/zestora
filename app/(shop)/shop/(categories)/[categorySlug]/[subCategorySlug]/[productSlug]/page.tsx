@@ -27,6 +27,7 @@ const ProductDetailsPage = async ({
       <CustomBreadcrump
         paths={[
           { label: "Home", href: "/" },
+          { label: "Shop", href: "/shop" },
           { label: slugToTitle(categorySlug), href: `/shop/${categorySlug}` },
           { label: slugToTitle(subCategorySlug) },
         ]}

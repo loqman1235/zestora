@@ -1,11 +1,11 @@
 import { formatPrice } from "@/lib/utils";
-import { Product } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import { StarRating } from "./star-rating";
+// import { StarRating } from "./star-rating";
+import { ProductWithDetails } from "@/types";
 
 interface ProductCardProps {
-  product: Product;
+  product: ProductWithDetails;
   className?: string;
 }
 
@@ -13,28 +13,34 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const hasDiscount =
     product.discountPrice && product.discountPrice < product.price;
 
+  const href = `/shop/${product.category.slug}${
+    product.category.children?.[0]?.slug
+      ? `/${product.category.children[0].slug}`
+      : ""
+  }/${product.slug}`;
+
   return (
     <div className="group/card flex flex-col gap-2">
       {/* Product image */}
       <Link
-        href={`/shop/${product.category.slug}/${product.category.subCategories[0].slug}/${product.slug}`}
+        href={href}
         className="bg-muted relative aspect-square w-full overflow-hidden rounded-md"
       >
         <Image
           className="transition group-hover/card:scale-105"
-          src={product.image}
+          src={product.thumbnail}
           alt={product.name}
           fill
         />
       </Link>
       <div className="flex flex-col gap-1">
         <Link
-          href={`/shop/${product.category.slug}/${product.category.subCategories[0].slug}/${product.slug}`}
+          href={href}
           className="text-base font-bold capitalize hover:underline md:text-lg"
         >
           {product.name}
         </Link>
-        <StarRating ratings={product.ratings} />
+        {/* <StarRating ratings={product.ratings} /> */}
         <div className="flex items-center gap-2">
           <h3 className="text-primary text-lg font-bold tracking-tighter md:text-xl">
             {formatPrice(hasDiscount ? product.discountPrice! : product.price!)}

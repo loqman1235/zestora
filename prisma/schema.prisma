@@ -89,22 +89,24 @@ model VerificationCode {
 }
 
 model Product {
-  id          String           @id @default(cuid())
-  name        String           @unique
-  slug        String           @unique
-  description String?
-  price       Float
-  images      ProductImage[]
-  variants    ProductVariant[]
-  inventory   Int
-  isActive    Boolean          @default(true)
-  isFeatured  Boolean          @default(false)
-  categoryId  String
-  category    Category         @relation(fields: [categoryId], references: [id])
-  brandId     String
-  brand       Brand            @relation(fields: [brandId], references: [id])
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  id            String           @id @default(cuid())
+  name          String           @unique
+  slug          String           @unique
+  description   String?
+  price         Float
+  discountPrice Float?
+  thumbnail     String
+  images        ProductImage[]
+  variants      ProductVariant[]
+  inventory     Int
+  isActive      Boolean          @default(true)
+  isFeatured    Boolean          @default(false)
+  categoryId    String
+  category      Category         @relation(fields: [categoryId], references: [id])
+  brandId       String
+  brand         Brand            @relation(fields: [brandId], references: [id])
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
 
   @@index([slug, categoryId, brandId])
   @@map("products")

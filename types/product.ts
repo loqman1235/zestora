@@ -1,14 +1,20 @@
-import { Category } from "./category";
+import { Prisma } from "@prisma/client";
 
-export interface Product {
-  id: string;
-  image: string;
-  name: string;
-  slug: string;
-  price: number;
-  discountPrice?: number;
-  ratings: number[];
-  category: Category;
-  sizes?: string[];
-  colors?: string[];
-}
+export type ProductWithDetails = Prisma.ProductGetPayload<{
+  include: {
+    images: {
+      select: {
+        url: true;
+      };
+    };
+    category: {
+      select: {
+        children: true;
+        slug: true;
+        name: true;
+      };
+    };
+    brand: true;
+    variants: true;
+  };
+}>;

@@ -1,34 +1,12 @@
 import Marquee from "react-fast-marquee";
 import Image from "next/image";
+import { prisma } from "@/lib/prisma";
 
-const brands = [
-  {
-    name: "versace",
-    image: "/images/brands/vercace-logo.svg",
-  },
-  {
-    name: "zara",
-    image: "/images/brands/zara-logo.svg",
-  },
-  {
-    name: "gucci",
-    image: "/images/brands/gucci-logo.svg",
-  },
-  {
-    name: "prada",
-    image: "/images/brands/prada-logo.svg",
-  },
-  {
-    name: "calvin klein",
-    image: "/images/brands/calvin-logo.svg",
-  },
-  {
-    name: "dior",
-    image: "/images/brands/dior-logo.svg",
-  },
-];
+export const BrandsBar = async () => {
+  const brands = await prisma.brand.findMany();
 
-export const BrandsBar = () => {
+  if (brands.length === 0) return null;
+
   return (
     <div className="bg-foreground py- absolute bottom-0 flex min-h-[80px] w-full overflow-hidden">
       <Marquee
@@ -42,7 +20,7 @@ export const BrandsBar = () => {
           {brands.map(({ name, image }) => (
             <Image
               key={name}
-              src={image}
+              src={image as string}
               alt={name}
               width={80}
               height={80}

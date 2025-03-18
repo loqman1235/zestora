@@ -1,11 +1,34 @@
 import { Section } from "@/components/global/section";
 import { Hero } from "./_components/hero";
-import { newArrivals, topSelling } from "@/mocks/products";
+// import { topSelling } from "@/mocks/products";
 import { Separator } from "@/components/ui/separator";
 import { BrowseSection } from "./_components/browse-section";
 import { Testimonies } from "./_components/testimonies";
+import { prisma } from "@/lib/prisma";
 
-const HomePage = () => {
+const HomePage = async () => {
+  const newArrivals = await prisma.product.findMany({
+    where: {
+      isActive: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    take: 4,
+    include: {
+      images: true,
+      brand: true,
+      category: {
+        select: {
+          slug: true,
+          name: true,
+          children: true,
+        },
+      },
+      variants: true,
+    },
+  });
+
   return (
     <>
       <Hero />
@@ -16,11 +39,11 @@ const HomePage = () => {
           href="/new-arrivals"
         />
         <Separator />
-        <Section
+        {/* <Section
           title="Top Selling"
           products={topSelling}
           href="/top-selling"
-        />
+        /> */}
         <BrowseSection />
       </div>
       <Testimonies />

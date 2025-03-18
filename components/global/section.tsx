@@ -1,16 +1,17 @@
-import { Product } from "@/types";
 import { ProductCard } from "./product-card";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { ProductWithDetails } from "@/types";
 
 interface SectionProps {
   title: string;
-  products: Product[];
+  products: ProductWithDetails[];
   href: string;
   className?: string;
 }
 
 export const Section = ({ title, products, href }: SectionProps) => {
+  console.log("products", products);
   return (
     <section className="flex min-h-screen w-full flex-col items-center gap-10 py-10">
       <h2 className="font-playfair text-2xl font-bold tracking-wide uppercase md:text-3xl">
@@ -19,7 +20,7 @@ export const Section = ({ title, products, href }: SectionProps) => {
 
       <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-4">
         {products.map((product) => (
-          <ProductCard key={product.name} product={product} />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
 
