@@ -8,6 +8,7 @@ import { ProductPreview } from "./_components/product-preview";
 import { similarProducts } from "@/mocks/products";
 import { ProductCard } from "@/components/global/product-card";
 import { CustomBreadcrump } from "@/components/global/custom-breadcrump";
+import { prisma } from "@/lib/prisma";
 
 const ProductDetailsPage = async ({
   params,
@@ -18,7 +19,16 @@ const ProductDetailsPage = async ({
     productSlug: string;
   }>;
 }) => {
-  const { categorySlug, subCategorySlug } = await params;
+  const { categorySlug, subCategorySlug, productSlug } = await params;
+
+  const product = await prisma.product.findFirst({
+    where: {
+      slug: productSlug,
+    },
+    include: {
+      images: true,
+    },
+  });
 
   return (
     <div className="mx-auto max-w-7xl px-5 md:px-20">
@@ -37,7 +47,7 @@ const ProductDetailsPage = async ({
         {/* PRODUCT PREVIEW IMAGES */}
         <ProductPreview
           images={[
-            "/images/product-preview/1.png",
+            product?.thumbnail || "",
             "/images/product-preview/2.png",
             "/images/product-preview/3.png",
           ]}
@@ -47,12 +57,12 @@ const ProductDetailsPage = async ({
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2 md:gap-3">
               <h1 className="font-playfair text-2xl font-bold tracking-wide uppercase md:text-3xl">
-                Enamel Long Sleeved Shirt
+                {product?.name}
               </h1>
               <StarRating ratings={[5, 4, 5, 1, 1]} />
               <div className="flex items-center gap-2">
                 <h3 className="text-primary text-lg font-bold tracking-tighter md:text-2xl">
-                  {formatPrice(260.99)}
+                  {formatPrice(product?.price || 0)}
                 </h3>
                 <span className="text-muted-foreground text-lg line-through md:text-2xl">
                   {formatPrice(300)}
@@ -62,11 +72,7 @@ const ProductDetailsPage = async ({
                 </span>
               </div>
             </div>
-            <p className="text-muted-foreground mt-3">
-              This graphic t-shirt which is perfect for any occasion. Crafted
-              from a soft and breathable fabric, it offers superior comfort and
-              style.
-            </p>
+            <p className="text-muted-foreground mt-3">{product?.description}</p>
           </div>
           <Separator className="my-5" />
           {/* SELECT COLOR */}
