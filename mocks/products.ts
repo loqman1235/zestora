@@ -1,6 +1,4 @@
-import { Product } from "@/types";
-
-export const newArrivals: Product[] = [
+export const newArrivals = [
   {
     id: "",
     image: "/images/products/newArrivals/1.png",
@@ -93,7 +91,7 @@ export const newArrivals: Product[] = [
   },
 ];
 
-export const topSelling: Product[] = [
+export const topSelling = [
   {
     id: "",
     image: "/images/products/topSelling/5.png",
@@ -218,7 +216,7 @@ export const categories = [
   },
 ] as const;
 
-export const similarProducts: Product[] = [
+export const similarProducts = [
   {
     id: "1",
     image: "/images/products/similar/1.png",

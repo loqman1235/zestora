@@ -24,7 +24,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       {/* Product image */}
       <Link
         href={href}
-        className="bg-muted relative aspect-square w-full overflow-hidden rounded-md"
+        className="bg-muted border-border relative block aspect-square h-[332px] w-full overflow-hidden rounded-md border md:h-[400px]"
       >
         <Image
           className="transition group-hover/card:scale-105"
