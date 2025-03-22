@@ -3,7 +3,7 @@
 import { StarRating } from "@/components/global/star-rating";
 import { cn, formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { MinusIcon, PlusIcon } from "lucide-react";
+import { CheckIcon, MinusIcon, PlusIcon } from "lucide-react";
 import { ProductWithDetails } from "@/types";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
@@ -52,14 +52,18 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
               <button
                 key={variant.id}
                 className={cn(
-                  "border-muted-foreground h-8 w-8 rounded-full border",
+                  "border-muted-foreground flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border",
                   variant.color === selectedVariant?.color ? "border-2" : "",
                 )}
-                style={{ backgroundColor: variant.color }}
+                style={{ backgroundColor: variant.hex }}
                 title={variant.color}
                 aria-label={variant.color}
                 onClick={() => setSelectedVariant(variant)}
-              ></button>
+              >
+                {variant.color === selectedVariant?.color && (
+                  <CheckIcon className="size-4 text-white" />
+                )}
+              </button>
             ))}
           </div>
         </div>
@@ -71,7 +75,9 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
             <Button className="rounded-full" variant="outline">
               Small
             </Button>
-            <Button className="rounded-full">Medium</Button>
+            <Button className="rounded-full" variant="outline">
+              Medium
+            </Button>
             <Button className="rounded-full" variant="outline">
               Large
             </Button>
