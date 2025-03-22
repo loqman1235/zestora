@@ -300,6 +300,7 @@ async function main() {
           color: "Pink",
           price: 17.49,
           inventory: 50,
+          hex: "#F9DAE2",
         },
       });
 
@@ -310,6 +311,7 @@ async function main() {
           color: "Beige",
           price: 17.49,
           inventory: 50,
+          hex: "#D8EBE6",
         },
       });
 
@@ -320,6 +322,7 @@ async function main() {
           color: "Brown",
           price: 17.49,
           inventory: 50,
+          hex: "#3C2822",
         },
       });
 
@@ -422,6 +425,7 @@ async function main() {
           color: "Black",
           price: 17.49,
           inventory: 50,
+          hex: "#19161B",
         },
       });
 
@@ -432,6 +436,7 @@ async function main() {
           color: "Green",
           price: 17.49,
           inventory: 50,
+          hex: "#849FA8",
         },
       });
 
@@ -442,6 +447,7 @@ async function main() {
           color: "Lilac",
           price: 17.49,
           inventory: 50,
+          hex: "#DBC5C4",
         },
       });
 
