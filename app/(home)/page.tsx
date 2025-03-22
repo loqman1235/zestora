@@ -16,7 +16,6 @@ const HomePage = async () => {
     },
     take: 4,
     include: {
-      images: true,
       brand: true,
       category: {
         select: {
@@ -25,9 +24,15 @@ const HomePage = async () => {
           children: true,
         },
       },
-      variants: true,
+      variants: {
+        include: {
+          images: true,
+        },
+      },
     },
   });
+
+  console.log("New arrivals", newArrivals);
 
   return (
     <>
