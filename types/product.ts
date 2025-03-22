@@ -2,9 +2,9 @@ import { Prisma } from "@prisma/client";
 
 export type ProductWithDetails = Prisma.ProductGetPayload<{
   include: {
-    images: {
-      select: {
-        url: true;
+    variants: {
+      include: {
+        images: true;
       };
     };
     category: {
@@ -15,6 +15,5 @@ export type ProductWithDetails = Prisma.ProductGetPayload<{
       };
     };
     brand: true;
-    variants: true;
   };
 }>;

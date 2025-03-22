@@ -1,14 +1,10 @@
 import { Separator } from "@/components/ui/separator";
-// import { BreadCrumb } from "./_components/BreadCrumb";
-import { StarRating } from "@/components/global/star-rating";
-import { formatPrice, slugToTitle } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { MinusIcon, PlusIcon } from "lucide-react";
-import { ProductPreview } from "./_components/product-preview";
 import { similarProducts } from "@/mocks/products";
 import { ProductCard } from "@/components/global/product-card";
 import { CustomBreadcrump } from "@/components/global/custom-breadcrump";
 import { prisma } from "@/lib/prisma";
+import { ProductDetails } from "./_components/product-details";
+import { slugToTitle } from "@/lib/utils";
 
 const ProductDetailsPage = async ({
   params,
@@ -26,7 +22,17 @@ const ProductDetailsPage = async ({
       slug: productSlug,
     },
     include: {
-      images: true,
+      category: {
+        include: {
+          children: true,
+        },
+      },
+      brand: true,
+      variants: {
+        include: {
+          images: true,
+        },
+      },
     },
   });
 
@@ -43,82 +49,7 @@ const ProductDetailsPage = async ({
         ]}
       />
 
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-        {/* PRODUCT PREVIEW IMAGES */}
-        <ProductPreview
-          images={[
-            product?.thumbnail || "",
-            "/images/product-preview/2.png",
-            "/images/product-preview/3.png",
-          ]}
-        />
-        {/* PRODUCT DETAILS */}
-        <div>
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-2 md:gap-3">
-              <h1 className="font-playfair text-2xl font-bold tracking-wide uppercase md:text-3xl">
-                {product?.name}
-              </h1>
-              <StarRating ratings={[5, 4, 5, 1, 1]} />
-              <div className="flex items-center gap-2">
-                <h3 className="text-primary text-lg font-bold tracking-tighter md:text-2xl">
-                  {formatPrice(product?.price || 0)}
-                </h3>
-                <span className="text-muted-foreground text-lg line-through md:text-2xl">
-                  {formatPrice(300)}
-                </span>
-                <span className="bg-destructive/10 text-destructive rounded-full px-2 py-1 text-xs font-bold">
-                  -{Math.round(((300 - 260) / 300) * 100)}%
-                </span>
-              </div>
-            </div>
-            <p className="text-muted-foreground mt-3">{product?.description}</p>
-          </div>
-          <Separator className="my-5" />
-          {/* SELECT COLOR */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-muted-foreground">Select Colors</h3>
-            <div className="flex items-center gap-2">
-              <div className="size-8 rounded-full bg-[#1B1B1B]" />
-              <div className="size-8 rounded-full bg-[#314F4A]" />
-              <div className="size-8 rounded-full bg-[#31344F]" />
-            </div>
-          </div>
-          <Separator className="my-5" />
-          {/* SELECT SIZE */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-muted-foreground">Choose Size</h3>
-            <div className="flex items-center gap-2">
-              <Button className="rounded-full" variant="outline">
-                Small
-              </Button>
-              <Button className="rounded-full">Medium</Button>
-              <Button className="rounded-full" variant="outline">
-                Large
-              </Button>
-              <Button className="rounded-full" variant="outline">
-                Extra Large
-              </Button>
-            </div>
-          </div>
-          <Separator className="my-5" />
-          {/* ADD TO CART */}
-          <div className="flex gap-3">
-            <div className="bg-muted flex w-[120px] items-center justify-evenly gap-2 rounded-full p-1">
-              <button className="cursor-pointer">
-                <MinusIcon className="size-4" />
-              </button>
-              <span>1</span>
-              <button className="cursor-pointer">
-                <PlusIcon className="size-4" />
-              </button>
-            </div>
-            <Button className="flex-1 rounded-full" size="lg">
-              Add to Cart
-            </Button>
-          </div>
-        </div>
-      </div>
+      {product && <ProductDetails product={product} />}
 
       {/* TODO: ADD REVIEWS SECTION */}
 

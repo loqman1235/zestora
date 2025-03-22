@@ -191,8 +191,7 @@ async function main() {
     async (tx) => {
       const floralShirt = await tx.product.create({
         data: {
-          thumbnail:
-            "/images/products/men/shirt/floral-print-drop-sleeve-shirt.jpg",
+          thumbnail: "/images/products/men/shirt/floral-shirt/default.jpg",
           name: "Floral Print Drop-Sleeve Shirt",
           slug: slugify("Floral Print Drop-Sleeve Shirt", { lower: true }),
           description:
@@ -206,8 +205,7 @@ async function main() {
 
       const leopardShirt = await tx.product.create({
         data: {
-          thumbnail:
-            "/images/products/men/shirt/leopard-print-cuban-collar-shirt.jpg",
+          thumbnail: "/images/products/men/shirt/leopard-shirt/default.jpg",
           name: "Leopard Print Cuban-Collar Shirt",
           slug: slugify("Leopard Print Cuban-Collar Shirt", { lower: true }),
           description:
@@ -254,7 +252,7 @@ async function main() {
       const marketMotifShirt = await tx.product.create({
         data: {
           thumbnail:
-            "/images/products/men/shirts/market-motif-graphic-shirt.jpg",
+            "/images/products/men/shirts/market-motif-shirt/default.jpg",
           name: "Market Motif Graphic Shirt",
           slug: slugify("Market Motif Graphic Shirt", { lower: true }),
           description:
@@ -268,8 +266,7 @@ async function main() {
 
       const pinstripedShirt = await tx.product.create({
         data: {
-          thumbnail:
-            "/images/products/men/shirts/pinstriped-cuban-collar-shirt.jpg",
+          thumbnail: "/images/products/men/shirts/pinstriped-shirt/default.jpg",
           name: "Pinstriped Cuban-Collar Shirt",
           slug: slugify("Pinstriped Cuban-Collar Shirt", { lower: true }),
           description:
@@ -283,8 +280,7 @@ async function main() {
 
       const fleeceHoodie = await tx.product.create({
         data: {
-          thumbnail:
-            "/images/products/women/shirts/fleece-drawstring-hoodie.jpg",
+          thumbnail: "/images/products/women/shirts/fleece-hoodie/default.jpg",
           name: "Fleece Drawstring Hoodie",
           slug: slugify("Fleece Drawstring Hoodie", { lower: true }),
           description:
@@ -296,10 +292,90 @@ async function main() {
         },
       });
 
+      //  variants
+      const pinkVariant = await tx.productVariant.create({
+        data: {
+          productId: fleeceHoodie.id,
+          size: "Standard",
+          color: "Pink",
+          price: 17.49,
+          inventory: 50,
+        },
+      });
+
+      const beigeVariant = await tx.productVariant.create({
+        data: {
+          productId: fleeceHoodie.id,
+          size: "Standard",
+          color: "Beige",
+          price: 17.49,
+          inventory: 50,
+        },
+      });
+
+      const brownVariant = await tx.productVariant.create({
+        data: {
+          productId: fleeceHoodie.id,
+          size: "Standard",
+          color: "Brown",
+          price: 17.49,
+          inventory: 50,
+        },
+      });
+
+      await tx.productImage.createMany({
+        data: [
+          {
+            url: "/images/products/women/shirts/fleece-hoodie/pink/pink-1.jpg",
+            variantId: pinkVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/fleece-hoodie/pink/pink-2.jpg",
+            variantId: pinkVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/fleece-hoodie/pink/pink-3.jpg",
+            variantId: pinkVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/fleece-hoodie/beige/beige-1.jpg",
+            variantId: beigeVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/fleece-hoodie/beige/beige-2.jpg",
+            variantId: beigeVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/fleece-hoodie/beige/beige-3.jpg",
+            variantId: beigeVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/fleece-hoodie/brown/brown-1.jpg",
+            variantId: brownVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/fleece-hoodie/brown/brown-2.jpg",
+            variantId: brownVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/fleece-hoodie/brown/brown-3.jpg",
+            variantId: brownVariant.id,
+            productId: fleeceHoodie.id,
+          },
+        ],
+      });
+
       const helloKittyShirt = await tx.product.create({
         data: {
-          thumbnail:
-            "/images/products/women/shirts/hello-kitty-ringer-baby-tee.jpg",
+          thumbnail: "/images/products/women/shirts/hello-kitty/default.jpg",
           name: "Hello Kitty Ringer Baby Tee",
           slug: slugify("Hello Kitty Ringer Baby Tee", { lower: true }),
           description:
@@ -313,8 +389,7 @@ async function main() {
 
       const zaraDress = await tx.product.create({
         data: {
-          thumbnail:
-            "/images/products/women/shirts/my-melody-graphic-fleece-pullover.jpg",
+          thumbnail: "/images/products/women/shirts/melody-grap/default.jpg",
           name: "My Melody Graphic Fleece Pullover",
           slug: slugify("My Melody Graphic Fleece Pullover", { lower: true }),
           description:
@@ -328,17 +403,96 @@ async function main() {
 
       const ruchedTop = await tx.product.create({
         data: {
-          thumbnail:
-            "/images/products/women/shirts/ruched-cropped-tank-top.jpg",
+          thumbnail: "/images/products/women/shirts/tank-top/default.jpg",
           name: "Ruched Cropped Tank Top",
           slug: slugify("Ruched Cropped Tank Top", { lower: true }),
           description:
             "A knit tank top featuring a square-cut neckline, shoulder straps, ruched sides, and a cropped hem.",
           price: 10.49,
           inventory: 25,
-          categoryId: menCategory.id,
+          categoryId: womenCategory.id,
           brandId: brandVersace.id,
         },
+      });
+
+      const blackVariant = await tx.productVariant.create({
+        data: {
+          productId: ruchedTop.id,
+          size: "Standard",
+          color: "Black",
+          price: 17.49,
+          inventory: 50,
+        },
+      });
+
+      const greenVariant = await tx.productVariant.create({
+        data: {
+          productId: ruchedTop.id,
+          size: "Standard",
+          color: "Green",
+          price: 17.49,
+          inventory: 50,
+        },
+      });
+
+      const lilacVariant = await tx.productVariant.create({
+        data: {
+          productId: fleeceHoodie.id,
+          size: "Standard",
+          color: "Lilac",
+          price: 17.49,
+          inventory: 50,
+        },
+      });
+
+      await tx.productImage.createMany({
+        data: [
+          {
+            url: "/images/products/women/shirts/tank-top/black/black-1.jpg",
+            variantId: blackVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/tank-top/black/black-2.jpg",
+            variantId: blackVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/tank-top/black/black-3.jpg",
+            variantId: blackVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/tank-top/green/green-1.jpg",
+            variantId: greenVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/tank-top/green/green-2.jpg",
+            variantId: greenVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/tank-top/green/green-3.jpg",
+            variantId: greenVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/tank-top/lilac/lilac-1.jpg",
+            variantId: lilacVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/tank-top/lilac/lilac-2.jpg",
+            variantId: lilacVariant.id,
+            productId: fleeceHoodie.id,
+          },
+          {
+            url: "/images/products/women/shirts/tank-top/lilac/lilac-3.jpg",
+            variantId: lilacVariant.id,
+            productId: fleeceHoodie.id,
+          },
+        ],
       });
     },
     {

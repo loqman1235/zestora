@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const ProductPreview = ({ images }: { images: string[] }) => {
   const [activeImage, setActiveImage] = useState(images[0]);
@@ -23,6 +23,10 @@ export const ProductPreview = ({ images }: { images: string[] }) => {
   const handleMouseLeave = () => {
     setZoomPosition((prev) => ({ ...prev, visible: false }));
   };
+
+  useEffect(() => {
+    setActiveImage(images[0]);
+  }, [images]);
 
   return (
     <div className="grid grid-cols-4 gap-4">
@@ -47,7 +51,7 @@ export const ProductPreview = ({ images }: { images: string[] }) => {
       </div>
 
       {/* Main Image & Zoom Window */}
-      <div className="relative col-span-3 h-[500px] w-full rounded-md">
+      <div className="relative col-span-3 min-h-[500px] w-full rounded-md">
         <div
           className="relative h-full w-full overflow-hidden rounded-md"
           onMouseMove={handleMouseMove}

@@ -24,10 +24,10 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       {/* Product image */}
       <Link
         href={href}
-        className="bg-muted border-border relative block aspect-square h-[332px] w-full overflow-hidden rounded-md border md:h-[400px]"
+        className="bg-muted relative block h-[360px] w-full overflow-hidden rounded-md shadow-sm"
       >
         <Image
-          className="transition group-hover/card:scale-105"
+          className="w-full object-cover transition group-hover/card:scale-105"
           src={product.thumbnail}
           alt={product.name}
           fill
