@@ -1,10 +1,27 @@
 import { Separator } from "@/components/ui/separator";
-import { similarProducts } from "@/mocks/products";
-import { ProductCard } from "@/components/global/product-card";
+// import { similarProducts } from "@/mocks/products";
+// import { ProductCard } from "@/components/global/product-card";
 import { CustomBreadcrump } from "@/components/global/custom-breadcrump";
 import { prisma } from "@/lib/prisma";
 import { ProductDetails } from "./_components/product-details";
 import { slugToTitle } from "@/lib/utils";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { productSlug: string };
+}): Promise<Metadata> {
+  const product = await prisma.product.findFirst({
+    where: {
+      slug: params.productSlug,
+    },
+  });
+  return {
+    title: product?.name,
+    description: product?.description,
+  };
+}
 
 const ProductDetailsPage = async ({
   params,
@@ -54,7 +71,7 @@ const ProductDetailsPage = async ({
       {/* TODO: ADD REVIEWS SECTION */}
 
       {/* SIMILAR PRODUCTS */}
-      <div className="my-10 flex flex-col gap-5 md:my-20">
+      {/* <div className="my-10 flex flex-col gap-5 md:my-20">
         <h2 className="font-playfair text-center text-2xl font-bold tracking-wide uppercase md:text-3xl">
           You may also like
         </h2>
@@ -63,7 +80,7 @@ const ProductDetailsPage = async ({
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

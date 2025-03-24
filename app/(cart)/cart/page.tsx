@@ -4,6 +4,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { CustomBreadcrump } from "@/components/global/custom-breadcrump";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Cart",
+};
 
 const CartPage = () => {
   return (

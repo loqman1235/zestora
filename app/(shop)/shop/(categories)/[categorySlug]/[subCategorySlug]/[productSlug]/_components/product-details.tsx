@@ -17,6 +17,15 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
   const [selectedVariant, setSelectedVariant] = useState(
     product.variants[0] || null,
   );
+  const [quantity, setQuantity] = useState(1);
+
+  const incrementQuantity = () => setQuantity((prev) => prev + 1);
+  const decrementQuantity = () =>
+    setQuantity((prev) => {
+      if (prev === 1) return 1;
+      return prev - 1;
+    });
+
   return (
     <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
       <ProductPreview
@@ -91,10 +100,10 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
         <div className="flex gap-3">
           <div className="bg-muted flex w-[120px] items-center justify-evenly gap-2 rounded-full p-1">
             <button className="cursor-pointer">
-              <MinusIcon className="size-4" />
+              <MinusIcon onClick={decrementQuantity} className="size-4" />
             </button>
-            <span>1</span>
-            <button className="cursor-pointer">
+            <span>{quantity}</span>
+            <button onClick={incrementQuantity} className="cursor-pointer">
               <PlusIcon className="size-4" />
             </button>
           </div>
