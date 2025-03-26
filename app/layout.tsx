@@ -5,6 +5,7 @@ import { Navbar } from "@/components/global/navbar";
 import { Footer } from "@/components/global/footer";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
+import Providers from "@/providers/providers";
 
 const satoshi = localFont({
   src: [
@@ -82,9 +83,11 @@ export default function RootLayout({
       <body
         className={`${satoshi.variable} ${integralCF.variable} ${playfairDisplay.variable} ${cabinetGrotesk.variable} font-satoshi antialiased`}
       >
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

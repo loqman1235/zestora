@@ -1,7 +1,7 @@
 import { mainNavigation } from "@/config/navigation";
 import { Brand } from "./brand";
 import Link from "next/link";
-import { ShoppingCart, UserCircle } from "lucide-react";
+import { UserCircle } from "lucide-react";
 import { SearchBar } from "./search-bar";
 import { MobileNavigation } from "./mobile-navigation";
 import {
@@ -12,6 +12,7 @@ import {
 } from "../ui/tooltip";
 import { auth } from "@/auth";
 import { UserAvatar } from "./user-avatar";
+import { CartLink } from "./cart-link";
 
 export const Navbar = async () => {
   const session = await auth();
@@ -44,9 +45,7 @@ export const Navbar = async () => {
               <Tooltip>
                 <TooltipTrigger>
                   {" "}
-                  <Link href="/cart">
-                    <ShoppingCart />
-                  </Link>
+                  <CartLink />
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>Cart</p>

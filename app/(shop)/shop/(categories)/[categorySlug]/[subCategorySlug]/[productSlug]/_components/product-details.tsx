@@ -8,16 +8,23 @@ import { ProductWithDetails } from "@/types";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import { ProductPreview } from "./product-preview";
+import { useCart } from "@/providers/cart-provider";
 
 interface ProductDetailsProps {
   product: ProductWithDetails;
 }
 
+const sizes = ["XS", "S", "M", "L", "XL"];
+
 export const ProductDetails = ({ product }: ProductDetailsProps) => {
+  const { addToCart } = useCart();
   const [selectedVariant, setSelectedVariant] = useState(
     product.variants[0] || null,
   );
   const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState(product.variants[0]?.size);
+
+  const handleSelectSize = (size: string) => setSelectedSize(size);
 
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
   const decrementQuantity = () =>
@@ -25,6 +32,19 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
       if (prev === 1) return 1;
       return prev - 1;
     });
+
+  const handleAddToCart = () => {
+    if (!selectedVariant) return;
+    addToCart({
+      id: selectedVariant.id,
+      name: product.name,
+      image: selectedVariant.images[0].url,
+      size: selectedSize,
+      color: selectedVariant.color,
+      quantity,
+      price: product.price,
+    });
+  };
 
   return (
     <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
@@ -61,17 +81,24 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
               <button
                 key={variant.id}
                 className={cn(
-                  "border-muted-foreground flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border",
-                  variant.color === selectedVariant?.color ? "border-2" : "",
+                  "flex h-8 w-8 cursor-pointer items-center justify-center rounded-full p-1",
+                  variant.color === selectedVariant?.color
+                    ? "border-primary border"
+                    : "",
                 )}
-                style={{ backgroundColor: variant.hex }}
                 title={variant.color}
                 aria-label={variant.color}
                 onClick={() => setSelectedVariant(variant)}
               >
-                {variant.color === selectedVariant?.color && (
-                  <CheckIcon className="size-4 text-white" />
-                )}
+                <span className="sr-only">{variant.color}</span>
+                <span
+                  style={{ backgroundColor: variant.hex }}
+                  className="flex h-full w-full items-center justify-center rounded-full"
+                >
+                  {variant.color === selectedVariant?.color && (
+                    <CheckIcon className="size-3 text-white" />
+                  )}
+                </span>
               </button>
             ))}
           </div>
@@ -81,18 +108,16 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
         <div className="flex flex-col gap-3">
           <h3 className="text-muted-foreground">Choose Size</h3>
           <div className="flex items-center gap-2">
-            <Button className="rounded-full" variant="outline">
-              Small
-            </Button>
-            <Button className="rounded-full" variant="outline">
-              Medium
-            </Button>
-            <Button className="rounded-full" variant="outline">
-              Large
-            </Button>
-            <Button className="rounded-full" variant="outline">
-              Extra Large
-            </Button>
+            {sizes.map((size) => (
+              <Button
+                onClick={() => handleSelectSize(size)}
+                key={size}
+                className="rounded-full"
+                variant={selectedSize === size ? "default" : "outline"}
+              >
+                {size}
+              </Button>
+            ))}
           </div>
         </div>
         <Separator className="my-5" />
@@ -107,7 +132,11 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
               <PlusIcon className="size-4" />
             </button>
           </div>
-          <Button className="flex-1 rounded-full" size="lg">
+          <Button
+            onClick={handleAddToCart}
+            className="flex-1 rounded-full"
+            size="lg"
+          >
             Add to Cart
           </Button>
         </div>
