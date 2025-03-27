@@ -8,14 +8,14 @@ type CartContextType = {
   cart: CartItemType[];
   addToCart: (item: CartItemType) => void;
   removeFromCart: (id: string) => void;
-  total: number;
+  subTotal: number;
 };
 
 const CartContext = createContext<CartContextType | null>({
   cart: [],
   addToCart: () => {},
   removeFromCart: () => {},
-  total: 0,
+  subTotal: 0,
 });
 
 const CartProvider = ({ children }: { children: React.ReactNode }) => {
@@ -38,8 +38,9 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  const total = useMemo(
-    () => cart.reduce((total, item) => total + item.price * item.quantity, 0),
+  const subTotal = useMemo(
+    () =>
+      cart.reduce((subTotal, item) => subTotal + item.price * item.quantity, 0),
     [cart],
   );
 
@@ -49,7 +50,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         cart,
         addToCart,
         removeFromCart,
-        total,
+        subTotal,
       }}
     >
       {children}

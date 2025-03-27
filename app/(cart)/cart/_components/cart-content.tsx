@@ -7,9 +7,11 @@ import { Input } from "@/components/ui/input";
 import { useCart } from "@/providers/cart-provider";
 import { formatPrice } from "@/lib/utils";
 import { CartItem } from "./cart-item";
+import { DISCOUNT, SHIPPING_FEE } from "@/config/consts";
 
 export const CartContent = () => {
-  const { cart, total, removeFromCart } = useCart();
+  const { cart, subTotal, removeFromCart } = useCart();
+  const total = formatPrice(subTotal + SHIPPING_FEE - DISCOUNT);
 
   return (
     <>
@@ -30,15 +32,19 @@ export const CartContent = () => {
             <div className="flex flex-col gap-2">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Subtotal</span>
-                <span className="font-semibold">$120</span>
+                <span className="font-semibold"> {formatPrice(subTotal)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Discount</span>
-                <span className="text-destructive font-semibold">-$20</span>
+                <span className="text-destructive font-semibold">
+                  -{formatPrice(DISCOUNT)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Delivery Fee</span>
-                <span className="font-semibold">$10</span>
+                <span className="font-semibold">
+                  {formatPrice(SHIPPING_FEE)}
+                </span>
               </div>
             </div>
 
@@ -48,7 +54,8 @@ export const CartContent = () => {
               <div className="flex justify-between">
                 <span>Total</span>
                 <span className="text-xl font-bold tracking-tighter">
-                  {formatPrice(total)}
+                  {/* TOTAL PRICE HERE */}
+                  {total}
                 </span>
               </div>
             </div>

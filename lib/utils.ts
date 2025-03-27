@@ -25,3 +25,11 @@ export const slugToTitle = (slug: string) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 };
+
+export const calcTotal = (
+  shippingFree: number,
+  discount: number,
+  subTotal: number,
+) => {
+  return formatPrice(subTotal + shippingFree - discount);
+};
