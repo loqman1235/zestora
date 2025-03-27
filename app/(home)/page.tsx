@@ -32,8 +32,6 @@ const HomePage = async () => {
     },
   });
 
-  console.log("New arrivals", newArrivals);
-
   return (
     <>
       <Hero />
