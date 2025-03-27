@@ -12,7 +12,7 @@ export const CartLink = () => {
     <Link className="relative block" href="/cart">
       <ShoppingCartIcon />
       {cartLength > 0 && (
-        <span className="bg-destructive absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full text-xs text-white">
+        <span className="bg-destructive absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full text-[10px] text-white">
           {cartLength}
         </span>
       )}
