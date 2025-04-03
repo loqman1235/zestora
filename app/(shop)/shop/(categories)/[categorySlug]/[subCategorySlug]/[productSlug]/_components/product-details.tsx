@@ -1,7 +1,7 @@
 "use client";
 
 import { StarRating } from "@/components/global/star-rating";
-import { cn, formatPrice } from "@/lib/utils";
+import { cn, formatPrice, isBrightColor } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { CheckIcon, MinusIcon, PlusIcon } from "lucide-react";
 import { ProductWithDetails } from "@/types";
@@ -96,7 +96,14 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
                   className="flex h-full w-full items-center justify-center rounded-full"
                 >
                   {variant.color === selectedVariant?.color && (
-                    <CheckIcon className="size-3 text-white" />
+                    <CheckIcon
+                      className={cn(
+                        "size-3",
+                        isBrightColor(variant.hex)
+                          ? "text-primary"
+                          : "text-white",
+                      )}
+                    />
                   )}
                 </span>
               </button>
