@@ -8,8 +8,11 @@ import { useCart } from "@/providers/cart-provider";
 import { formatPrice } from "@/lib/utils";
 import { CartItem } from "./cart-item";
 import { DISCOUNT, SHIPPING_FEE } from "@/config/consts";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export const CartContent = () => {
+  const { data: session } = useSession();
   const { cart, subTotal, removeFromCart } = useCart();
   const total = formatPrice(subTotal + SHIPPING_FEE - DISCOUNT);
 
@@ -74,13 +77,24 @@ export const CartContent = () => {
               </Button>
             </div>
 
-            <Button
-              className="w-full rounded-full"
-              size="lg"
-              aria-label="Checkout button"
-            >
-              Go to checkout <ArrowRight />
-            </Button>
+            {session?.user ? (
+              <Button
+                className="w-full rounded-full"
+                size="lg"
+                aria-label="Checkout button"
+              >
+                Go to checkout <ArrowRight />
+              </Button>
+            ) : (
+              <Button
+                className="w-full rounded-full"
+                size="lg"
+                aria-label="Login button"
+                asChild
+              >
+                <Link href="/sign-in">Login to checkout</Link>
+              </Button>
+            )}
           </div>
         </div>
       ) : (
