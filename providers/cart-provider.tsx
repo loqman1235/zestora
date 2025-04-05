@@ -8,6 +8,8 @@ type CartContextType = {
   cart: CartItemType[];
   addToCart: (item: CartItemType) => void;
   removeFromCart: (id: string) => void;
+  decrementQuantity: (id: string) => void;
+  incrementQuantity: (id: string) => void;
   subTotal: number;
 };
 
@@ -15,6 +17,8 @@ const CartContext = createContext<CartContextType | null>({
   cart: [],
   addToCart: () => {},
   removeFromCart: () => {},
+  decrementQuantity: () => {},
+  incrementQuantity: () => {},
   subTotal: 0,
 });
 
@@ -38,6 +42,42 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
+  const decrementQuantity = (id: string) => {
+    setCart((prevCart) => {
+      const targetItemIndex = prevCart.findIndex((item) => item.id === id);
+
+      if (targetItemIndex !== -1) {
+        const updatedCart = [...prevCart];
+
+        updatedCart[targetItemIndex].quantity -= 1;
+
+        if (updatedCart[targetItemIndex].quantity === 0) {
+          updatedCart.splice(targetItemIndex, 1);
+        }
+
+        return updatedCart;
+      }
+
+      return prevCart;
+    });
+  };
+
+  const incrementQuantity = (id: string) => {
+    setCart((prevCart) => {
+      const targetItemIndex = prevCart.findIndex((item) => item.id === id);
+
+      if (targetItemIndex !== -1) {
+        const updatedCart = [...prevCart];
+
+        updatedCart[targetItemIndex].quantity += 1;
+
+        return updatedCart;
+      }
+
+      return prevCart;
+    });
+  };
+
   const subTotal = useMemo(
     () =>
       cart.reduce((subTotal, item) => subTotal + item.price * item.quantity, 0),
@@ -50,6 +90,8 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         cart,
         addToCart,
         removeFromCart,
+        decrementQuantity,
+        incrementQuantity,
         subTotal,
       }}
     >
