@@ -1,4 +1,7 @@
+"use client";
+
 import { formatPrice } from "@/lib/utils";
+import { useCart } from "@/providers/cart-provider";
 import { CartItemType } from "@/types/cart";
 import { MinusIcon, PlusIcon, Trash2Icon } from "lucide-react";
 import Image from "next/image";
@@ -17,6 +20,7 @@ export const CartItem = ({
   price,
   removeFromCart,
 }: CartItemProps) => {
+  const { decrementQuantity, incrementQuantity } = useCart();
   return (
     <div className="border-b-border flex items-center gap-4 border-b py-5 first:pt-0 last:border-b-0 last:pb-0">
       {/* IMAGE */}
@@ -53,11 +57,19 @@ export const CartItem = ({
             {formatPrice(price)}
           </h3>
           <div className="bg-muted flex w-[120px] items-center justify-evenly gap-2 rounded-full p-1">
-            <button className="cursor-pointer" aria-label="Minus item">
+            <button
+              onClick={() => decrementQuantity(id)}
+              className="cursor-pointer"
+              aria-label="Minus item"
+            >
               <MinusIcon className="size-4" />
             </button>
             <span>{quantity}</span>
-            <button className="cursor-pointer" aria-label="Plus item">
+            <button
+              onClick={() => incrementQuantity(id)}
+              className="cursor-pointer"
+              aria-label="Plus item"
+            >
               <PlusIcon className="size-4" />
             </button>
           </div>
