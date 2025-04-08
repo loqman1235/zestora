@@ -92,7 +92,7 @@ export const CartContent = () => {
                 aria-label="Login button"
                 asChild
               >
-                <Link href="/sign-in">Login to checkout</Link>
+                <Link href="/sign-in">Sign In to checkout</Link>
               </Button>
             )}
           </div>
