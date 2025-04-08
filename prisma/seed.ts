@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 async function main() {
   await prisma.$transaction([
-    // prisma.user.deleteMany(),
+    prisma.user.deleteMany(),
     prisma.verificationToken.deleteMany(),
     prisma.verificationCode.deleteMany(),
     prisma.productImage.deleteMany(),
@@ -38,34 +38,34 @@ async function main() {
     },
   });
 
-  // const adminPassword = await bcrypt.hash("admin123", 10);
-  // const userPassword = await bcrypt.hash("password123", 10);
+  const adminPassword = await bcrypt.hash("admin123", 10);
+  const userPassword = await bcrypt.hash("password123", 10);
 
-  // await prisma.user.createMany({
-  //   data: [
-  //     {
-  //       name: "Admin",
-  //       email: "axeldjefafla@gmail.com",
-  //       password: adminPassword,
-  //       emailVerified: new Date(),
-  //       role: UserRole.ADMIN,
-  //     },
-  //     {
-  //       name: "John Doe",
-  //       email: "johndoe@gmail.com",
-  //       password: userPassword,
-  //       emailVerified: new Date(),
-  //       role: UserRole.CUSTOMER,
-  //     },
-  //     {
-  //       name: "Jane Doe",
-  //       email: "janedoe@gmail.com",
-  //       password: userPassword,
-  //       emailVerified: new Date(),
-  //       role: UserRole.CUSTOMER,
-  //     },
-  //   ],
-  // });
+  await prisma.user.createMany({
+    data: [
+      {
+        name: "Admin",
+        email: "axeldjefafla@gmail.com",
+        password: adminPassword,
+        emailVerified: new Date(),
+        role: UserRole.ADMIN,
+      },
+      {
+        name: "John Doe",
+        email: "johndoe@gmail.com",
+        password: userPassword,
+        emailVerified: new Date(),
+        role: UserRole.CUSTOMER,
+      },
+      {
+        name: "Jane Doe",
+        email: "janedoe@gmail.com",
+        password: userPassword,
+        emailVerified: new Date(),
+        role: UserRole.CUSTOMER,
+      },
+    ],
+  });
 
   const [
     brandNike,

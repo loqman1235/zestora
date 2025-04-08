@@ -59,6 +59,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  reviews   Review[]
 
   @@map("users")
 }
@@ -109,6 +110,7 @@ model Product {
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
   cartItems     CartItem[]
+  reviews       Review[]
 
   @@index([slug, categoryId, brandId])
   @@map("products")
@@ -142,6 +144,20 @@ model ProductVariant {
   cartItems CartItem[]
 
   @@map("product_variants")
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  review    String
+  rating    Int
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reviews")
 }
 
 model Category {
