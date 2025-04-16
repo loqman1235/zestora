@@ -40,7 +40,7 @@ const ShopPage = async ({
         {/* FILTERS MENU */}
         <FiltersMenu />
         {/* PRODUCTS */}
-        <FilteredProducts filters={filters} />
+        {/* <FilteredProducts filters={filters} /> */}
       </div>
     </div>
   );

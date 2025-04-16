@@ -2,7 +2,6 @@
 
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/providers/cart-provider";
 import { formatPrice } from "@/lib/utils";
@@ -10,6 +9,7 @@ import { CartItem } from "./cart-item";
 import { DISCOUNT, SHIPPING_FEE } from "@/config/consts";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { CheckoutButton } from "./CheckoutButton";
 
 export const CartContent = () => {
   const { data: session } = useSession();
@@ -78,13 +78,7 @@ export const CartContent = () => {
             </div>
 
             {session?.user ? (
-              <Button
-                className="w-full rounded-full"
-                size="lg"
-                aria-label="Checkout button"
-              >
-                Go to checkout <ArrowRight />
-              </Button>
+              <CheckoutButton />
             ) : (
               <Button
                 className="w-full rounded-full"

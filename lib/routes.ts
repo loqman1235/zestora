@@ -1,9 +1,8 @@
 export const ROOT = "/";
-export const PUBLIC_ROUTES = [
+export const RESTRICTED_PUBLIC_ROUTES = [
   "/sign-in",
   "/sign-up",
   "/verify-email",
-  "/shop",
-  "/cart",
 ];
+export const PUBLIC_ROUTES = ["/shop", "/cart"];
 export const DEFAULT_REDIRECT = "/shop";
