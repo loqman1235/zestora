@@ -19,7 +19,7 @@ export const CheckoutButton = () => {
     setLoading(true);
     try {
       // Send cart, shipping, and discount to your API
-      const response = await fetch("/api/checkout", {
+      const response = await fetch("/api/stripe/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

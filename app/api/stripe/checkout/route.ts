@@ -1,10 +1,6 @@
+import { stripe } from "@/lib/stripe";
 import { CartItemType } from "@/types/cart";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-03-31.basil",
-});
 
 export async function POST(request: Request) {
   try {
@@ -52,7 +48,7 @@ export async function POST(request: Request) {
                 color: item.color,
               },
             },
-            unit_amount: item.price, // Now in cents (e.g., 1749)
+            unit_amount: item.price, //  in cents (e.g., 1749)
           },
           quantity: item.quantity,
         })),
