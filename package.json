@@ -60,6 +60,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/stripe": "^8.0.417",
     "@types/ws": "^8.18.0",
     "eslint": "^9",
     "eslint-config-next": "15.2.0",

@@ -1,3 +1,4 @@
+import { CartItemType } from "@/types/cart";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -15,12 +16,10 @@ export async function POST(request: Request) {
     }
 
     // Convert prices to cents (assuming cart prices are in dollars)
-    const cartInCents = cart.map(
-      (item: { name: string; price: number; quantity: number }) => ({
-        ...item,
-        price: Math.round(item.price * 100), // e.g., 17.49 → 1749
-      }),
-    );
+    const cartInCents = cart.map((item: CartItemType) => ({
+      ...item,
+      price: Math.round(item.price * 100), // e.g., 17.49 → 1749
+    }));
 
     // Convert shippingFee and discount to cents (assuming they're in dollars)
     const shippingFeeInCents = Math.round(shippingFee * 100); // e.g., 5.00 → 500
@@ -41,18 +40,22 @@ export async function POST(request: Request) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
-        ...cartInCents.map(
-          (item: { name: string; price: number; quantity: number }) => ({
-            price_data: {
-              currency: "usd",
-              product_data: {
-                name: item.name,
+        ...cartInCents.map((item: CartItemType) => ({
+          price_data: {
+            currency: "usd",
+            product_data: {
+              name: item.name,
+              description: `Size: ${item.size || "N/A"} | Color: ${item.color || "N/A"}`,
+              // TODO: Add images when implimenting image upload
+              metadata: {
+                size: item.size,
+                color: item.color,
               },
-              unit_amount: item.price, // Now in cents (e.g., 1749)
             },
-            quantity: item.quantity,
-          }),
-        ),
+            unit_amount: item.price, // Now in cents (e.g., 1749)
+          },
+          quantity: item.quantity,
+        })),
         // Add shipping fee
         {
           price_data: {
