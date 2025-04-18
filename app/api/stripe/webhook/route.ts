@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
+import { CartItemType } from "@/types/cart";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
@@ -55,6 +56,37 @@ async function handleCheckoutSessionCompleted(
     return;
   }
 
+  // Retreive session with line items
+  const stripeSession = await stripe.checkout.sessions.retrieve(session.id, {
+    expand: ["line_items"],
+  });
+
+  if (!stripeSession) {
+    console.log("No Stripe session found");
+    return;
+  }
+
+  // extract cart items from line items
+  const cartItems =
+    stripeSession.line_items?.data.map((item) => ({
+      id: item.id,
+      name: item.description,
+      quantity: item.quantity || 1,
+      price: (item.price?.unit_amount || 0) / 100,
+    })) || ([] as CartItemType[]);
+
+  // Save order
+  await prisma.order.create({
+    data: {
+      userId,
+      stripeSessionId: session.id,
+      paymentIntentId: session.payment_intent as string,
+      totalAmount: stripeSession.amount_total || 0,
+      status: "COMPLETED",
+      items: cartItems,
+    },
+  });
+
   await prisma.completedCheckoutSession.create({
     data: {
       stripeSessionId: session.id,
@@ -62,5 +94,5 @@ async function handleCheckoutSessionCompleted(
     },
   });
 
-  console.log("Checkout completed:", session.id, session.metadata);
+  console.log("Order saved successfully:", session.id, session.metadata);
 }
