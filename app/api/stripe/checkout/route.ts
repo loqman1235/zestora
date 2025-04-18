@@ -1,8 +1,18 @@
+import { auth } from "@/auth";
+import { siteConfig } from "@/config/site";
 import { stripe } from "@/lib/stripe";
 import { CartItemType } from "@/types/cart";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
+  const authResult = await auth();
+
+  if (!authResult) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const userId = authResult?.user?.id;
+
   try {
     const { cart, shippingFee, discount, subTotal } = await request.json();
 
@@ -43,10 +53,6 @@ export async function POST(request: Request) {
               name: item.name,
               description: `Size: ${item.size || "N/A"} | Color: ${item.color || "N/A"}`,
               // TODO: Add images when implimenting image upload
-              metadata: {
-                size: item.size,
-                color: item.color,
-              },
             },
             unit_amount: item.price, //  in cents (e.g., 1749)
           },
@@ -73,10 +79,11 @@ export async function POST(request: Request) {
           ]
         : [],
       mode: "payment",
-      success_url: "http://localhost:3000/success",
-      cancel_url: "http://localhost:3000/cart",
+      customer_email: authResult?.user?.email || "",
+      success_url: `${siteConfig.url}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${siteConfig.url}/cart`,
       metadata: {
-        userId: request.headers.get("x-user-id") || "guest",
+        ...(userId && { userId }),
       },
     });
 

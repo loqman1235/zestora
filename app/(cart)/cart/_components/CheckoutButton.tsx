@@ -6,6 +6,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useCart } from "@/providers/cart-provider";
 import { useState } from "react";
 import { DISCOUNT, SHIPPING_FEE } from "@/config/consts";
+import { toast } from "sonner";
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string,
@@ -42,10 +43,11 @@ export const CheckoutButton = () => {
 
       if (error) {
         console.error("Stripe redirect error:", error);
+        toast.error("Something went wrong. Please try again.");
       }
     } catch (error) {
       console.error("Checkout error:", error);
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }

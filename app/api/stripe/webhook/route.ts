@@ -1,3 +1,4 @@
+import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
@@ -47,8 +48,19 @@ export async function POST(req: Request) {
 async function handleCheckoutSessionCompleted(
   session: Stripe.Checkout.Session,
 ) {
-  //   TODO: handle checkout.session.completed
-  console.log("Checkout session", session);
-  //   console.log("Checkout completed:", session.id, session.metadata);
-  //   console.log("Handled checkout session:", session.id);
+  const userId = session.metadata?.userId;
+
+  if (!userId) {
+    console.log("No user ID found in session metadata");
+    return;
+  }
+
+  await prisma.completedCheckoutSession.create({
+    data: {
+      stripeSessionId: session.id,
+      userId,
+    },
+  });
+
+  console.log("Checkout completed:", session.id, session.metadata);
 }

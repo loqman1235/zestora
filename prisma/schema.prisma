@@ -57,9 +57,11 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  reviews   Review[]
+  createdAt                 DateTime                   @default(now())
+  updatedAt                 DateTime                   @updatedAt
+  reviews                   Review[]
+  completedCheckoutSessions CompletedCheckoutSession[]
+  orders                    Order[]
 
   @@map("users")
 }
@@ -111,6 +113,7 @@ model Product {
   updatedAt     DateTime         @updatedAt
   cartItems     CartItem[]
   reviews       Review[]
+  orderItems    OrderItem[]
 
   @@index([slug, categoryId, brandId])
   @@map("products")
@@ -130,18 +133,19 @@ model ProductImage {
 }
 
 model ProductVariant {
-  id        String         @id @default(cuid())
-  productId String
-  product   Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
-  size      String
-  color     String
-  hex       String
-  price     Float
-  inventory Int
-  images    ProductImage[]
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
-  cartItems CartItem[]
+  id         String         @id @default(cuid())
+  productId  String
+  product    Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  size       String
+  color      String
+  hex        String
+  price      Float
+  inventory  Int
+  images     ProductImage[]
+  createdAt  DateTime       @default(now())
+  updatedAt  DateTime       @updatedAt
+  cartItems  CartItem[]
+  orderItems OrderItem[]
 
   @@map("product_variants")
 }
@@ -224,6 +228,53 @@ model CartItem {
   @@map("cart_items")
 }
 
+model CompletedCheckoutSession {
+  id              String @id @default(cuid())
+  stripeSessionId String @unique
+  userId          String
+  user            User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("completed_checkout_sessions")
+}
+
+model Order {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  status          OrderStatus @default(PENDING)
+  totalAmount     Float
+  paymentIntentId String?
+  stripeSessionId String?     @unique
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  items     OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String          @id @default(cuid())
+  orderId   String
+  order     Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variantId String?
+  variant   ProductVariant? @relation(fields: [variantId], references: [id])
+
+  quantity Int
+  price    Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("order_items")
+}
+
 model StoreSettings {
   id              String  @id @default(cuid())
   storeName       String
@@ -245,4 +296,11 @@ model StoreSettings {
 enum UserRole {
   ADMIN
   CUSTOMER
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
 }
