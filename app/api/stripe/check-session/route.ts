@@ -17,8 +17,17 @@ export async function GET(request: Request) {
       where: {
         stripeSessionId: sessionId,
         userId,
+        used: false,
+        expiresAt: { gt: new Date() },
       },
     });
+
+  if (completedCheckoutSession) {
+    await prisma.completedCheckoutSession.update({
+      where: { id: completedCheckoutSession.id },
+      data: { used: true },
+    });
+  }
 
   return NextResponse.json({ isCompleted: !!completedCheckoutSession });
 }

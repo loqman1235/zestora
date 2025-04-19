@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     return new Response("Invalid Stripe signature", { status: 400 });
   }
 
-  //   TODO: handle (checkout.session.completed, payment_intent.succeeded) events
+  //   TODO: handle (checkout.`session`.completed, payment_intent.succeeded) events
   try {
     switch (event.type) {
       case "checkout.session.completed":
@@ -68,12 +68,14 @@ async function handleCheckoutSessionCompleted(
 
   // extract cart items from line items
   const cartItems =
-    stripeSession.line_items?.data.map((item) => ({
-      id: item.id,
-      name: item.description,
-      quantity: item.quantity || 1,
-      price: (item.price?.unit_amount || 0) / 100,
-    })) || ([] as CartItemType[]);
+    stripeSession.line_items?.data
+      .filter((item) => item.description !== "Shipping Fee")
+      .map((item) => ({
+        id: item.id,
+        name: item.description,
+        quantity: item.quantity || 1,
+        price: (item.price?.unit_amount || 0) / 100,
+      })) || ([] as CartItemType[]);
 
   // Save order
   await prisma.order.create({
@@ -87,10 +89,15 @@ async function handleCheckoutSessionCompleted(
     },
   });
 
-  await prisma.completedCheckoutSession.create({
-    data: {
+  // Upsert CompletedCheckoutSession to ensure token, expiresAt, and used are set
+  await prisma.completedCheckoutSession.upsert({
+    where: { stripeSessionId: session.id },
+    update: { userId },
+    create: {
       stripeSessionId: session.id,
       userId,
+      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      used: false,
     },
   });
 
