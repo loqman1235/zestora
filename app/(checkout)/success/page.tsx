@@ -14,7 +14,7 @@ const PaymentSuccessPage = () => {
   const token = searchParams.get("session_id");
   const [isCleared, setIsCleared] = useState(false);
   const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
-  const validatedOnce = useRef(false); // 👈 prevent multiple calls
+  const validatedOnce = useRef(false);
 
   useEffect(() => {
     if (!token) {
