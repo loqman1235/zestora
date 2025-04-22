@@ -1,6 +1,4 @@
 "use client";
-// FIXME: Cart must be cleared once payment is successful
-// FIXME: User should not be able to access checkout page after successful payment
 
 import { useCart } from "@/providers/cart-provider";
 import { useSearchParams, redirect } from "next/navigation";
@@ -17,6 +15,7 @@ const PaymentSuccessPage = () => {
   const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
 
   // Check token validity on mount
+  // Validate token on mount
   useEffect(() => {
     if (!token) {
       redirect("/shop");
@@ -25,7 +24,7 @@ const PaymentSuccessPage = () => {
     const validateToken = async () => {
       try {
         const response = await fetch(
-          `/api/stripe/check-session?token=${token}`,
+          `/api/stripe/check-session?session_id=${token}`,
           { credentials: "include" },
         );
         const { isCompleted } = await response.json();
@@ -39,34 +38,14 @@ const PaymentSuccessPage = () => {
     validateToken();
   }, [token]);
 
-  // Clear cart if token is valid
+  // Clear cart once token is verified
   useEffect(() => {
-    if (!token || isCleared || !isValidToken) return;
+    if (!token || isCleared || isValidToken !== true) return;
 
-    const clearCartForSession = async () => {
-      try {
-        const response = await fetch(
-          `/api/stripe/check-session?token=${token}`,
-          { credentials: "include" },
-        );
-        const { isCompleted } = await response.json();
-        if (isCompleted) {
-          clearCart();
-          localStorage.removeItem("cart");
-          setIsCleared(true);
-        }
-      } catch (error) {
-        console.error(`Error checking session: ${error}`);
-      }
-    };
-
-    clearCartForSession();
+    clearCart();
+    localStorage.removeItem("cart");
+    setIsCleared(true);
   }, [clearCart, isCleared, token, isValidToken]);
-
-  // Redirect if token is invalid or used
-  if (isValidToken === false) {
-    redirect("/shop");
-  }
 
   // Show loading state until token is validated
   if (isValidToken === null) {
@@ -75,6 +54,10 @@ const PaymentSuccessPage = () => {
         <LoaderCircle className="size-6 animate-spin" aria-hidden="true" />
       </div>
     );
+  }
+
+  if (isValidToken === false) {
+    redirect("/shop");
   }
 
   return (
