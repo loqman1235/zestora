@@ -18,7 +18,7 @@ export async function GET(request: Request) {
         stripeSessionId: sessionId,
         userId,
         used: false,
-        expiresAt: { gt: new Date() },
+        // expiresAt: { gt: new Date() },
       },
     });
 
@@ -28,6 +28,8 @@ export async function GET(request: Request) {
       data: { used: true },
     });
   }
+
+  console.log("is completed?", { isCompleted: !!completedCheckoutSession });
 
   return NextResponse.json({ isCompleted: !!completedCheckoutSession });
 }

@@ -20,7 +20,7 @@ export async function POST(req: Request) {
       sig,
       process.env.STRIPE_WEBHOOK_SECRET!,
     );
-    console.log("Event received:", event);
+    // console.log("Event received:", event);
   } catch (error) {
     console.log("Error creating Stripe event:", error);
     return new Response("Invalid Stripe signature", { status: 400 });
@@ -101,5 +101,5 @@ async function handleCheckoutSessionCompleted(
     },
   });
 
-  console.log("Order saved successfully:", session.id, session.metadata);
+  // console.log("Order saved successfully:", session.id, session.metadata);
 }

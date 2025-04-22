@@ -2,10 +2,11 @@
 
 import { useCart } from "@/providers/cart-provider";
 import { useSearchParams, redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { CheckCircle2, LoaderCircle, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 const PaymentSuccessPage = () => {
   const { clearCart } = useCart();
@@ -13,13 +14,15 @@ const PaymentSuccessPage = () => {
   const token = searchParams.get("session_id");
   const [isCleared, setIsCleared] = useState(false);
   const [isValidToken, setIsValidToken] = useState<boolean | null>(null);
+  const validatedOnce = useRef(false); // 👈 prevent multiple calls
 
-  // Check token validity on mount
-  // Validate token on mount
   useEffect(() => {
     if (!token) {
       redirect("/shop");
     }
+
+    if (validatedOnce.current) return;
+    validatedOnce.current = true;
 
     const validateToken = async () => {
       try {
@@ -30,7 +33,8 @@ const PaymentSuccessPage = () => {
         const { isCompleted } = await response.json();
         setIsValidToken(isCompleted);
       } catch (error) {
-        console.error(`Error validating token: ${error}`);
+        console.error("Error validating token:", error);
+        toast.error("Something went wrong. Please try again.");
         setIsValidToken(false);
       }
     };
@@ -38,7 +42,6 @@ const PaymentSuccessPage = () => {
     validateToken();
   }, [token]);
 
-  // Clear cart once token is verified
   useEffect(() => {
     if (!token || isCleared || isValidToken !== true) return;
 
@@ -47,7 +50,6 @@ const PaymentSuccessPage = () => {
     setIsCleared(true);
   }, [clearCart, isCleared, token, isValidToken]);
 
-  // Show loading state until token is validated
   if (isValidToken === null) {
     return (
       <div className="flex min-h-screen items-center justify-center">
