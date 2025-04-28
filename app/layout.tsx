@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Playfair_Display } from "next/font/google";
-import { Navbar } from "@/components/global/navbar";
-import { Footer } from "@/components/global/footer";
+// import { Navbar } from "@/components/global/navbar";
+// import { Footer } from "@/components/global/footer";
+// import Providers from "@/providers/providers";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
-import Providers from "@/providers/providers";
 
 const satoshi = localFont({
   src: [
@@ -83,11 +83,7 @@ export default function RootLayout({
       <body
         className={`${satoshi.variable} ${integralCF.variable} ${playfairDisplay.variable} ${cabinetGrotesk.variable} font-satoshi antialiased`}
       >
-        <Providers>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </Providers>
+        {children}
       </body>
     </html>
   );
