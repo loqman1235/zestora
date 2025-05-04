@@ -9,11 +9,12 @@ export const metadata: Metadata = {
   },
 };
 
+// TODO: Create dashboard layout
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <div className="flex h-screen">
       <Sidebar />
-      <main>{children}</main>
+      <main className="flex-1 p-10">{children}</main>
     </div>
   );
 };
