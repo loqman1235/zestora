@@ -4,7 +4,7 @@ import { SidebarToggle } from "./sidebar-toggle";
 
 export const DashboardNavbar = () => {
   return (
-    <nav className="flex h-[var(--dashboard-nav-height)] w-full items-center justify-between bg-[var(--dashboard-nav-bg)] px-5 shadow-md">
+    <nav className="shadow-primary/5 flex h-[var(--dashboard-nav-height)] w-full items-center justify-between bg-[var(--dashboard-nav-bg)] px-5 shadow-md">
       {/* TOGGLE SIDEBAR BTN */}
       <SidebarToggle />
 
