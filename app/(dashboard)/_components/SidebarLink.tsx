@@ -32,7 +32,7 @@ export const SidebarLink = ({
         href={href}
       >
         {icon}
-        <span>{label}</span>
+        <span className="font-medium">{label}</span>
       </Link>
     </li>
   );
