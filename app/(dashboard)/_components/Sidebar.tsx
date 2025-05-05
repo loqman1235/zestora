@@ -15,6 +15,7 @@ export const Sidebar = () => {
         "fixed top-0 left-0 z-50 h-screen w-[16rem] bg-[var(--dashboard-sidebar-bg)] px-2.5 text-[var(--dashboard-sidebar-fg)] transition-transform duration-300 ease-in-out",
         isOpen ? "translate-x-0" : "-translate-x-full",
       )}
+      aria-label="Sidebar"
     >
       <div className="flex h-16 items-center gap-2 px-2.5 py-5">
         <Brand className="md:text-2xl" />

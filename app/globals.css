@@ -18,6 +18,12 @@
   --dashboard-nav-height: 4rem;
   --dashboard-nav-bg: oklch(1 0 0);
   --dashboard-nav-fg: oklch(0.985 0 0);
+
+  /* METRICS ICONS COLORS */
+  --metrics-sales: oklch(0.205 0 0);
+  --metrics-products: oklch(0.205 0 0);
+  --metrics-orders: oklch(0.205 0 0);
+  --metrics-customers: oklch(0.205 0 0);
 }
 
 :root {
