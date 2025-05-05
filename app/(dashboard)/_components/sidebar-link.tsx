@@ -24,9 +24,9 @@ export const SidebarLink = ({
     <li>
       <Link
         className={cn(
-          "text-muted-foreground flex items-center px-5 py-2 transition hover:bg-[var(--dashboard-sidebar-hover-bg)] hover:text-[var(--dashboard-sidebar-fg)]",
+          "text-muted-foreground flex items-center rounded-md px-2.5 py-2 transition hover:bg-[var(--dashboard-sidebar-hover-bg)] hover:text-[var(--dashboard-sidebar-fg)] hover:shadow-sm",
           isActive &&
-            "!bg-[var(--dashboard-sidebar-hover-bg)] text-[var(--dashboard-sidebar-fg)]",
+            "!bg-[var(--dashboard-sidebar-hover-bg)] text-[var(--dashboard-sidebar-fg)] shadow-sm",
           className,
         )}
         href={href}
