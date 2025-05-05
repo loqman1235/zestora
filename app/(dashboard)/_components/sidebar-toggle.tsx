@@ -1,6 +1,14 @@
+"use client";
+
+import { useSidebar } from "@/providers/sidebar-provider";
+
 export const SidebarToggle = () => {
+  const { toggle } = useSidebar();
   return (
-    <button className="text-muted-foreground hover:text-primary cursor-pointer transition">
+    <button
+      onClick={toggle}
+      className="text-muted-foreground hover:text-primary cursor-pointer transition"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

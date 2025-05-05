@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Sidebar } from "./_components/sidebar";
-import { DashboardNavbar } from "./_components/dashboard-navbar";
+import { MainSection } from "./_components/main-section";
+import SidebarProvider from "@/providers/sidebar-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -11,13 +12,11 @@ export const metadata: Metadata = {
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="bg-muted flex h-screen">
-      <Sidebar />
-      <main className="flex-1">
-        <DashboardNavbar />
-
-        <div className="p-5">{children}</div>
-      </main>
+    <div className="bg-muted relative flex h-screen w-full">
+      <SidebarProvider>
+        <Sidebar />
+        <MainSection>{children}</MainSection>
+      </SidebarProvider>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import {
   GaugeIcon,
+  LayersIcon,
   LogOutIcon,
   LucideIcon,
   PackageCheckIcon,
@@ -55,9 +56,14 @@ export const dashboardMenu: DashboardNavigation[] = [
     label: "Orders",
   },
   {
-    href: "/dashboard/tags",
+    href: "/dashboard/categories",
     icon: TagsIcon,
-    label: "Tags",
+    label: "Categories",
+  },
+  {
+    href: "/dashboard/brands",
+    icon: LayersIcon,
+    label: "Brands",
   },
 ];
 
