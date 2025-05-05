@@ -1,7 +1,7 @@
 import { Brand } from "@/components/global/brand";
-import { SidebarSection } from "./SidebarSection";
-import { SidebarLink } from "./SidebarLink";
 import { dashboardMenu, dashboardSettings } from "@/config/navigation";
+import { SidebarSection } from "./sidebar-section";
+import { SidebarLink } from "./sidebar-link";
 
 export const Sidebar = () => {
   return (

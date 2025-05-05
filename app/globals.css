@@ -15,6 +15,9 @@
   --dashboard-sidebar-fg: oklch(0.985 0 0);
   --dashboard-sidebar-hover-bg: oklch(0.25 0.0042 128.68);
   --dashboard-sidebar-width: 16rem;
+  --dashboard-nav-height: 4rem;
+  --dashboard-nav-bg: oklch(1 0 0);
+  --dashboard-nav-fg: oklch(0.985 0 0);
 }
 
 :root {

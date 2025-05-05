@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import React from "react";
-import { Sidebar } from "./_components/Sidebar";
+import { Sidebar } from "./_components/sidebar";
+import { DashboardNavbar } from "./_components/dashboard-navbar";
 
 export const metadata: Metadata = {
   title: {
@@ -9,12 +9,15 @@ export const metadata: Metadata = {
   },
 };
 
-// TODO: Create dashboard layout
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex h-screen">
+    <div className="bg-muted flex h-screen">
       <Sidebar />
-      <main className="flex-1 p-5">{children}</main>
+      <main className="flex-1">
+        <DashboardNavbar />
+
+        <div className="p-5">{children}</div>
+      </main>
     </div>
   );
 };

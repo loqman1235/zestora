@@ -10,20 +10,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 import { CreditCard, LogOutIcon, UserIcon, Users } from "lucide-react";
 import { User } from "next-auth";
 
 type Props = {
   user: User;
+  className?: string;
 };
 
-export const UserAvatar = ({ user }: Props) => {
+export const UserAvatar = ({ user, className }: Props) => {
   const initials = user.name ? user.name.slice(0, 1).toUpperCase() : "U";
   return (
     // Dropown menu
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="size-8 cursor-pointer">
+        <Avatar className={cn("size-8 cursor-pointer", className)}>
           <AvatarFallback className="bg-[#5B6BC0] text-white">
             {initials}
           </AvatarFallback>
