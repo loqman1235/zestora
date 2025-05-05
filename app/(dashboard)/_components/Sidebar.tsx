@@ -5,8 +5,8 @@ import { SidebarLink } from "./sidebar-link";
 
 export const Sidebar = () => {
   return (
-    <aside className="dashboard-sidebar-bg h-screen w-[16rem] bg-[var(--dashboard-sidebar-bg)] text-[var(--dashboard-sidebar-fg)]">
-      <div className="flex h-16 items-center gap-2 p-5">
+    <aside className="dashboard-sidebar-bg h-screen w-[16rem] bg-[var(--dashboard-sidebar-bg)] px-2.5 text-[var(--dashboard-sidebar-fg)]">
+      <div className="flex h-16 items-center gap-2 px-2.5 py-5">
         <Brand className="md:text-2xl" />
       </div>
 
