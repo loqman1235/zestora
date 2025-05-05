@@ -9,6 +9,12 @@
   --font-integral: var(--font-integral);
   --font-playfair: var(--font-playfair);
   --font-cabinet-grotesk: var(--font-cabinet-grotesk);
+
+  /* DASHBOARD */
+  --dashboard-sidebar-bg: oklch(0.21 0.0042 128.68);
+  --dashboard-sidebar-fg: oklch(0.985 0 0);
+  --dashboard-sidebar-hover-bg: oklch(0.25 0.0042 128.68);
+  --dashboard-sidebar-width: 16rem;
 }
 
 :root {
