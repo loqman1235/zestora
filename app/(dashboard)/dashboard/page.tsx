@@ -12,7 +12,7 @@ const DashboardPage = () => {
     <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-4">
       <MetricCard
         title="Revenue"
-        total={243.99}
+        total={2437.99}
         icon={DollarSign}
         percentage={45.21}
         isRevenue
