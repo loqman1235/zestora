@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="bg-muted relative flex h-screen w-full">
+    <div className="bg-muted relative flex min-h-screen w-full">
       <SidebarProvider>
         <Sidebar />
         <MainSection>{children}</MainSection>

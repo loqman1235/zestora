@@ -40,12 +40,12 @@ export const MetricCard = ({
         </p>
         <div className="flex items-center gap-1">
           {isPositive ? (
-            <TrendingUpIcon className="size-4 text-green-500" />
+            <TrendingUpIcon className="size-4 text-green-600" />
           ) : (
             <TrendingDownIcon className="text-destructive size-4" />
           )}
           <p
-            className={`text-xs font-bold ${isPositive ? "text-green-500" : "text-destructive"}`}
+            className={`text-xs font-bold ${isPositive ? "text-green-600" : "text-destructive"}`}
           >
             {isPositive && "+"}
             {percentage}%
