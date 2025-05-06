@@ -1,11 +1,12 @@
 import {
-  GaugeIcon,
+  BoxIcon,
+  CircleHelp,
   LayersIcon,
+  LayoutDashboard,
   LogOutIcon,
   LucideIcon,
-  PackageCheckIcon,
+  PackageIcon,
   SettingsIcon,
-  ShirtIcon,
   TagsIcon,
 } from "lucide-react";
 
@@ -42,17 +43,17 @@ export const mainNavigation: MainNavigation[] = [
 export const dashboardMenu: DashboardNavigation[] = [
   {
     href: "/dashboard",
-    icon: GaugeIcon,
+    icon: LayoutDashboard,
     label: "Dashboard",
   },
   {
     href: "/dashboard/products",
-    icon: ShirtIcon,
+    icon: BoxIcon,
     label: "Products",
   },
   {
     href: "/dashboard/orders",
-    icon: PackageCheckIcon,
+    icon: PackageIcon,
     label: "Orders",
   },
   {
@@ -72,6 +73,11 @@ export const dashboardSettings: DashboardNavigation[] = [
     href: "/dashboard/settings",
     icon: SettingsIcon,
     label: "Settings",
+  },
+  {
+    href: "/dashboard/help",
+    icon: CircleHelp,
+    label: "Help & Support",
   },
   {
     href: "/sign-out",

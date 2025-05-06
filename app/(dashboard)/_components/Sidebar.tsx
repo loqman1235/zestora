@@ -27,7 +27,7 @@ export const Sidebar = () => {
             <SidebarLink
               key={item.href}
               href={item.href}
-              icon={<item.icon className="mr-2 size-4 md:size-5" />}
+              icon={<item.icon className="mr-4 size-4 md:size-5" />}
               label={item.label}
             />
           ))}
@@ -39,7 +39,7 @@ export const Sidebar = () => {
               <SidebarLink
                 key={item.href}
                 href={item.href}
-                icon={<item.icon className="mr-2 size-4 md:size-5" />}
+                icon={<item.icon className="mr-4 size-4 md:size-5" />}
                 label={item.label}
               />
             ))}

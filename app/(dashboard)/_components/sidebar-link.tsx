@@ -24,15 +24,15 @@ export const SidebarLink = ({
     <li>
       <Link
         className={cn(
-          "text-muted-foreground flex items-center rounded-md px-2.5 py-2 transition hover:bg-[var(--dashboard-sidebar-hover-bg)] hover:text-[var(--dashboard-sidebar-fg)] hover:shadow-sm",
+          "text-muted-foreground flex items-center rounded-md px-2.5 py-2 transition hover:bg-[var(--dashboard-sidebar-hover-bg)] hover:text-[var(--dashboard-sidebar-fg)]",
           isActive &&
-            "!bg-[var(--dashboard-sidebar-hover-bg)] text-[var(--dashboard-sidebar-fg)] shadow-sm",
+            "!bg-[var(--dashboard-sidebar-hover-bg)] text-[var(--dashboard-sidebar-fg)]",
           className,
         )}
         href={href}
       >
         {icon}
-        <span className="text-sm font-medium tracking-wide md:text-base">
+        <span className="text-sm font-semibold tracking-wide md:text-[15px]">
           {label}
         </span>
       </Link>
