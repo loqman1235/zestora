@@ -1,34 +1,48 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
+import { getOrderStatusStyle } from "@/lib/utils";
+import { OrderColumnType } from "@/types/order";
 import { ColumnDef } from "@tanstack/react-table";
 
-type OrderColumn = {
-  id: string;
-  phone: string;
-  address: string;
-  isPaid: boolean;
-  createdAt: string;
-};
+export const ordersColumns: ColumnDef<OrderColumnType>[] = [
+  {
+    accessorKey: "id",
+    header: "Order ID",
+  },
+  {
+    accessorKey: "customer",
+    header: "Customer",
+  },
+  {
+    accessorKey: "amount",
+    header: "Amount",
+    cell: ({ row }) => `$${row.getValue("amount")}`,
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const status = row.getValue("status") as string;
+      const { label, variant, className } = getOrderStatusStyle(status);
 
-export const ordersColumns: ColumnDef<OrderColumn>[] = [
-  {
-    accessorKey: "products",
-    header: "Products",
+      return (
+        <Badge variant={variant} className={className}>
+          {label}
+        </Badge>
+      );
+    },
   },
   {
-    accessorKey: "phone",
-    header: "Phone",
-  },
-  {
-    accessorKey: "address",
-    header: "Address",
-  },
-  {
-    accessorKey: "isPaid",
-    header: "Paid",
-  },
-  {
-    accessorKey: "createdAt",
+    accessorKey: "date",
     header: "Date",
+    cell: ({ row }) =>
+      new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(new Date(row.getValue("date"))),
   },
 ];

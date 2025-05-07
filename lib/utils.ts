@@ -1,5 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import type { VariantProps } from "class-variance-authority";
+import { badgeVariants } from "@/components/ui/badge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -70,3 +72,44 @@ export const isBrightColor = (hex: string): boolean => {
 
   return brightness > 127.5;
 };
+
+type BadgeVariant = VariantProps<typeof badgeVariants>["variant"];
+
+type StatusStyle = {
+  label: string;
+  variant: BadgeVariant;
+  className?: string;
+};
+
+export function getOrderStatusStyle(status: string): StatusStyle {
+  switch (status) {
+    case "PENDING":
+      return {
+        label: "Pending",
+        variant: "outline",
+        className: "text-yellow-700 border-yellow-500",
+      };
+    case "PROCESSING":
+      return { label: "Processing", variant: "secondary" };
+    case "SHIPPED":
+      return {
+        label: "Shipped",
+        variant: "default",
+        className: "bg-blue-100 text-blue-800",
+      };
+    case "DELIVERED":
+      return {
+        label: "Delivered",
+        variant: "default",
+        className: "bg-green-100 text-green-800",
+      };
+    case "COMPLETED":
+      return {
+        label: "Completed",
+        variant: "default",
+        className: "bg-emerald-100 text-emerald-800",
+      };
+    default:
+      return { label: status, variant: "outline" };
+  }
+}

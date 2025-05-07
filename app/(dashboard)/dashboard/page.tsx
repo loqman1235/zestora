@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import { MetricCard } from "../_components/metric-card";
 import { BoxIcon, DollarSign, PackageIcon, UsersIcon } from "lucide-react";
 import { RevenueChart } from "../_components/revenue-chart";
-import { DataTable } from "@/components/global/data-table";
-import { ordersColumns } from "../_components/orders-columns";
+import { OrdersTable } from "../_components/orders-table";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -39,9 +38,9 @@ const DashboardPage = () => {
           percentage={-12.35}
         />
       </div>
-      <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
-        <DataTable columns={ordersColumns} data={[]} />
+      <div className="grid w-full grid-cols-1 gap-4">
         <RevenueChart />
+        <OrdersTable />
       </div>
     </div>
   );

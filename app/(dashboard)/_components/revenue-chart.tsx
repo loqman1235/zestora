@@ -27,7 +27,7 @@ export const RevenueChart = () => {
         <p className="text-muted-foreground text-sm">January – June 2025</p>
       </div>
 
-      <div className="h-[120px]">
+      <div className="min-h-[180px]">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={chartData} margin={{ left: 12, right: 12 }}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
