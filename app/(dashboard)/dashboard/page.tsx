@@ -38,7 +38,7 @@ const DashboardPage = () => {
           percentage={-12.35}
         />
       </div>
-      <div className="grid w-full grid-cols-1 gap-4">
+      <div className="grid w-full grid-cols-1 gap-4 2xl:grid-cols-2">
         <RevenueChart />
         <OrdersTable />
       </div>
