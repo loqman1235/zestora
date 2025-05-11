@@ -1,7 +1,8 @@
-import { DataTable } from "@/components/global/data-table";
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
-import { productsColumns } from "./_components/products-columns";
+import { ProductsTable } from "./_components/products-table";
 
 const ProductsPage = () => {
   return (
@@ -15,13 +16,15 @@ const ProductsPage = () => {
             </p>
           </div>
 
-          <Button variant="default">
-            <PlusIcon className="size-4" />
-            Add Product
+          <Button variant="default" asChild>
+            <Link href="/dashboard/products/new">
+              <PlusIcon className="size-4" />
+              Add Product
+            </Link>
           </Button>
         </div>
       </div>
-      <DataTable columns={productsColumns} data={[]} />
+      <ProductsTable />
     </div>
   );
 };

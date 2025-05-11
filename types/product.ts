@@ -19,6 +19,14 @@ export type ProductWithDetails = Prisma.ProductGetPayload<{
 }>;
 
 export type ProductColumnType = Prisma.ProductGetPayload<{
+  select: {
+    price: true;
+    slug: true;
+    name: true;
+    isActive: true;
+    isFeatured: true;
+    thumbnail: true;
+  };
   include: {
     variants: {
       include: {
@@ -30,8 +38,8 @@ export type ProductColumnType = Prisma.ProductGetPayload<{
         children: true;
         slug: true;
         name: true;
+        parent: true;
       };
     };
-    brand: true;
   };
 }>;
