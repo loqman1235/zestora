@@ -1,4 +1,4 @@
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus, Prisma } from "@prisma/client";
 
 export type LatestOrderColumnType = {
   id: string;
@@ -7,3 +7,7 @@ export type LatestOrderColumnType = {
   status: OrderStatus;
   date: string;
 };
+
+export type OrderColumnType = Prisma.OrderGetPayload<{
+  include: { user: true };
+}>;
