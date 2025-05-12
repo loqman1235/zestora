@@ -2,10 +2,10 @@
 
 import { Badge } from "@/components/ui/badge";
 import { getOrderStatusStyle } from "@/lib/utils";
-import { OrderColumnType } from "@/types/order";
+import { LatestOrderColumnType } from "@/types/order";
 import { ColumnDef } from "@tanstack/react-table";
 
-export const ordersColumns: ColumnDef<OrderColumnType>[] = [
+export const latestOrdersColumns: ColumnDef<LatestOrderColumnType>[] = [
   {
     accessorKey: "id",
     header: "Order ID",

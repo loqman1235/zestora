@@ -1,6 +1,6 @@
 import { OrderStatus } from "@prisma/client";
 
-export type OrderColumnType = {
+export type LatestOrderColumnType = {
   id: string;
   customer: string | null;
   amount: number;

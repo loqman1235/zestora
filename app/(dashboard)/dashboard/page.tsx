@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { MetricCard } from "../_components/metric-card";
 import { BoxIcon, DollarSign, PackageIcon, UsersIcon } from "lucide-react";
 import { RevenueChart } from "../_components/revenue-chart";
-import { OrdersTable } from "../_components/orders-table";
+import { LatestOrdersTable } from "../_components/latest-orders-table";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -40,7 +40,7 @@ const DashboardPage = () => {
       </div>
       <div className="grid w-full grid-cols-1 gap-4 2xl:grid-cols-2">
         <RevenueChart />
-        <OrdersTable />
+        <LatestOrdersTable />
       </div>
     </div>
   );
