@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import type { VariantProps } from "class-variance-authority";
 import { badgeVariants } from "@/components/ui/badge";
+import { ProductWithDetails } from "@/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -113,3 +114,14 @@ export function getOrderStatusStyle(status: string): StatusStyle {
       return { label: status, variant: "outline" };
   }
 }
+
+export const getProductHref = ({
+  category,
+  slug,
+}: Pick<ProductWithDetails, "category" | "slug">) => {
+  const href = `/shop/${category.slug}${
+    category.children?.[0]?.slug ? `/${category.children[0].slug}` : ""
+  }/${slug}`;
+
+  return href;
+};

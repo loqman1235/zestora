@@ -1,4 +1,4 @@
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, getProductHref } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 // import { StarRating } from "./star-rating";
@@ -13,11 +13,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const hasDiscount =
     product.discountPrice && product.discountPrice < product.price;
 
-  const href = `/shop/${product.category.slug}${
-    product.category.children?.[0]?.slug
-      ? `/${product.category.children[0].slug}`
-      : ""
-  }/${product.slug}`;
+  const href = getProductHref(product);
 
   return (
     <div className="group/card flex flex-col gap-2">
