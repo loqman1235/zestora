@@ -6,11 +6,12 @@ export const LatestOrdersTable = async () => {
   const raw = await getLatestOrders();
 
   const data = raw.map((order) => ({
-    id: order.id,
+    orderId: order.orderId,
     customer: order.user.name,
     amount: order.totalAmount,
     status: order.status,
     date: order.createdAt.toISOString(),
+    user: order.user,
   }));
 
   return (

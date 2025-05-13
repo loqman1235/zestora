@@ -1,13 +1,13 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { getOrderStatusStyle } from "@/lib/utils";
+import { formatStripePrice, getOrderStatusStyle } from "@/lib/utils";
 import { LatestOrderColumnType } from "@/types/order";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const latestOrdersColumns: ColumnDef<LatestOrderColumnType>[] = [
   {
-    accessorKey: "id",
+    accessorKey: "orderId",
     header: "Order ID",
   },
   {
@@ -17,7 +17,7 @@ export const latestOrdersColumns: ColumnDef<LatestOrderColumnType>[] = [
   {
     accessorKey: "amount",
     header: "Amount",
-    cell: ({ row }) => `$${row.getValue("amount")}`,
+    cell: ({ row }) => formatStripePrice(row.getValue("amount") as number),
   },
   {
     accessorKey: "status",

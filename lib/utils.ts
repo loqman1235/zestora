@@ -125,3 +125,16 @@ export const getProductHref = ({
 
   return href;
 };
+
+export const generateOrderId = (): string => {
+  const datePart = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+  const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase();
+  return `ORD-${datePart}-${randomPart}`;
+};
+
+export const formatStripePrice = (price: number, currency: string = "USD") => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency,
+  }).format(price / 100);
+};

@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
+import { generateOrderId } from "@/lib/utils";
 import { CartItemType } from "@/types/cart";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
@@ -34,6 +35,8 @@ export async function POST(req: Request) {
         const session = event.data.object as Stripe.Checkout.Session;
         await handleCheckoutSessionCompleted(session);
         break;
+
+      // TODO: HANDLE CHECKOUT FAILURE
 
       default:
         console.log(`Unhandled event type: ${event.type}`);
@@ -74,7 +77,7 @@ async function handleCheckoutSessionCompleted(
         id: item.id,
         name: item.description,
         quantity: item.quantity || 1,
-        price: (item.price?.unit_amount || 0) / 100,
+        price: item.price?.unit_amount || 0,
       })) || ([] as CartItemType[]);
 
   // Save order
@@ -84,8 +87,9 @@ async function handleCheckoutSessionCompleted(
       stripeSessionId: session.id,
       paymentIntentId: session.payment_intent as string,
       totalAmount: stripeSession.amount_total || 0,
-      status: "COMPLETED",
+      status: "PROCESSING",
       items: cartItems,
+      orderId: generateOrderId(),
     },
   });
 

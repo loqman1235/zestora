@@ -240,10 +240,10 @@ model CompletedCheckoutSession {
 }
 
 model Order {
-  id     String @id @default(cuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  id              String      @id @default(cuid())
+  userId          String
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderId         String      @unique
   status          OrderStatus @default(PENDING)
   totalAmount     Float
   paymentIntentId String?

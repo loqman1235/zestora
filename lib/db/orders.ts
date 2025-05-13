@@ -5,6 +5,7 @@ export const getLatestOrders = async () => {
     take: 10,
     select: {
       id: true,
+      orderId: true,
       status: true,
       totalAmount: true,
       createdAt: true,
@@ -22,8 +23,10 @@ export const getOrders = async () => {
   const orders = await prisma.order.findMany({
     select: {
       id: true,
+      createdAt: true,
       status: true,
       totalAmount: true,
+      orderId: true,
       user: {
         select: {
           name: true,
