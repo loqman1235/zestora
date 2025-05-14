@@ -1,8 +1,10 @@
 import { auth } from "@/auth";
+import { STRIPE_ALLOWED_COUNTRIES } from "@/config/consts";
 import { siteConfig } from "@/config/site";
 import { stripe } from "@/lib/stripe";
 import { CartItemType } from "@/types/cart";
 import { NextResponse } from "next/server";
+import Stripe from "stripe";
 
 export async function POST(request: Request) {
   const authResult = await auth();
@@ -70,6 +72,12 @@ export async function POST(request: Request) {
           quantity: 1,
         },
       ],
+      shipping_address_collection: {
+        allowed_countries:
+          STRIPE_ALLOWED_COUNTRIES as Stripe.Checkout.SessionCreateParams.ShippingAddressCollection.AllowedCountry[],
+      },
+      billing_address_collection: "required",
+
       // Apply discount (if any)
       discounts: discountInCents
         ? [

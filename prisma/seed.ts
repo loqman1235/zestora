@@ -509,14 +509,14 @@ async function main() {
   //   },
   // );
 
-  await prisma.order.updateMany({
-    where: {
-      orderId: null,
-    },
-    data: {
-      orderId: generateOrderId(),
-    },
-  });
+  // await prisma.order.updateMany({
+  //   where: {
+  //     orderId: null,
+  //   },
+  //   data: {
+  //     orderId: generateOrderId(),
+  //   },
+  // });
 }
 
 main()

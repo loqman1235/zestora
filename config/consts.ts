@@ -5,3 +5,4 @@ export const APP_URL = process.env.NEXT_PUBLIC_APP_URL;
 
 export const SHIPPING_FEE = 5.99;
 export const DISCOUNT = 2.99;
+export const STRIPE_ALLOWED_COUNTRIES = ["US", "CA", "DZ", "TN", "MA", "FR"];

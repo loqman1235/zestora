@@ -69,6 +69,11 @@ async function handleCheckoutSessionCompleted(
     return;
   }
 
+  console.log(
+    "STRIPE SESSION",
+    stripeSession.collected_information?.shipping_details?.address,
+  );
+
   // extract cart items from line items
   const cartItems =
     stripeSession.line_items?.data

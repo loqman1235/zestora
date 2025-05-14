@@ -248,6 +248,7 @@ model Order {
   totalAmount     Float
   paymentIntentId String?
   stripeSessionId String?     @unique
+  shippingAddress Json
 
   items Json
 
