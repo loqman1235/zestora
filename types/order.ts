@@ -9,6 +9,14 @@ export type LatestOrderColumnType = {
   user: {
     name: string | null;
   };
+  shippingAddress: {
+    country: string | null;
+    state: string | null;
+    city: string | null;
+    zip: string | null;
+    addressLine1: string | null;
+    addressLine2: string | null;
+  } | null;
 };
 
 export type OrderColumnType = LatestOrderColumnType;

@@ -12,6 +12,7 @@ export const OrdersTable = async () => {
     status: order.status,
     date: order.createdAt.toISOString(),
     user: order.user,
+    shippingAddress: order.shippingAddress || null,
   }));
 
   return <DataTable columns={ordersColumns} data={ordersData} />;

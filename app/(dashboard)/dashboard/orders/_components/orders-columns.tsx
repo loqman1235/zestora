@@ -49,6 +49,16 @@ export const ordersColumns: ColumnDef<OrderColumnType>[] = [
       }).format(new Date(row.getValue("date"))),
   },
   {
+    accessorKey: "address",
+    header: "Address",
+    cell: ({ row }) => {
+      const address =
+        row.original.shippingAddress &&
+        row.original.shippingAddress.addressLine1;
+      return address || "N/A";
+    },
+  },
+  {
     accessorKey: "actions",
     header: "Actions",
     // create download order button, delete order , edit order

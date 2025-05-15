@@ -86,17 +86,41 @@ async function handleCheckoutSessionCompleted(
       })) || ([] as CartItemType[]);
 
   // Save order
-  await prisma.order.create({
-    data: {
-      userId,
-      stripeSessionId: session.id,
-      paymentIntentId: session.payment_intent as string,
-      totalAmount: stripeSession.amount_total || 0,
-      status: "PROCESSING",
-      items: cartItems,
-      orderId: generateOrderId(),
-    },
-  });
+  try {
+    await prisma.order.create({
+      data: {
+        userId,
+        stripeSessionId: session.id,
+        paymentIntentId: session.payment_intent as string,
+        totalAmount: stripeSession.amount_total || 0,
+        status: "PROCESSING",
+        items: cartItems,
+        orderId: generateOrderId(),
+        shippingAddress: {
+          create: {
+            country:
+              stripeSession.collected_information?.shipping_details?.address
+                ?.country,
+            city: stripeSession.collected_information?.shipping_details?.address
+              ?.city,
+            addressLine1:
+              stripeSession.collected_information?.shipping_details?.address
+                ?.line1,
+            addressLine2:
+              stripeSession.collected_information?.shipping_details?.address
+                ?.line2,
+            zip: stripeSession.collected_information?.shipping_details?.address
+              ?.postal_code,
+            state:
+              stripeSession.collected_information?.shipping_details?.address
+                ?.state,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    console.log("Error saving order:", error);
+  }
 
   // Upsert CompletedCheckoutSession to ensure token, expiresAt, and used are set
   await prisma.completedCheckoutSession.upsert({

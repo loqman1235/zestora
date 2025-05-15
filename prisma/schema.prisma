@@ -1,12 +1,11 @@
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  provider = "prisma-client-js"
+  // previewFeatures = ["driverAdapters"]
 }
 
 model Account {
@@ -240,22 +239,38 @@ model CompletedCheckoutSession {
 }
 
 model Order {
-  id              String      @id @default(cuid())
+  id              String           @id @default(cuid())
   userId          String
-  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
-  orderId         String      @unique
-  status          OrderStatus @default(PENDING)
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orderId         String           @unique
+  status          OrderStatus      @default(PENDING)
   totalAmount     Float
   paymentIntentId String?
-  stripeSessionId String?     @unique
-  shippingAddress Json
-
-  items Json
+  stripeSessionId String?          @unique
+  shippingAddress ShippingAddress?
+  items           Json
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@map("orders")
+}
+
+model ShippingAddress {
+  id           String  @id @default(cuid())
+  country      String?
+  state        String?
+  city         String?
+  zip          String?
+  addressLine1 String?
+  addressLine2 String?
+  order        Order   @relation(fields: [orderId], references: [id])
+  orderId      String  @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("shipping_address")
 }
 
 model StoreSettings {
