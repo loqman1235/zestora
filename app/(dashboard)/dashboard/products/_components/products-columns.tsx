@@ -47,7 +47,7 @@ export const productsColumns: ColumnDef<ProductColumnType>[] = [
   },
   {
     accessorKey: "inventory",
-    header: "inventory",
+    header: "Inventory",
     cell: ({ row }) => row.getValue("inventory"),
   },
   {

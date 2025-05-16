@@ -48,16 +48,16 @@ export const ordersColumns: ColumnDef<OrderColumnType>[] = [
         minute: "2-digit",
       }).format(new Date(row.getValue("date"))),
   },
-  {
-    accessorKey: "address",
-    header: "Address",
-    cell: ({ row }) => {
-      const address =
-        row.original.shippingAddress &&
-        row.original.shippingAddress.addressLine1;
-      return address || "N/A";
-    },
-  },
+  // {
+  //   accessorKey: "address",
+  //   header: "Address",
+  //   cell: ({ row }) => {
+  //     const address =
+  //       row.original.shippingAddress &&
+  //       row.original.shippingAddress.addressLine1;
+  //     return address || "N/A";
+  //   },
+  // },
   {
     accessorKey: "actions",
     header: "Actions",

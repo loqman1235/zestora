@@ -18,7 +18,7 @@ export const Sidebar = () => {
       aria-label="Sidebar"
     >
       <div className="flex h-16 items-center gap-2 px-2.5 py-5">
-        <Brand className="md:text-2xl" />
+        <Brand className="text-primary md:text-2xl" />
       </div>
 
       <div className="flex h-[calc(100%-4rem)] flex-col pb-5">

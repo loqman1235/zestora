@@ -32,16 +32,16 @@ export const getOrders = async () => {
           name: true,
         },
       },
-      shippingAddress: {
-        select: {
-          country: true,
-          state: true,
-          city: true,
-          zip: true,
-          addressLine1: true,
-          addressLine2: true,
-        },
-      },
+      // shippingAddress: {
+      //   select: {
+      //     country: true,
+      //     state: true,
+      //     city: true,
+      //     zip: true,
+      //     addressLine1: true,
+      //     addressLine2: true,
+      //   },
+      // },
     },
   });
   return orders;

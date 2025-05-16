@@ -11,9 +11,9 @@
   --font-cabinet-grotesk: var(--font-cabinet-grotesk);
 
   /* DASHBOARD */
-  --dashboard-sidebar-bg: oklch(0.21 0.0042 128.68);
+  --dashboard-sidebar-bg: oklch(1 0 none);
   --dashboard-sidebar-fg: oklch(0.985 0 0);
-  --dashboard-sidebar-hover-bg: oklch(0.25 0.0042 128.68);
+  --dashboard-sidebar-hover-bg: oklch(0.96 0.0029 128.49);
   --dashboard-sidebar-width: 16rem;
   --dashboard-nav-height: 4rem;
   --dashboard-nav-bg: oklch(1 0 0);
