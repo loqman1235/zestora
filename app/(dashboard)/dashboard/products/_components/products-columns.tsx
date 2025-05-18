@@ -30,6 +30,7 @@ export const productsColumns: ColumnDef<ProductColumnType>[] = [
     accessorKey: "name",
     header: "Name",
   },
+
   {
     accessorKey: "price",
     header: "Price",

@@ -17,7 +17,7 @@ const CategoriesPage = () => {
           </div>
 
           <Button variant="default" asChild>
-            <Link href="/dashboard/products/new">
+            <Link href="/dashboard/categories/new">
               <PlusIcon className="size-4" />
               Add Category
             </Link>
