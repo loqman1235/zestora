@@ -1,7 +1,8 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { CategoryColumnType } from "@/types/category";
 import { ColumnDef } from "@tanstack/react-table";
 import { EditIcon, TrashIcon } from "lucide-react";
@@ -14,8 +15,12 @@ export const categoriesColumns: ColumnDef<CategoryColumnType>[] = [
   },
 
   {
-    accessorKey: "slug",
-    header: "Slug",
+    accessorKey: "description",
+    header: "Description",
+    cell: ({ row }) => {
+      const description = row.original.description;
+      return description || "N/A";
+    },
   },
 
   {
@@ -28,14 +33,14 @@ export const categoriesColumns: ColumnDef<CategoryColumnType>[] = [
   },
 
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "isActive",
+    header: "Active",
     cell: ({ row }) => {
-      const status = row.original.isActive;
-      return status ? (
-        <Badge className="bg-green-500/10 text-green-500">Active</Badge>
-      ) : (
-        <Badge variant="destructive">Inactive</Badge>
+      return (
+        <Switch
+          checked={row.original.isActive}
+          onCheckedChange={() => console.log("toggle", row.original.id)}
+        />
       );
     },
   },

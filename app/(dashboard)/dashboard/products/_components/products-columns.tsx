@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { getProductHref } from "@/lib/utils";
 import { ProductColumnType } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
@@ -55,8 +56,12 @@ export const productsColumns: ColumnDef<ProductColumnType>[] = [
     accessorKey: "isActive",
     header: "Active",
     cell: ({ row }) => {
-      const isActive = row.getValue("isActive") as boolean;
-      return isActive ? "Yes" : "No";
+      return (
+        <Switch
+          checked={row.original.isActive}
+          onCheckedChange={() => console.log("toggle", row.original.id)}
+        />
+      );
     },
   },
   {
