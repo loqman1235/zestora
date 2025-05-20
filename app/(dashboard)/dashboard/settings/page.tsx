@@ -1,4 +1,5 @@
 import { CardContainer } from "../../_components/card-containter";
+import { SettingsForm } from "./_components/settings-form";
 
 const SettingsPage = () => {
   return (
@@ -10,7 +11,7 @@ const SettingsPage = () => {
         </p>
       </div>
 
-      {/* FORM GOES HERE */}
+      <SettingsForm />
     </CardContainer>
   );
 };
