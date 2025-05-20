@@ -26,6 +26,8 @@ export const SettingsForm = () => {
       email: "",
       phone: "",
       address: "",
+      stripePublishableKey: "",
+      stripeSecretKey: "",
     },
   });
 
@@ -94,6 +96,41 @@ export const SettingsForm = () => {
               <FormLabel>Address</FormLabel>
               <FormControl>
                 <Input placeholder="Enter store's address" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="stripePublishableKey"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Stripe publishable key</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Enter your stripe publishable key"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="stripeSecretKey"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Stripe secret key</FormLabel>
+              <FormControl>
+                <Input
+                  type="password"
+                  placeholder="Enter your stripe secret key"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
