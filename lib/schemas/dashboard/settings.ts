@@ -17,14 +17,6 @@ export const settingsFormSchema = z.object({
     .trim()
     .min(1, { message: "Address is required" })
     .regex(/^[a-zA-Z0-9\s,-]+$/, { message: "Invalid address" }),
-  stripePublishableKey: z
-    .string()
-    .trim()
-    .min(1, { message: "Stripe publishable key is required" }),
-  stripeSecretKey: z
-    .string()
-    .trim()
-    .min(1, { message: "Stripe secret key is required" }),
 });
 
 export type SettingsFormSchema = z.infer<typeof settingsFormSchema>;

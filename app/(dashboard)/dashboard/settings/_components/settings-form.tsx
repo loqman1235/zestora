@@ -26,8 +26,6 @@ export const SettingsForm = () => {
       email: "",
       phone: "",
       address: "",
-      stripePublishableKey: "",
-      stripeSecretKey: "",
     },
   });
 
