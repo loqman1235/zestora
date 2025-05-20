@@ -7,8 +7,16 @@ export const settingsFormSchema = z.object({
     .trim()
     .min(1, { message: "Email is required" })
     .email({ message: "Invalid email" }),
-  phone: z.string().trim().min(1, { message: "Phone is required" }),
-  address: z.string().trim().min(1, { message: "Address is required" }),
+  phone: z
+    .string()
+    .trim()
+    .min(1, { message: "Phone is required" })
+    .regex(/^\+?[0-9]{10,13}$/, { message: "Invalid phone number" }),
+  address: z
+    .string()
+    .trim()
+    .min(1, { message: "Address is required" })
+    .regex(/^[a-zA-Z0-9\s,-]+$/, { message: "Invalid address" }),
 });
 
 export type SettingsFormSchema = z.infer<typeof settingsFormSchema>;

@@ -94,7 +94,11 @@ export const SettingsForm = () => {
             </FormItem>
           )}
         />
-        <Button className="w-fit" type="submit">
+        <Button
+          disabled={!form.formState.isValid}
+          className="w-fit"
+          type="submit"
+        >
           <SaveIcon className="size-4" /> Save
         </Button>
       </form>
