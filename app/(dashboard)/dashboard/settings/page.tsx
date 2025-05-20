@@ -1,7 +1,17 @@
+import { CardContainer } from "../../_components/card-containter";
+
 const SettingsPage = () => {
   return (
-    // TODO: Work on settings page (form)
-    <div>SettingsPage</div>
+    <CardContainer>
+      <div>
+        <h3 className="font-bold">Settings</h3>
+        <p className="text-muted-foreground text-sm">
+          Manage your store&apos;s settings.
+        </p>
+      </div>
+
+      {/* FORM GOES HERE */}
+    </CardContainer>
   );
 };
 export default SettingsPage;
