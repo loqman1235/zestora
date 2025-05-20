@@ -29,11 +29,16 @@ export const SettingsForm = () => {
     },
   });
 
+  const handleSubmit = (data: SettingsFormSchema) => {
+    // Save settings
+    console.log(data);
+  };
+
   return (
     <Form {...form}>
       <form
         className="grid grid-cols-1 gap-4 md:grid-cols-2"
-        onSubmit={form.handleSubmit((data) => console.log(data))}
+        onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormField
           control={form.control}
