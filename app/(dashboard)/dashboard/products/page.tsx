@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { ProductsTable } from "./_components/products-table";
-import { CardContainer } from "../../_components/card-containter";
+import { CardContainer } from "@/components/global/card-container";
 
 const ProductsPage = () => {
   return (

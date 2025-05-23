@@ -1,4 +1,4 @@
-import { CardContainer } from "../../_components/card-containter";
+import { CardContainer } from "@/components/global/card-container";
 import { SettingsForm } from "./_components/settings-form";
 
 const SettingsPage = () => {

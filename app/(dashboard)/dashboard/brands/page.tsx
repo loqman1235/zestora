@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { CardContainer } from "../../_components/card-containter";
+import { CardContainer } from "@/components/global/card-container";
 import Link from "next/link";
 import { PlusIcon } from "lucide-react";
 import { BrandsTable } from "./_components/brand-table";

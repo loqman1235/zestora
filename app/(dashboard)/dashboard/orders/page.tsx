@@ -1,4 +1,4 @@
-import { CardContainer } from "../../_components/card-containter";
+import { CardContainer } from "@/components/global/card-container";
 import { OrdersTable } from "./_components/orders-table";
 
 const OrdersPage = () => {

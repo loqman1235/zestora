@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { CategoriesTable } from "./_components/categories-table";
-import { CardContainer } from "../../_components/card-containter";
+import { CardContainer } from "@/components/global/card-container";
 
 const CategoriesPage = () => {
   return (
