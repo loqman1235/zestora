@@ -14,6 +14,14 @@ export const productSchema = z.object({
     .min(1, { message: "Discount Price is required" })
     .optional(),
   inventory: z.coerce.number().min(1, { message: "Inventory is required" }),
+  thumbnail: z.string().trim().min(1, { message: "Thumbnail is required" }),
+  productImages: z
+    .array(z.string())
+    .min(1, { message: "At least one image is required" }),
+  categoryId: z.string().trim().min(1, { message: "Category is required" }),
+  brandId: z.string().trim().min(1, { message: "Brand is required" }),
+  isActive: z.boolean().default(true).optional(),
+  isFeatured: z.boolean().default(false).optional(),
 });
 
 export type ProductSchema = z.infer<typeof productSchema>;
