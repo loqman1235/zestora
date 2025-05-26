@@ -23,8 +23,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { productSchema, ProductSchema } from "@/lib/schemas/dashboard/product";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dropzone } from "@/components/global/dropzone";
+import slugify from "slugify";
 
 export const AddProductForm = () => {
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
@@ -48,6 +49,25 @@ export const AddProductForm = () => {
   // TODO: When user types product title, automatically add slug
   // TODO: Add product images
   // FIXME: Fix thumbnail
+
+  useEffect(() => {
+    const subscription = form.watch((value, { name }) => {
+      if (name === "name") {
+        const nameValue = value.name ?? "";
+        const slug =
+          nameValue.trim() === ""
+            ? ""
+            : slugify(nameValue, {
+                lower: true,
+                remove: /[*+~.()'"!:@]/g,
+              });
+        form.setValue("slug", slug, { shouldValidate: true });
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [form]);
+
   return (
     <Form {...form}>
       <form
