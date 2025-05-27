@@ -306,7 +306,7 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
 
         {/* MEDIA SECTION */}
         <div className="md:col-span-4">
-          <CardContainer>
+          <CardContainer className="sticky top-20">
             <div>
               <h3 className="font-bold">Media</h3>
               <p className="text-muted-foreground text-sm">
