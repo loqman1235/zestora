@@ -1,12 +1,15 @@
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { ImageIcon } from "lucide-react";
 
 type Props = {
   onDrop: (files: File[]) => void;
   previewUrl?: string;
+  className?: string;
 };
 
-export const Dropzone = ({ onDrop, previewUrl }: Props) => {
+export const Dropzone = ({ onDrop, previewUrl, className }: Props) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: { "image/*": [] },
     multiple: false,
@@ -16,22 +19,24 @@ export const Dropzone = ({ onDrop, previewUrl }: Props) => {
   return (
     <div
       {...getRootProps()}
-      className="flex h-40 w-40 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 bg-gray-50 hover:border-gray-500"
+      className={cn(
+        "group/dropzone bg-muted hover:border-muted-foreground relative flex h-40 w-40 cursor-pointer items-center justify-center rounded-md border-2 border-dashed border-gray-300 transition duration-300",
+        className,
+      )}
     >
       <input {...getInputProps()} />
       {previewUrl ? (
         <Image
           src={previewUrl}
           alt="Thumbnail Preview"
-          width={160}
-          height={160}
+          fill
           className="rounded-md object-cover"
         />
       ) : isDragActive ? (
-        <p className="text-sm text-gray-700">Drop the image here</p>
+        <p className="text-muted-foreground/50 text-sm">Drop the image here</p>
       ) : (
-        <p className="px-2 text-center text-sm text-gray-500">
-          Drag & drop or click to upload
+        <p className="text-muted-foreground/50 px-2 text-center text-sm">
+          <ImageIcon className="size-10" />
         </p>
       )}
     </div>

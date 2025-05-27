@@ -1,24 +1,14 @@
-import { CardContainer } from "@/components/global/card-container";
 import { AddProductForm } from "./_components/add-product-form";
+import { prisma } from "@/lib/prisma";
 
-const AddNewProductPage = () => {
-  // TODO: ADD NEW PRODUCT FORM
-  return (
-    <CardContainer>
-      <div>
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="font-bold">Add New Product</h3>
-            <p className="text-muted-foreground text-sm">
-              Add a new product to your inventory and manage your catalog.
-            </p>
-          </div>
-        </div>
-      </div>
+const AddNewProductPage = async () => {
+  const categories = await prisma.category.findMany({
+    select: { id: true, name: true },
+  });
+  const brands = await prisma.brand.findMany({
+    select: { id: true, name: true },
+  });
 
-      {/* TODO: ADD NEW PRODUCT FORM */}
-      <AddProductForm />
-    </CardContainer>
-  );
+  return <AddProductForm categories={categories} brands={brands} />;
 };
 export default AddNewProductPage;

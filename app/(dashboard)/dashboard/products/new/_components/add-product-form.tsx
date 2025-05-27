@@ -1,6 +1,8 @@
 "use client";
 
-import { FormSection } from "@/components/global/form-section";
+// TODO: HANDLE VARIANTS
+
+import { Brand, Category } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -26,8 +28,14 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Dropzone } from "@/components/global/dropzone";
 import slugify from "slugify";
+import { CardContainer } from "@/components/global/card-container";
 
-export const AddProductForm = () => {
+interface AddProductFormProps {
+  brands: Pick<Brand, "id" | "name">[];
+  categories: Pick<Category, "id" | "name">[];
+}
+
+export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
 
   const form = useForm<ProductSchema>({
@@ -46,9 +54,6 @@ export const AddProductForm = () => {
       isFeatured: false,
     },
   });
-  // TODO: When user types product title, automatically add slug
-  // TODO: Add product images
-  // FIXME: Fix thumbnail
 
   useEffect(() => {
     const subscription = form.watch((value, { name }) => {
@@ -72,114 +77,251 @@ export const AddProductForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit((data) => console.log(data))}
-        className="space-y-6"
+        className="grid grid-cols-1 gap-4 md:grid-cols-12"
       >
-        <FormSection title="General Information">
-          <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-col gap-4 md:col-span-8">
+          {/* GENERAL INFORMATION SECTION */}
+          <CardContainer>
+            <div>
+              <h3 className="font-bold">General Information</h3>
+              <p className="text-muted-foreground text-sm">
+                Add general information about the product
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Product name" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="slug"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Slug</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="product-name-slug" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
             <FormField
               control={form.control}
-              name="name"
+              name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Product name" />
+                    <Textarea
+                      {...field}
+                      placeholder="Describe the product"
+                      className="min-h-[120px]"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+          </CardContainer>
 
+          {/* PRICING SECTION */}
+          <CardContainer>
+            <div>
+              <h3 className="font-bold">Pricing</h3>
+              <p className="text-muted-foreground text-sm">
+                Add pricing and inventory information
+              </p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Price (USD)</FormLabel>
+                    <FormControl>
+                      <Input type="number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="discountPrice"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Discount Price</FormLabel>
+                    <FormControl>
+                      <Input type="number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="inventory"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Inventory</FormLabel>
+                    <FormControl>
+                      <Input type="number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </CardContainer>
+
+          <CardContainer>
+            <div>
+              <h3 className="font-bold">Categorization</h3>
+              <p className="text-muted-foreground text-sm">
+                Add category & brand
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="categoryId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Category</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select category" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {categories.map((cat) => (
+                          <SelectItem key={cat.id} value={cat.id}>
+                            {cat.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="brandId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Brand</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select brand" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {brands.map((brand) => (
+                          <SelectItem key={brand.id} value={brand.id}>
+                            {brand.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </CardContainer>
+
+          <CardContainer>
+            <div>
+              <h3 className="font-bold">Product Status</h3>
+              <p className="text-muted-foreground text-sm">
+                Set product visibility and features
+              </p>
+            </div>
+
+            <div className="flex items-center gap-4">
+              <FormField
+                control={form.control}
+                name="isActive"
+                render={({ field }) => (
+                  <FormItem className="flex items-center space-x-2">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel>Active</FormLabel>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="isFeatured"
+                render={({ field }) => (
+                  <FormItem className="flex items-center space-x-2">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel>Featured</FormLabel>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </CardContainer>
+
+          {/* OPTIONAL VARIANT */}
+        </div>
+
+        {/* MEDIA SECTION */}
+        <div className="md:col-span-4">
+          <CardContainer>
+            <div>
+              <h3 className="font-bold">Media</h3>
+              <p className="text-muted-foreground text-sm">
+                Add media for the product
+              </p>
+            </div>
             <FormField
               control={form.control}
-              name="slug"
+              name="thumbnail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Slug</FormLabel>
+                  <FormLabel>Thumbnail</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="product-name-slug" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Textarea
-                    {...field}
-                    placeholder="Describe the product"
-                    className="min-h-[120px]"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </FormSection>
-
-        <FormSection title="Pricing and Inventory">
-          <div className="grid grid-cols-3 gap-4">
-            <FormField
-              control={form.control}
-              name="price"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Price (USD)</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="discountPrice"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Discount Price</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="inventory"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Inventory</FormLabel>
-                  <FormControl>
-                    <Input type="number" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </FormSection>
-
-        <FormSection title="Media">
-          <FormField
-            control={form.control}
-            name="thumbnail"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Thumbnail Image</FormLabel>
-                <FormControl>
-                  <div>
                     <Dropzone
+                      className="min-h-[200px] w-full"
                       previewUrl={thumbnailPreview ?? undefined}
                       onDrop={(acceptedFiles) => {
                         const file = acceptedFiles[0];
@@ -190,106 +332,13 @@ export const AddProductForm = () => {
                         }
                       }}
                     />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </FormSection>
-
-        <FormSection title="Categorization">
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="categoryId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Category</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select category" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {/* Replace with dynamic options */}
-                      <SelectItem value="cat-id-1">Category A</SelectItem>
-                      <SelectItem value="cat-id-2">Category B</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="brandId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Brand</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select brand" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {/* Replace with dynamic options */}
-                      <SelectItem value="brand-id-1">Brand A</SelectItem>
-                      <SelectItem value="brand-id-2">Brand B</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </FormSection>
-
-        <FormSection title="Status">
-          <div className="flex items-center gap-6">
-            <FormField
-              control={form.control}
-              name="isActive"
-              render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
                   </FormControl>
-                  <FormLabel className="m-0">Active</FormLabel>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="isFeatured"
-              render={({ field }) => (
-                <FormItem className="flex items-center space-x-3">
-                  <FormControl>
-                    <Checkbox
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                  <FormLabel className="m-0">Featured</FormLabel>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-        </FormSection>
+          </CardContainer>
+        </div>
 
         <div className="pt-4">
           <Button type="submit" className="w-fit">
