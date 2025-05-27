@@ -318,7 +318,12 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
               name="thumbnail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Thumbnail</FormLabel>
+                  <FormLabel>
+                    Thumbnail{" "}
+                    <span className="text-muted-foreground text-xs">
+                      (JPEG, PNG, SVG, GIF, WebP)
+                    </span>
+                  </FormLabel>
                   <FormControl>
                     <Dropzone
                       className="min-h-[200px] w-full"
