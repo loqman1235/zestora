@@ -24,12 +24,13 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { productSchema, ProductSchema } from "@/lib/schemas/dashboard/product";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { Dropzone } from "@/components/global/dropzone";
 import slugify from "slugify";
 import { CardContainer } from "@/components/global/card-container";
 import Image from "next/image";
+import { Trash2 } from "lucide-react";
 
 interface AddProductFormProps {
   brands: Pick<Brand, "id" | "name">[];
@@ -56,6 +57,11 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
       isFeatured: false,
       productImages: [],
     },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "variants",
   });
 
   useEffect(() => {
@@ -144,6 +150,90 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
                 </FormItem>
               )}
             />
+          </CardContainer>
+
+          <CardContainer>
+            <div>
+              <h3 className="font-bold">Variants</h3>
+              <p className="text-muted-foreground text-sm">
+                Add different variants like size and color
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {fields.map((field, index) => (
+                <div key={field.id} className="variant-item space-y-4">
+                  <FormField
+                    control={form.control}
+                    name={`variants.${index}.size`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Size</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="Size (e.g. M, L)" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`variants.${index}.color`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Color</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="Color name" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`variants.${index}.price`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Price</FormLabel>
+                        <FormControl>
+                          <Input type="number" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`variants.${index}.inventory`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Inventory</FormLabel>
+                        <FormControl>
+                          <Input type="number" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    type="button"
+                    variant="destructive"
+                    onClick={() => remove(index)}
+                  >
+                    <Trash2 className="size-4" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() =>
+                append({ size: "", color: "", price: 0, inventory: 0 })
+              }
+            >
+              Add Variant
+            </Button>
           </CardContainer>
 
           {/* PRICING SECTION */}

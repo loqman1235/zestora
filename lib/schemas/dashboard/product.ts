@@ -18,6 +18,17 @@ export const productSchema = z.object({
   brandId: z.string().trim().min(1, { message: "Brand is required" }),
   isActive: z.boolean().default(true).optional(),
   isFeatured: z.boolean().default(false).optional(),
+  variants: z
+    .array(
+      z.object({
+        size: z.string().min(1),
+        color: z.string().min(1),
+        hex: z.string().optional(),
+        price: z.number().min(0),
+        inventory: z.number().min(0),
+      }),
+    )
+    .optional(),
 });
 
 export type ProductSchema = z.infer<typeof productSchema>;
