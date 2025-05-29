@@ -2,11 +2,7 @@ import { z } from "zod";
 
 export const productSchema = z.object({
   name: z.string().trim().min(1, { message: "Name is required" }),
-  slug: z
-    .string()
-    .trim()
-    .min(1, { message: "Slug is required" })
-    .regex(/^[a-zA-Z0-9-]+$/, { message: "Invalid slug" }),
+  slug: z.string().trim().optional(),
   description: z.string().trim().min(1, { message: "Description is required" }),
   price: z.coerce.number().min(1, { message: "Price is required" }),
   discountPrice: z.coerce

@@ -29,6 +29,7 @@ import { useEffect, useState } from "react";
 import { Dropzone } from "@/components/global/dropzone";
 import slugify from "slugify";
 import { CardContainer } from "@/components/global/card-container";
+import Image from "next/image";
 
 interface AddProductFormProps {
   brands: Pick<Brand, "id" | "name">[];
@@ -37,6 +38,7 @@ interface AddProductFormProps {
 
 export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+  const [galleryPreviews, setGalleryPreviews] = useState<string[]>([]);
 
   const form = useForm<ProductSchema>({
     resolver: zodResolver(productSchema),
@@ -52,6 +54,7 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
       brandId: "",
       isActive: true,
       isFeatured: false,
+      productImages: [],
     },
   });
 
@@ -72,6 +75,12 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
 
     return () => subscription.unsubscribe();
   }, [form]);
+
+  useEffect(() => {
+    return () => {
+      galleryPreviews.forEach((url) => URL.revokeObjectURL(url));
+    };
+  }, [galleryPreviews]);
 
   return (
     <Form {...form}>
@@ -338,6 +347,51 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
                       }}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="productImages"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Gallery
+                    <span className="text-muted-foreground text-xs">
+                      (You can upload multiple images)
+                    </span>
+                  </FormLabel>
+                  <FormControl>
+                    <Dropzone
+                      multiple={true}
+                      onDrop={(files) => {
+                        const urls = files.map((file) =>
+                          URL.createObjectURL(file),
+                        );
+                        setGalleryPreviews(urls);
+                        // Assuming you want to keep actual files in the form for submission
+                        field.onChange(files);
+                      }}
+                      className="min-h-[200px] w-full"
+                    />
+                  </FormControl>
+
+                  {/* Show previews */}
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {galleryPreviews.map((src, i) => (
+                      <Image
+                        key={i}
+                        src={src}
+                        width={100}
+                        height={100}
+                        alt={`Preview ${i + 1}`}
+                        className="h-20 w-20 rounded-md border object-cover"
+                      />
+                    ))}
+                  </div>
+
                   <FormMessage />
                 </FormItem>
               )}
