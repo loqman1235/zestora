@@ -40,6 +40,9 @@ interface AddProductFormProps {
 export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const [galleryPreviews, setGalleryPreviews] = useState<string[]>([]);
+  const [variantGalleryPreviews, setVariantGalleryPreviews] = useState<
+    string[][]
+  >([]);
 
   const form = useForm<ProductSchema>({
     resolver: zodResolver(productSchema),
@@ -87,6 +90,27 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
       galleryPreviews.forEach((url) => URL.revokeObjectURL(url));
     };
   }, [galleryPreviews]);
+
+  useEffect(() => {
+    setVariantGalleryPreviews((prev) => {
+      const newPreviews = [...prev];
+      while (newPreviews.length < fields.length) {
+        newPreviews.push([]); // add empty array for new variant
+      }
+      while (newPreviews.length > fields.length) {
+        const removed = newPreviews.pop();
+        removed?.forEach(URL.revokeObjectURL);
+      }
+      return newPreviews;
+    });
+  }, [fields.length]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      variantGalleryPreviews.flat().forEach(URL.revokeObjectURL);
+    };
+  }, [variantGalleryPreviews]);
 
   return (
     <Form {...form}>
@@ -189,6 +213,20 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
                       </FormItem>
                     )}
                   />
+
+                  <FormField
+                    control={form.control}
+                    name={`variants.${index}.hex`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Hex</FormLabel>
+                        <FormControl>
+                          <Input {...field} placeholder="Hex code" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   <FormField
                     control={form.control}
                     name={`variants.${index}.price`}
@@ -215,6 +253,65 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
                       </FormItem>
                     )}
                   />
+                  {/* VARIANT IMAGES */}
+                  <FormField
+                    control={form.control}
+                    name={`variants.${index}.images`}
+                    render={({ field: imageField }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Variant Images
+                          <span className="text-muted-foreground text-xs">
+                            (You can upload multiple images)
+                          </span>
+                        </FormLabel>
+                        <FormControl>
+                          <Dropzone
+                            multiple={true}
+                            onDrop={(files) => {
+                              // Revoke old previews for this variant
+                              variantGalleryPreviews[index]?.forEach(
+                                URL.revokeObjectURL,
+                              );
+
+                              // Create new previews
+                              const urls = files.map((file) =>
+                                URL.createObjectURL(file),
+                              );
+
+                              // Update previews state immutably
+                              setVariantGalleryPreviews((prev) => {
+                                const newPreviews = [...prev];
+                                newPreviews[index] = urls;
+                                return newPreviews;
+                              });
+
+                              imageField.onChange(files);
+                            }}
+                            className="min-h-[200px] w-full"
+                          />
+                        </FormControl>
+
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {(variantGalleryPreviews[index] || []).map(
+                            (src, i) => (
+                              <Image
+                                key={i}
+                                src={src}
+                                width={100}
+                                height={100}
+                                alt={`Variant ${index + 1} Preview ${i + 1}`}
+                                className="h-20 w-20 rounded-md border object-cover"
+                              />
+                            ),
+                          )}
+                        </div>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
                   <Button
                     type="button"
                     variant="destructive"
@@ -229,7 +326,14 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
               type="button"
               variant="outline"
               onClick={() =>
-                append({ size: "", color: "", price: 0, inventory: 0 })
+                append({
+                  size: "",
+                  color: "",
+                  price: 0,
+                  inventory: 0,
+                  images: [],
+                  hex: "",
+                })
               }
             >
               Add Variant

@@ -26,6 +26,7 @@ export const productSchema = z.object({
         hex: z.string().optional(),
         price: z.number().min(0),
         inventory: z.number().min(0),
+        images: z.array(z.string()),
       }),
     )
     .optional(),
