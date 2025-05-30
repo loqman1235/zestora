@@ -11,9 +11,7 @@ export const productSchema = z.object({
     .optional(),
   inventory: z.coerce.number().min(1, { message: "Inventory is required" }),
   thumbnail: z.string().trim().min(1, { message: "Thumbnail is required" }),
-  productImages: z
-    .array(z.string())
-    .min(1, { message: "At least one image is required" }),
+  productImages: z.array(z.instanceof(File)),
   categoryId: z.string().trim().min(1, { message: "Category is required" }),
   brandId: z.string().trim().min(1, { message: "Brand is required" }),
   isActive: z.boolean().default(true).optional(),
@@ -24,9 +22,9 @@ export const productSchema = z.object({
         size: z.string().min(1),
         color: z.string().min(1),
         hex: z.string().optional(),
-        price: z.number().min(0),
-        inventory: z.number().min(0),
-        images: z.array(z.string()),
+        price: z.coerce.number().min(0),
+        inventory: z.coerce.number().min(0),
+        images: z.array(z.instanceof(File)),
       }),
     )
     .optional(),

@@ -1,7 +1,5 @@
 "use client";
 
-// TODO: HANDLE VARIANTS
-
 import { Brand, Category } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import {
