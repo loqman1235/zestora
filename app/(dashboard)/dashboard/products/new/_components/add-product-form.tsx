@@ -51,7 +51,7 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
       price: 0,
       discountPrice: 0,
       inventory: 0,
-      thumbnail: "",
+      thumbnail: undefined,
       categoryId: "",
       brandId: "",
       isActive: true,
@@ -534,7 +534,7 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
                         if (file) {
                           const url = URL.createObjectURL(file);
                           setThumbnailPreview(url);
-                          field.onChange(url);
+                          field.onChange(file);
                         }
                       }}
                     />

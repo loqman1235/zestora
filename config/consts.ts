@@ -11,3 +11,6 @@ export const STRIPE_PUBLISHABLE_KEY =
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!;
 
 export const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY!;
+
+export const MAX_FILE_SIZE = 1000000;
+export const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp"];
