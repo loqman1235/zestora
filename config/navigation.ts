@@ -1,8 +1,8 @@
 import {
   BoxIcon,
   CircleHelp,
+  GaugeIcon,
   LayersIcon,
-  LayoutDashboard,
   LogOutIcon,
   LucideIcon,
   PackageIcon,
@@ -43,7 +43,7 @@ export const mainNavigation: MainNavigation[] = [
 export const dashboardMenu: DashboardNavigation[] = [
   {
     href: "/dashboard",
-    icon: LayoutDashboard,
+    icon: GaugeIcon,
     label: "Dashboard",
   },
   {
