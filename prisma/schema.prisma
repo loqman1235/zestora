@@ -174,14 +174,24 @@ model Category {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  tags      Tag[]    @relation("CategoryTags")
 
   @@map("categories")
 }
 
 // TODO: ADD TAGS MODEL
-// model Tag {
+model Tag {
+  id         String     @id @default(cuid())
+  name       String
+  slug       String
+  image      String
+  categories Category[] @relation("CategoryTags")
 
-// }
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tags")
+}
 
 model Brand {
   id       String    @id @default(cuid())
