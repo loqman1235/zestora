@@ -23,12 +23,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { productSchema, ProductSchema } from "@/lib/schemas/dashboard/product";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { Dropzone } from "@/components/global/dropzone";
 import slugify from "slugify";
 import { CardContainer } from "@/components/global/card-container";
 import Image from "next/image";
 import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
+import { createNewProductAction } from "@/actions/product/add-product";
 
 interface AddProductFormProps {
   brands: Pick<Brand, "id" | "name">[];
@@ -41,6 +43,7 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
   const [variantGalleryPreviews, setVariantGalleryPreviews] = useState<
     string[][]
   >([]);
+  const [isPending, startTranstion] = useTransition();
 
   const form = useForm<ProductSchema>({
     resolver: zodResolver(productSchema),
@@ -64,6 +67,23 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
     control: form.control,
     name: "variants",
   });
+
+  const onSubmit = async (data: ProductSchema) => {
+    startTranstion(async () => {
+      const result = await createNewProductAction(data);
+
+      if (result?.error) {
+        toast.error(result.error);
+      } else {
+        form.reset();
+        form.setValue("categoryId", "");
+        form.setValue("brandId", "");
+        setThumbnailPreview(null);
+        setGalleryPreviews([]);
+        toast.success("Product has been created");
+      }
+    });
+  };
 
   useEffect(() => {
     const subscription = form.watch((value, { name }) => {
@@ -113,7 +133,7 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((data) => console.log(data))}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-1 gap-4 md:grid-cols-12"
       >
         <div className="flex flex-col gap-4 md:col-span-8">
@@ -592,7 +612,7 @@ export const AddProductForm = ({ brands, categories }: AddProductFormProps) => {
         </div>
 
         <div className="pt-4">
-          <Button type="submit" className="w-fit">
+          <Button disabled={isPending} type="submit" className="w-fit">
             Add Product
           </Button>
         </div>
