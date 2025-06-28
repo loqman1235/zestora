@@ -41,7 +41,7 @@ export const ProductPreview = ({ images }: { images: string[] }) => {
             <Image
               src={img}
               alt={`Thumbnail ${index}`}
-              className="h-full w-full cursor-pointer rounded-md object-cover transition hover:opacity-80"
+              className="bg-muted h-full w-full cursor-pointer rounded-md object-contain transition hover:opacity-80"
               width={100}
               height={100}
               loading="lazy"
@@ -53,14 +53,14 @@ export const ProductPreview = ({ images }: { images: string[] }) => {
       {/* Main Image & Zoom Window */}
       <div className="relative col-span-3 min-h-[500px] w-full rounded-md">
         <div
-          className="relative h-full w-full overflow-hidden rounded-md"
+          className="bg-muted relative h-full w-full overflow-hidden rounded-md"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
           <Image
             src={activeImage}
             alt="Main Product"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-contain"
             width={500}
             height={500}
             priority
