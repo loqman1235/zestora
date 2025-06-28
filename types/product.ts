@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 
 export type ProductWithDetails = Prisma.ProductGetPayload<{
   include: {
+    images: true;
     variants: {
       include: {
         images: true;

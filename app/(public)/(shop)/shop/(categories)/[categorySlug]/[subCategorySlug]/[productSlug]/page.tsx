@@ -39,6 +39,7 @@ const ProductDetailsPage = async ({
       slug: productSlug,
     },
     include: {
+      images: true,
       category: {
         include: {
           children: true,

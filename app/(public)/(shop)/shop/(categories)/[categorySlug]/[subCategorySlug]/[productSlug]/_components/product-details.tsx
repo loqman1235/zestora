@@ -34,23 +34,35 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
     });
 
   const handleAddToCart = () => {
-    if (!selectedVariant) return;
-    addToCart({
-      id: selectedVariant.id,
-      name: product.name,
-      image: selectedVariant.images[0].url,
-      size: selectedSize,
-      color: selectedVariant.color,
-      quantity,
-      price: product.price,
-    });
+    if (product.variants.length > 0) {
+      addToCart({
+        id: selectedVariant.id,
+        name: product.name,
+        image: selectedVariant.images[0].url,
+        size: selectedSize,
+        color: selectedVariant.color,
+        quantity,
+        price: product.price,
+      });
+    } else {
+      addToCart({
+        id: product.id,
+        name: product.name,
+        image: product.images[0].url,
+        size: selectedSize,
+        quantity,
+        price: product.price,
+      });
+    }
   };
 
   return (
     <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
-      <ProductPreview
-        images={selectedVariant?.images.map((image) => image.url) || []}
-      />
+      {selectedVariant?.images ? (
+        <ProductPreview images={selectedVariant.images.map((img) => img.url)} />
+      ) : (
+        <ProductPreview images={product.images.map((img) => img.url)} />
+      )}
       <div>
         <div className="flex flex-col gap-5">
           <div className="flex flex-col gap-2 md:gap-3">
@@ -74,43 +86,49 @@ export const ProductDetails = ({ product }: ProductDetailsProps) => {
         </div>
         <Separator className="my-5" />
         {/* SELECT COLOR */}
-        <div className="flex flex-col gap-3">
-          <h3 className="text-muted-foreground">Select Colors</h3>
-          <div className="flex items-center gap-2">
-            {product?.variants?.map((variant) => (
-              <button
-                key={variant.id}
-                className={cn(
-                  "flex h-8 w-8 cursor-pointer items-center justify-center rounded-full p-1",
-                  variant.color === selectedVariant?.color
-                    ? "border-primary border"
-                    : "",
-                )}
-                title={variant.color}
-                aria-label={variant.color}
-                onClick={() => setSelectedVariant(variant)}
-              >
-                <span className="sr-only">{variant.color}</span>
-                <span
-                  style={{ backgroundColor: variant.hex }}
-                  className="flex h-full w-full items-center justify-center rounded-full"
-                >
-                  {variant.color === selectedVariant?.color && (
-                    <CheckIcon
-                      className={cn(
-                        "size-3",
-                        isBrightColor(variant.hex)
-                          ? "text-primary"
-                          : "text-white",
+
+        {product.variants.length > 0 && (
+          <>
+            <div className="flex flex-col gap-3">
+              <h3 className="text-muted-foreground">Select Colors</h3>
+              <div className="flex items-center gap-2">
+                {product?.variants?.map((variant) => (
+                  <button
+                    key={variant.id}
+                    className={cn(
+                      "flex h-8 w-8 cursor-pointer items-center justify-center rounded-full p-1",
+                      variant.color === selectedVariant?.color
+                        ? "border-primary border"
+                        : "",
+                    )}
+                    title={variant.color}
+                    aria-label={variant.color}
+                    onClick={() => setSelectedVariant(variant)}
+                  >
+                    <span className="sr-only">{variant.color}</span>
+                    <span
+                      style={{ backgroundColor: variant.hex }}
+                      className="flex h-full w-full items-center justify-center rounded-full"
+                    >
+                      {variant.color === selectedVariant?.color && (
+                        <CheckIcon
+                          className={cn(
+                            "size-3",
+                            isBrightColor(variant.hex)
+                              ? "text-primary"
+                              : "text-white",
+                          )}
+                        />
                       )}
-                    />
-                  )}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
-        <Separator className="my-5" />
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <Separator className="my-5" />
+          </>
+        )}
+
         {/* SELECT SIZE */}
         <div className="flex flex-col gap-3">
           <h3 className="text-muted-foreground">Choose Size</h3>
