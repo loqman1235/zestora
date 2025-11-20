@@ -1,8 +1,13 @@
 import { BellIcon, MailIcon } from "lucide-react";
 import { UserAvatar } from "@/components/global/user-avatar";
 import { SidebarToggle } from "./sidebar-toggle";
+import { useSession } from "next-auth/react";
 
 export const DashboardNavbar = () => {
+  const { data: session } = useSession();
+
+  if (!session?.user) return null;
+
   return (
     <nav className="shadow-primary/5 sticky top-0 z-50 flex h-[var(--dashboard-nav-height)] w-full items-center justify-between bg-[var(--dashboard-nav-bg)] px-5 shadow-md">
       {/* TOGGLE SIDEBAR BTN */}
@@ -18,7 +23,7 @@ export const DashboardNavbar = () => {
         </button>
 
         {/* USER PROFILE */}
-        <UserAvatar user={{ name: "John Doe", email: "5mY3b@example.com" }} />
+        <UserAvatar user={session.user} />
       </div>
     </nav>
   );
