@@ -6,9 +6,9 @@ import { APP_NAME } from "@/config/consts";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { orderId: string } },
+  { params }: { params: Promise<{ orderId: string }> },
 ) {
-  const { orderId } = params;
+  const { orderId } = await params;
 
   const order = await prisma.order.findUnique({
     where: { orderId },
