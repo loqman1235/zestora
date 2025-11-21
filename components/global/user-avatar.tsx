@@ -59,9 +59,9 @@ export const UserAvatar = ({ user, className }: Props) => {
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={signOutAction}
-          className="text-destructive hover:bg-red-50"
+          className="!text-destructive !hover:bg-destructive/10 cursor-pointer"
         >
-          <LogOutIcon className="mr-2 size-4" />
+          <LogOutIcon className="text-destructive mr-2 size-4" />
           Sign Out
         </DropdownMenuItem>
       </DropdownMenuContent>
