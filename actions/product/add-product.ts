@@ -67,11 +67,10 @@ export const createNewProductAction = async (
 
     // Upload product gallery images
     const productImageUrls = await Promise.all(
-      (productImages || []).map(async (file) => {
-        return await uploadToCloudinary(file);
-      }),
+      (productImages || [])
+        .filter((file): file is File => !!file)
+        .map(async (file) => uploadToCloudinary(file)),
     );
-
     // Create product in database
     const product = await prisma.product.create({
       data: {
@@ -102,9 +101,9 @@ export const createNewProductAction = async (
       for (const variant of variants) {
         // Upload variant images
         const variantImageUrls = await Promise.all(
-          (variant.images || []).map(async (file) => {
-            return await uploadToCloudinary(file);
-          }),
+          (variant.images || [])
+            .filter((file): file is File => !!file)
+            .map(async (file) => uploadToCloudinary(file)),
         );
 
         // Create variant in database
