@@ -5,4 +5,4 @@ export const RESTRICTED_PUBLIC_ROUTES = [
   "/verify-email",
 ];
 export const PUBLIC_ROUTES = ["/shop", "/cart", "/dashboard"];
-export const DEFAULT_REDIRECT = "/shop";
+export const DEFAULT_REDIRECT = "/";

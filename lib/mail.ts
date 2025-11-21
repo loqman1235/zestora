@@ -38,7 +38,7 @@ export const sendVerificationCode = async (email: string, code: string) => {
 
 export const sendVerificationToken = async (email: string, token: string) => {
   try {
-    const verifyLink = `${process.env.NEXT_PUBLIC_BASE_URL}/verify-email?token=${token}`;
+    const verifyLink = `${process.env.NEXT_PUBLIC_APP_URL}/verify-email?token=${token}`;
 
     await transport.sendMail({
       from: `${process.env.APP_NAME} <${process.env.EMAIL_USER}>`,
@@ -61,7 +61,7 @@ export const sendVerificationToken = async (email: string, token: string) => {
       If you didn't request this, you can safely ignore this email.
     </p>
     <p style="font-size: 13px; color: #999; margin-top: 10px;">
-      Need help? <a href="mailto:support@yourapp.com" style="color: #007bff; text-decoration: none;">Contact support</a>
+      Need help? <a href="${process.env.NEXT_PUBLIC_APP_URL}" style="color: #007bff; text-decoration: none;">Contact support</a>
     </p>
   </div>
 `,
