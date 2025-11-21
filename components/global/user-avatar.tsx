@@ -11,13 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import {
-  CreditCard,
-  LayoutDashboard,
-  LogOutIcon,
-  UserIcon,
-  Users,
-} from "lucide-react";
+import { LayoutDashboard, LogOutIcon, ShoppingCartIcon } from "lucide-react";
 import { User } from "next-auth";
 import Link from "next/link";
 
@@ -49,24 +43,19 @@ export const UserAvatar = ({ user, className }: Props) => {
         <DropdownMenuSeparator />
         {user.role === "ADMIN" && (
           <DropdownMenuItem>
-            <Link href="/dashboard">
+            <Link className="flex items-center gap-2" href="/dashboard">
               <LayoutDashboard className="mr-2 size-4" />
               Dashboard
             </Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuItem>
-          <UserIcon className="mr-2 size-4" />
-          Profile
+          <Link className="flex items-center gap-2" href="/dashboard">
+            <ShoppingCartIcon className="mr-2 size-4" />
+            Cart
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <CreditCard className="mr-2 size-4" />
-          Billing
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Users className="mr-2 size-4" />
-          Team
-        </DropdownMenuItem>
+
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={signOutAction}
