@@ -3,6 +3,8 @@
 // import { FiltersMenu } from "./_components/filters-menu";
 // // import { FilteredProducts } from "./_components/filtered-products";
 
+import { redirect } from "next/navigation";
+
 // interface SearchParams {
 //   categories?: string;
 //   genders?: string;
@@ -48,3 +50,10 @@
 //   );
 // };
 // export default ShopPage;
+
+const ShopPage = () => {
+  redirect("/");
+
+  return null;
+};
+export default ShopPage;
