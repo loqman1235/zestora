@@ -1,7 +1,7 @@
 import { CustomBreadcrump } from "@/components/global/custom-breadcrump";
 import { Separator } from "@/components/ui/separator";
 import { FiltersMenu } from "./_components/filters-menu";
-import { FilteredProducts } from "./_components/filtered-products";
+// import { FilteredProducts } from "./_components/filtered-products";
 
 interface SearchParams {
   categories?: string;
@@ -12,21 +12,23 @@ interface SearchParams {
   maxPrice?: string;
 }
 
-const ShopPage = async ({
-  searchParams,
-}: {
-  searchParams: Promise<SearchParams>;
-}) => {
-  const params = await searchParams;
+const ShopPage = async (
+  {
+    // searchParams,
+  }: {
+    searchParams: Promise<SearchParams>;
+  },
+) => {
+  // const params = await searchParams;
 
-  const filters = {
-    categories: params.categories?.split(",") || [],
-    genders: params.genders?.split(",") || [],
-    sizes: params.sizes?.split(",") || [],
-    colors: params.colors?.split(",") || [],
-    minPrice: parseInt(params.minPrice || "0"),
-    maxPrice: parseInt(params.maxPrice || "500"),
-  };
+  // const filters = {
+  //   categories: params.categories?.split(",") || [],
+  //   genders: params.genders?.split(",") || [],
+  //   sizes: params.sizes?.split(",") || [],
+  //   colors: params.colors?.split(",") || [],
+  //   minPrice: parseInt(params.minPrice || "0"),
+  //   maxPrice: parseInt(params.maxPrice || "500"),
+  // };
 
   // TODO: ADD SHOP PAGE
   return (
