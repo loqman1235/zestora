@@ -5,7 +5,7 @@ import { Toaster } from "sonner";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { Sidebar } from "./_components/tmp";
+import { Sidebar } from "./_components/sidebar";
 
 export const metadata: Metadata = {
   title: {
