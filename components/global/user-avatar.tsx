@@ -11,8 +11,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { CreditCard, LogOutIcon, UserIcon, Users } from "lucide-react";
+import {
+  CreditCard,
+  LayoutDashboard,
+  LogOutIcon,
+  UserIcon,
+  Users,
+} from "lucide-react";
 import { User } from "next-auth";
+import Link from "next/link";
 
 type Props = {
   user: User;
@@ -40,6 +47,14 @@ export const UserAvatar = ({ user, className }: Props) => {
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        {user.role === "ADMIN" && (
+          <DropdownMenuItem>
+            <Link href="/dashboard">
+              <LayoutDashboard className="mr-2 size-4" />
+              Dashboard
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem>
           <UserIcon className="mr-2 size-4" />
           Profile
