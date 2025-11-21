@@ -5,18 +5,18 @@ import { CustomBreadcrump } from "@/components/global/custom-breadcrump";
 import { prisma } from "@/lib/prisma";
 import { ProductDetails } from "./_components/product-details";
 import { slugToTitle } from "@/lib/utils";
-import { Metadata } from "next";
 
 export async function generateMetadata({
   params,
 }: {
-  params: { productSlug: string };
-}): Promise<Metadata> {
+  params: Promise<{ productSlug: string }>;
+}) {
+  const { productSlug } = await params;
+
   const product = await prisma.product.findFirst({
-    where: {
-      slug: params.productSlug,
-    },
+    where: { slug: productSlug },
   });
+
   return {
     title: product?.name,
     description: product?.description,
