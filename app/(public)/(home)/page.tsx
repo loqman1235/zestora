@@ -14,7 +14,7 @@ const HomePage = async () => {
     include: {
       brand: true,
       category: { select: { slug: true, name: true, children: true } },
-      images: true, // ← add this
+      images: true,
       variants: { include: { images: true } },
     },
   });
