@@ -1,11 +1,11 @@
 import { Metadata } from "next";
-import { Sidebar } from "./_components/sidebar";
 import { MainSection } from "./_components/main-section";
 import SidebarProvider from "@/providers/sidebar-provider";
 import { Toaster } from "sonner";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { Sidebar } from "./_components/tmp";
 
 export const metadata: Metadata = {
   title: {
