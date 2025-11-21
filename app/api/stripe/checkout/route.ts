@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { STRIPE_ALLOWED_COUNTRIES } from "@/config/consts";
-import { siteConfig } from "@/config/site";
+// import { siteConfig } from "@/config/site";
 import { stripe } from "@/lib/stripe";
 import { CartItemType } from "@/types/cart";
 import { NextResponse } from "next/server";
@@ -88,8 +88,8 @@ export async function POST(request: Request) {
         : [],
       mode: "payment",
       customer_email: authResult?.user?.email || "",
-      success_url: `${siteConfig.url}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteConfig.url}/cart`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/cart`,
       metadata: {
         ...(userId && { userId }),
       },
