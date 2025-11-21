@@ -8,27 +8,14 @@ import { prisma } from "@/lib/prisma";
 
 const HomePage = async () => {
   const newArrivals = await prisma.product.findMany({
-    where: {
-      isActive: true,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
+    where: { isActive: true },
+    orderBy: { createdAt: "desc" },
     take: 4,
     include: {
       brand: true,
-      category: {
-        select: {
-          slug: true,
-          name: true,
-          children: true,
-        },
-      },
-      variants: {
-        include: {
-          images: true,
-        },
-      },
+      category: { select: { slug: true, name: true, children: true } },
+      images: true, // ← add this
+      variants: { include: { images: true } },
     },
   });
 
