@@ -271,5 +271,7 @@ export const resendVerificationTokenAction = async (email: string) => {
 };
 
 export const signOutAction = async () => {
-  await signOut();
+  await signOut({
+    redirectTo: DEFAULT_REDIRECT,
+  });
 };
